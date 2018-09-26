@@ -15,7 +15,7 @@ import * as CONSTANTS from '../../app.constants';
 export class ContractComponent implements OnInit {
 
   workingContract: Contract;
-  resultContracts: Contract[];
+  resultContracts: Contract[] = [];
   showCheckBoxes: boolean;
   selectAllContract: Contract;
 
@@ -31,7 +31,8 @@ export class ContractComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.resultContracts = [];
+    this.workingContract = null;
+    // this.resultContracts = [];
     this.showCheckBoxes = true;
     // this.workingContract = w_contract;
     // this.resultContracts.push(r_contract1);
@@ -39,6 +40,7 @@ export class ContractComponent implements OnInit {
     // this.resultContracts.push(r_contract3);
     // this.resultContracts.push(r_contract4);
     this.http.get(CONSTANTS.API_CONTRACTS_GET).subscribe((response: any) => {
+      debugger;
       const res: Contract[] = response;
       this.workingContract = res.splice(0, 1)[0];
       this.resultContracts = res;

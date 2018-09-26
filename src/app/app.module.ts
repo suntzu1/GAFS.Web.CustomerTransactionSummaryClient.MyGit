@@ -24,7 +24,16 @@ import { CustomAlertComponent } from './Components/CustomAlert/customalert.compo
 import { AssetCardComponent } from './Components/asset/asset-card/asset-card.component';
 import { PaymentCardComponent } from './Components/payment/payment-card/payment-card.component';
 import { DataTransferConfirmationComponent } from './Components/data-transfer-confirmation/data-transfer-confirmation.component';
+import { AssetService } from './Services/asset.service';
+import { ContractService } from './Services/contract.service';
+import { PaymentService } from './Services/payment.service';
+import { UsageService } from './Services/usage.service';
 
+import { HttpClientModule } from '@angular/common/http';
+
+const appservices = [
+  AssetService, ContractService, PaymentService, UsageService
+]
 
 const matmodules = [
   MatTableModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
@@ -47,6 +56,7 @@ const matmodules = [
     DataTransferConfirmationComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     Routing, FormsModule, matmodules,
@@ -55,7 +65,9 @@ const matmodules = [
   entryComponents: [
     CustomAlertComponent
   ],
-  providers: [],
+  providers: [
+    appservices
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

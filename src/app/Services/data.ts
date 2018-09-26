@@ -2,7 +2,6 @@ import { Contract } from '../Models/contract';
 
 
 export class TempData {
-  // temp data source
   w_contract: Contract = {
     ApplicationNumber: '1376455',
     MasterAgreementNumber: '-',
