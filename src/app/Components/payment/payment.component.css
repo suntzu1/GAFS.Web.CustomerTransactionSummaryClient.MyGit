@@ -1,0 +1,65 @@
+.freezediv{
+    /* height: 400px; */
+    width: 100%;
+    overflow: auto;
+    background-color: white;
+}
+table {
+    font-size: smaller;
+}
+td {
+    text-align: left;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+td>div {
+    margin: 0;
+    padding: 0;
+}
+td>div div {
+    margin: 0;
+    padding: 0 5px 0 0;
+}
+.icobtn {
+    width: 25px;
+    height: 26px;
+    margin: 0;
+    padding: 0;
+}
+hr {
+    border-color: #007BFF;
+}
+.col-label {
+    font-weight: bold;
+    color: #00457E;
+}
+.leftborder {
+    border-left: solid 1px rgb(219, 219, 219);
+}
+
+/* td:first-child,
+td:nth-child(2),
+td:nth-child(3),
+td:nth-child(4) 
+{
+    position: sticky;
+    top: auto;
+    background: transparent;
+    opacity: 1;
+    background-color: #00457E;
+    color: white;
+    min-width: 30px;
+    z-index: 999!important;
+}
+td:first-child {
+    left: 0;
+}
+td:nth-child(2) {
+    left: 20px;
+}
+td:nth-child(3) {
+    left: 40px;
+}
+td:nth-child(4) {
+    left: 240px;
+} */

@@ -1,0 +1,11 @@
+.fixheader > mat-table > mat-header-row
+{
+  /* position: sticky; */
+  top: 0;
+  background: lightgray;
+  color: blue;
+}
+.mat-table div{
+  white-space: nowrap;
+  display: inline;
+}

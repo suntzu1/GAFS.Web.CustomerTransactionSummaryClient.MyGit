@@ -1,0 +1,10 @@
+.card-header {
+    padding: 2px 5px;
+}
+.assetdata td:first-child {
+    float: left!important;
+    text-align: left;
+}
+td:nth-child(2) {
+    border-left: solid 1px gray;
+}

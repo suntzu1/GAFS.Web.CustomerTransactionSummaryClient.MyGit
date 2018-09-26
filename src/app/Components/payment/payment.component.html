@@ -1,0 +1,234 @@
+<div class="container-fluid freezediv">
+  <!-- <cts-payment-card [paymentdata]="p"></cts-payment-card> -->
+  <div class="title text-left"><b>Charge Details - Existing Contracts</b></div>
+  <div class="freezediv">
+    <table class="table table-striped">
+      <tr>
+        <td colspan="4" class="col-label">Dealer Number</td>
+        <td *ngFor="let p of allpayments" class="leftborder">{{ p.DealerNumber }}</td>
+      </tr>
+      <tr>
+        <td colspan="4" class="col-label">Contract Number</td>
+        <td *ngFor="let p of allpayments" class="leftborder">{{p.ContractNumber}}</td>
+      </tr>
+      <tr>
+        <td colspan="4" class="col-label">Total Payment Breakout</td>
+        <td *ngFor="let p of allpayments" class="leftborder"></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="3" class="col-label"><u>Included In Rent</u></td>
+        <td *ngFor="let p of allpayments" class="leftborder"></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td colspan="2" class="col-label">Rent - Pre Tax</td>
+        <td *ngFor="let p of allpayments" class="leftborder text-right">
+          <div class="row">  
+            <div class="col-md-1"><input type="checkbox" class="checkbox"></div>
+            <div class="col-md-11">{{p.Tpb.Iir.RentPreTax | currency}}</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>
+          <button *ngIf="!showmc" class="btn btn-sm btn-primary fas fa-plus" (click)="showMaint()"></button>
+          <button *ngIf="showmc" class="btn btn-sm btn-danger fas fa-minus" (click)="showMaint()"></button>
+        </td>
+        <td colspan="2" class="col-label">Maintenance</td>
+        <td *ngFor="let p of allpayments" class="leftborder">
+          <div *ngIf="!showmc" class="row text-right">
+            <div class="col-md-1"><input type="checkbox" class="checkbox"></div>
+            <div class="col-md-11">{{sumMaintenance(p.Tpb.Iir.Maintenance) | currency}}</div>
+          </div>
+          <div *ngIf="showmc">
+            <div class="row" *ngFor="let m of p.Tpb.Iir.Maintenance">
+              <div class="col-md-8 text-nowrap">{{m.Description}}</div>
+              <div class="col-md-4 text-right">{{m.Amount | currency}}</div>
+            </div>
+            <hr />
+            <div class="row text-right">
+              <div class="col-md-12">{{sumMaintenance(p.Tpb.Iir.Maintenance) | currency}}</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td class="col-label">Sales Tax on <br />Maintenance/Service -</td>
+        <td>{{allpayments[0].Tpb.Iir.SalesTaxMaint.StateCode}} {{allpayments[0].Tpb.Iir.SalesTaxMaint.Percentage}}%</td>
+        <td *ngFor="let p of allpayments" class="leftborder text-right">
+          <div class="row">
+            <div class="col-md-1"><input type="checkbox" class="checkbox"></div>
+            <div class="col-md-11">{{p.Tpb.Iir.SalesTaxMaint.Amount | currency}}</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="3" class="col-label"><u>Not Included In Rent</u></td>
+        <td *ngFor="let p of allpayments" class="leftborder"></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td colspan="2" class="col-label">Insurance Charge</td>
+        <td *ngFor="let p of allpayments" class="leftborder text-right">
+          <div class="row">
+            <div class="col-md-1"><input type="checkbox" class="checkbox"></div>
+            <div class="col-md-11">{{p.Tpb.Niir.InsuranceCharge.Amount | currency}}</div>
+          </div>
+        </td>
+      </tr>
+      <!-- <tr>
+        <td *ngFor="let p of allpayments">
+          <table>
+            <tr>
+              <td>
+                <table>
+                  <tr>
+                    <td>
+                      <table>
+                        <tr>
+                          <td>Rent - Pre Tax</td>
+                          <td>{{p.Tpb.Iir.RentPreTax}}</td>
+                        </tr>
+                        <tr>
+                          <td>Maintenance</td>
+                        </tr>
+                        <tr>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+  
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr> -->
+    </table>
+  </div>
+  <hr />
+  <div class="title text-left"><b>Charge Details - New Application</b></div>
+  <div class="container form-group">
+    <div class="row">
+      <div class="col-2">Charge Type</div>
+      <div class="col-3">
+        <select name="ddlchgtyp" id="ddlchgtyp" class="select" [(ngModel)]="addNewCharge.Type">
+          <option *ngFor="let key of enumkeys" [value]="key" [label]="displayedColumns[0].source[key]"></option>
+        </select>
+      </div>
+      <div class="col-2">Charge Amount $</div>
+      <div class="col-2"><input class="form-control form-control-sm number" [(ngModel)]="addNewCharge.Amount"></div>
+      <div class="col-1">
+        <button class="btn btn-sm btn-primary fas fa-plus" (click)="addcharge()"></button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <app-material-grid [fixheader]="true" [addactions]="true" [dataSource]="dataSource" [displayedColumns]="displayedColumns">
+        </app-material-grid>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="title text-left"><b>Include Quote</b></div>
+  <div class="container form-group">
+    <div class="row">
+      <div class="col-2">Quote ID</div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm number">
+      </div>
+      <div class="col-2"><button class="button btn btn-primary btn-sm fas fa-search"></button></div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <app-material-grid [fixheader]="true" [addactions]="false" [gridbuttons]="['delete']" [dataSource]="quotes"
+          [displayedColumns]="quotedispColumns">
+        </app-material-grid>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">
+      <button class="button btn btn-sm btn-success">CALCULATE</button>
+    </div>
+  </div>
+  <div class="container form-group">
+    <div class="container border rounded text-left">
+      <div class="row title"><b>EXISTING</b></div>
+      <div class="row">
+        <div class="col-sm-3">Rent (pre tax):</div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">Maintenance:</div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">Insurance Charge:</div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">Existing Total:</div>
+        <div class="col-sm-3"></div>
+      </div>
+    </div>
+    <br />
+    <div class="container border rounded text-left">
+      <div class="row title"><b>NEW</b></div>
+      <div class="row">
+        <div class="col-sm-3">Rent (pre tax):</div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">Maintenance:</div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">New Total:</div>
+        <div class="col-sm-3"></div>
+      </div>
+    </div>
+    <br />
+    <div class="container border rounded text-left">
+      <div class="row title text-left"><b>LESS UPGRADE (If applicable):</b></div>
+      <div class="row">
+        <div class="col-sm-3">Rent (pre tax):</div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">Total Upgrade Deduction:</div>
+        <div class="col-sm-3"></div>
+      </div>
+    </div>
+    <br />
+    <div class="container border rounded text-left">
+      <div class="row title text-left"><b>CONSOLIDATED AMOUNTS:</b></div>
+      <div class="row">
+        <div class="col-sm-3">Rent (pre tax):</div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">Maintenance:</div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">Total:</div>
+        <div class="col-sm-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(p)"> -->

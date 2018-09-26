@@ -1,0 +1,28 @@
+td:nth-child(2) {
+    background-color: grey!important;
+}
+.carddiv {
+    margin: 5px;
+    font-size: smaller;
+    min-width:250px;
+    max-width:350px;
+    background-color: #00457E;
+}
+.titlerow {
+    font-weight: bold;
+}
+.titlebg {
+    /* background-color: #00457E; */
+    white-space: nowrap;
+    float: left;
+    margin-left: 10px;
+}
+.selalldiv {
+    background-color: gray;
+    color: white;
+}
+.selalldiv input {
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 5px;
+}

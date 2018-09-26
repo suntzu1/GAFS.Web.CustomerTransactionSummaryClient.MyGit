@@ -1,0 +1,127 @@
+<div class="container-fluid freezediv">
+  <div class="row">
+    <div *ngFor="let ca of allcontractsAssets" class="col border rounded-top carddiv">
+      <div class="row titlerow">
+        <div class="titlebg text-white pull-left">Contract Number:</div>
+        <div class="col-md-6 text-white">{{ca.ContractNumber}}</div>
+      </div>
+      <div *ngIf="ca.Assets.length > 1" class="row selalldiv">
+        <input type="checkbox" class="checkbox"><span>Select all</span>
+      </div>
+      <div *ngFor="let a of ca.Assets" class="row">
+        <cts-asset-card [assetdata]="a"></cts-asset-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- <table class="table table-striped">
+    <tr class="headerrow">
+      <td>Description</td>
+      <td>
+        <input type="radio" name="rdbAstAllAssetID" class="checkbox hidden" *ngIf="showCheckBoxes" checked="checked"
+          [checked]="checkIfSelected(workingAsset)">
+      </td>
+      <td *ngFor="let c of resultAssets">
+        <input type="radio" name="rdbAstAllAssetID" class="checkbox" *ngIf="showCheckBoxes" (click)="selectAllApplication(c)">
+        <label>Select All</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Contract Number</td>
+      <td>{{ workingAsset.ContractNumber }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.ContractNumber }}
+      </td>
+    </tr>
+    <tr>
+      <td>Asset ID</td>
+      <td>{{ workingAsset.AssetID }}
+        <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingAsset)">
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.AssetID }}
+        <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+      </td>
+    </tr>
+    <tr>
+      <td>Manufacturer</td>
+      <td>{{ workingAsset.Manufacturer }}</td>
+      <td *ngFor="let c of resultAssets">{{ c.Manufacturer }}</td>
+    </tr>
+    <tr>
+      <td>Model</td>
+      <td>{{ workingAsset.Model }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.Model }}
+      </td>
+    </tr>
+    <tr>
+      <td>Serial Number</td>
+      <td>{{ workingAsset.SerialNumber }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.SerialNumber }}
+      </td>
+    </tr>
+    <tr>
+      <td>Vendor Machine ID</td>
+      <td>{{ workingAsset.VendorMachineID }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.VendorMachineID }}
+      </td>
+    </tr>
+    <tr>
+      <td>Asset Address</td>
+      <td>{{ ToAddressString(workingAsset.AssetAddress) }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ ToAddressString(c.AssetAddress) }}
+      </td>
+    </tr>
+    <tr>
+      <td>PPTX</td>
+      <td>{{ workingAsset.PPTX }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.PPTX }}
+      </td>
+    </tr>
+    <tr>
+      <td>Sales Tax</td>
+      <td>{{ workingAsset.SalesTax }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.SalesTax }}
+      </td>
+    </tr>
+    <tr>
+      <td>Financed Amt</td>
+      <td>{{ workingAsset.FinancedAmt | currency }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.FinancedAmt | currency }}
+      </td>
+    </tr>
+    <tr>
+      <td>Agreement Overages Billed On</td>
+      <td>{{ workingAsset.AgreementOveragesBilledOn }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.AgreementOveragesBilledOn }}
+      </td>
+    </tr>
+    <tr>
+      <td>Contract Active</td>
+      <td>{{ workingAsset.ContractActive | yesNo }}
+      </td>
+      <td *ngFor="let c of resultAssets">{{ c.ContractActive | yesNo }}
+      </td>
+    </tr>
+  </table> -->
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <button class="btn btn-primary btn-sm">SEND ASSET DATA</button>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary btn-sm">SEND ASSET AND CONTRACT DATA</button>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary btn-sm" (click)="clearAllSelections()">CLEAR ASSET DATA SELECTIONS</button>
+    </div>
+  </div>
+</div>

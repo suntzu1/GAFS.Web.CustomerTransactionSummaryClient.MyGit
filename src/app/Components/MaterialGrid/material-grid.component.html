@@ -1,0 +1,41 @@
+<div [ngClass]="{'fixheader' : fixheader}">
+  <mat-table [dataSource]="dataSource" class="table table-striped" matSort>
+    <ng-container *ngFor="let col of displayedColumns" matColumnDef="{{col.key}}">
+      <mat-header-cell *matHeaderCellDef class="sticky-col" [mat-sort-header]="col.key"> {{col.display}}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="sticky-col">
+        <div *ngIf="!isEditMode(element) && col.type !== 'enum'">{{element[col.key]}}</div>
+        <div *ngIf="!isEditMode(element) && col.type === 'enum'">{{col.source[element[col.key]]}}</div>
+        <input *ngIf="isEditMode(element) && col.type !== 'enum'" type="text" class="form-control" ng-model-options="{ getterSetter: true }"
+          [(ngModel)]="element[col.key]">
+        <select *ngIf="isEditMode(element) && col.type === 'enum'" class="form-control" ng-model-options="{ getterSetter: true }"
+          [(ngModel)]="element[col.key]">
+          <option *ngFor="let key of col.keys" [value]="key" [label]="col.source[key]"></option>
+        </select>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button *ngIf="!isEditMode(element)" class="btn btn-sm btn-primary far fa-edit" (click)="setRowInEdit(element)"
+          md-raised-button></button>
+        <button *ngIf="isEditMode(element)" class="btn btn-sm btn-success fas fa-check" (click)="setRowEditCancel()"
+          md-raised-button></button>
+        &nbsp;
+        <button *ngIf="isEditMode(element)" class="btn btn-sm btn-danger fas fa-times" (click)="setRowEditCancel()"
+          md-raised-button></button>
+        <button *ngIf="showDelButton" class="btn btn-sm btn-danger fas fa-minus-circle" (click)="deleteRow(element)"
+          md-raised-button></button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="gridbuttons">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button *ngIf="showDelButton" class="btn btn-sm btn-danger fas fa-minus-circle" (click)="deleteRow(element)"
+          md-raised-button></button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row class="thead-dark" *matHeaderRowDef="displayedCols; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedCols;"></mat-row>
+  </mat-table>
+</div>

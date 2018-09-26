@@ -1,0 +1,36 @@
+ul.tabs {
+    color: #444;
+}
+
+ul.tabs li {
+    background: #e6e6e6;
+    border-right: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    padding: 8px 15px 2px 15px;
+    border-radius: 0 20px 0 0;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+ul.tabs li.active {
+    background: #ffffff;
+    color: #007BFF;
+    font-weight: bold;
+    border-bottom: none;
+}
+
+.tabcontainer {
+    border-left: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    /* border-top: none; */
+}
+.nav-tabs {
+    border: none!important;
+}
+.notab {
+    background-color: white!important;
+    border: none!important;
+    padding-left: 100px!important;
+}

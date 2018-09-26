@@ -1,0 +1,88 @@
+<!-- <<div class="card" style="width: 100%;">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-5">Contract Number</div>
+      <div class="col-sm-5">{{ paymentdata.ContractNumber }}</div>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table-striped paymentdata">
+        <tr>
+            <td>Dealer Number</td>
+            <td>{{ paymentdata.DealerNumber }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.AssetID }}
+              <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+            </td>
+          </tr>
+          <tr>
+            <td>Manufacturer</td>
+            <td>{{ paymentdata.Manufacturer }}</td>
+            <td *ngFor="let c of resultAssets">{{ c.Manufacturer }}</td>
+          </tr>
+          <tr>
+            <td>Model</td>
+            <td>{{ paymentdata.Model }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.Model }}
+            </td>
+          </tr>
+          <tr>
+            <td>Serial Number</td>
+            <td>{{ paymentdata.SerialNumber }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.SerialNumber }}
+            </td>
+          </tr>
+          <tr>
+            <td>Vendor Machine ID</td>
+            <td>{{ paymentdata.VendorMachineID }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.VendorMachineID }}
+            </td>
+          </tr>
+          <tr>
+            <td>Asset Address</td>
+            <td>{{ ToAddressString(paymentdata.AssetAddress) }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ ToAddressString(c.AssetAddress) }}
+            </td>
+          </tr>
+          <tr>
+            <td>PPTX</td>
+            <td>{{ paymentdata.PPTX }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.PPTX }}
+            </td>
+          </tr>
+          <tr>
+            <td>Sales Tax</td>
+            <td>{{ paymentdata.SalesTax }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.SalesTax }}
+            </td>
+          </tr>
+          <tr>
+            <td>Financed Amt</td>
+            <td>{{ paymentdata.FinancedAmt | currency }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.FinancedAmt | currency }}
+            </td>
+          </tr>
+          <tr>
+            <td>Agreement Overages Billed On</td>
+            <td>{{ paymentdata.AgreementOveragesBilledOn }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.AgreementOveragesBilledOn }}
+            </td>
+          </tr>
+          <tr>
+            <td>Contract Active</td>
+            <td>{{ paymentdata.ContractActive | yesNo }}
+            </td>
+            <td *ngFor="let c of resultAssets">{{ c.ContractActive | yesNo }}
+            </td>
+          </tr>
+        </table>
+  </div>
+</div>> -->

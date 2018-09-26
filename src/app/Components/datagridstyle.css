@@ -1,0 +1,52 @@
+table {
+    font-size: smaller;
+}
+tr:first-child > td:first-child,
+tr:first-child {
+    font-weight: bold;
+    color: sienna!important;
+    text-align: center
+}
+td:first-child,
+td:nth-child(2) {
+    position: sticky;
+    top: auto;
+    background: inherit;
+    background-color: #00457E;
+    color: white;
+    min-width: 200px;
+    z-index: 999!important;
+}
+td:first-child {
+    left: 0;
+}
+td:nth-child(2) {
+    left: 200px;
+}
+td {
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: lightgray;
+    min-height: 62px;
+}
+
+td > input[type="radio"] {
+    position: relative;
+    float: right;
+    top: 0px;
+    vertical-align: top;
+}
+.freezediv{
+    /* height: 400px; */
+    width: 100%;
+    overflow: auto;
+    background-color: white;
+}
+.headerrow td{
+    top:0;
+    position: sticky;
+    background: inherit;
+    color: sienna!important;
+    background-color: #e6e6e6;
+    z-index: 9999;
+}

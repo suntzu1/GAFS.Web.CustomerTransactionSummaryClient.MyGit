@@ -1,0 +1,15 @@
+.sel-min-w {
+    min-width: 180px;
+}
+
+.paddedLg {
+    padding: 25px;
+    background-color: #F0F0F0;
+}
+
+select {
+    min-height: 30px;
+}
+::ng-deep .multiselect-dropdown>div>span {
+    background-color: #ffffff;
+}

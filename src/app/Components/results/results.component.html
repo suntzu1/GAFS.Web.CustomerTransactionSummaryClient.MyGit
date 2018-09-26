@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <ul class="nav nav-tabs tabs">
+        <li [ngClass]="{'active': tab === 0}" (click)="tab=0">Contract</li>
+        <li [ngClass]="{'active': tab === 1}" (click)="tab=1">Asset</li>
+        <li [ngClass]="{'active': tab === 2}" (click)="tab=2">Payment</li>
+        <li [ngClass]="{'active': tab === 3}" (click)="tab=3">Usage</li>
+        <li class="notab"><button class="btn btn-primary btn-sm" (click)="onbackpressed()">BACK TO SEARCH</button></li>
+    </ul>
+    <div [ngSwitch]="tab" class="tabcontainer">
+        <div *ngSwitchCase="0">
+            <cts-contract></cts-contract>
+        </div>
+        <div *ngSwitchCase="1">
+            <cts-asset></cts-asset>
+        </div>
+        <div *ngSwitchCase="2">
+            <cts-payment></cts-payment>
+        </div>
+        <div *ngSwitchCase="3">
+            <div class="container">Usage</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+// @import "styles";
+
+.success, .failure {
+  opacity:0.9;
+  margin-top:1vh;
+  margin-bottom:2vh;
+}
+
+button.btn-sm {
+  background-color: #202f82;
+  color: #fff;
+}
+.alert-message {
+  padding-top:5px; padding-bottom: 5px; background-color: #000;
+}
+::ng-deep .mat-dialog-container {
+  z-index: 999999!important;
+  padding: 5px;
+}
+.confirm-popup {
+  z-index: 999999!important;
+  position: relative;
+  min-width: 30vw;
+  padding: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0px;
+  right: 7px;
+}
+
+.message p {
+  opacity: 0.7;
+  font-size: 1.1em;
+  padding: 10px;
+}
+
+.confirmation-label {
+  font-size: 1.25em;
+}
+
+.action {
+  display: inline-block;
+}
+
+.confirm-btn {
+  width: 40px;
+  height: 40px;
+  background: #a8a8a8;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.5em;
+}
+
+.confirm-btn.yes, .confirm-btn.no {
+color: white;
+background: rgba(0, 86, 145, 0.8);
+box-shadow: 0px 0px 3px 0px #a8a8a8;
+}
+.confirm-btn.yes:hover, .confirm-btn.no:hover {
+background: #005691;
+}
+
+.titlebar {
+  background: red!important;
+  border-color: red!important;
+  color: #ffffff!important;
+  padding: 0!important;
+  margin: 0!important;
+}
+.infoColor {
+  color: #4DADF7;
+}
+.errorColor {
+  color: #DE4345;
+}
+.warnColor {
+  color: #FFC001;
+}
+.confirmColor {
+  color: #7AB900;
+}
+.infoBgColor {
+  background-color: #4DADF7;
+}
+.errorBgColor {
+  background-color: #DE4345;
+}
+.warnBgColor {
+  background-color: #FFC001;
+}
+.confirmBgColor {
+  background-color: #7AB900;
+}
+.actionbuttons button {
+  margin-right: 6px;
+  // background-color: red;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+::ng-deep .pullout {
+  color: lime!important;
+  font-weight: bold!important;
+}
+// div {
+//   border: solid 1px blue;
+// }

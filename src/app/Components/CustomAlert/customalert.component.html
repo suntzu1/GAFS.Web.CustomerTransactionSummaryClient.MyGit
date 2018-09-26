@@ -1,0 +1,40 @@
+<div class="confirm-popup">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="pull-left confirmation-label">{{ca_title}}</div>
+      <div class="close-btn" (click)="dialogRef.close()">
+        <i class="fas fa-lg fa-times errorColor" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="row message">
+      <div class="col-md-2">
+        <div>
+          <i *ngIf="InfoIcon === true" class="fas fa-info-circle fa-4x infoColor"></i>
+          <i *ngIf="WarningIcon === true" class="fas fa-exclamation-triangle fa-4x warnColor"></i>
+          <i *ngIf="CriticalIcon === true" class="fas fa-times-circle fa-4x errorColor"></i>
+        </div>
+      </div>
+      <div class="col-md-10" md-dialog-content>
+        <h4>{{ca_header}}</h4>
+        <div [innerHTML]="ca_message"></div>
+      </div>
+    </div>
+    <!-- <div class="row message" md-dialog-content>
+      <div class="col-md-2">
+        <i *ngIf="InfoIcon === true" class="fas fa-info-circle fa-4x infoColor"></i>
+        <i *ngIf="WarningIcon === true" class="fas fa-exclamation-triangle fa-4x warnColor"></i>
+        <i *ngIf="CriticalIcon === true" class="fas fa-times-circle fa-4x errorColor"></i>
+      </div>
+      <div class="col-md-10" [innerHTML]="ca_message"></div>
+    </div> -->
+    <div class="row message" md-dialog-actions class="pull-right actionbuttons">
+      <hr/>
+      <button *ngIf="InfoAlert === true || OkCancelAlert === true" class="pull-left btn infoColor" (click)="dialogRef.close('ok')">Ok</button>
+      <button *ngIf="YesNoCancelAlert === true" class="pull-left btn confirmColor" (click)="dialogRef.close('yes')">Yes</button>
+      <button *ngIf="YesNoCancelAlert === true" class="pull-left btn warnColor" (click)="dialogRef.close('no')">No</button>
+      <button *ngIf="ConfirmCancelAlert === true" class="pull-left btn confirmColor" (click)="dialogRef.close('confirm')">Confirm</button>
+      <button *ngIf="YesNoCancelAlert === true || ConfirmCancelAlert === true || OkCancelAlert === true" class="pull-right btn errorColor"
+        (click)="dialogRef.close('cancel')">Cancel</button>
+    </div>
+  </div>
+</div>
