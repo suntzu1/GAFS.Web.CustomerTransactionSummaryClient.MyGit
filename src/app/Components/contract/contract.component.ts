@@ -29,7 +29,7 @@ export class ContractComponent implements OnInit {
     { key: 'ContractNumber', display: 'ContractNumber' },
     { key: 'DealerNumber', display: 'DealerNumber' }];
 
-  modifyProps: ['MasterAgreementNumber', 'PrivateLabel', 'ProgramType', 'RelationshipCode', 'LesseeName',
+  modifyProps = ['MasterAgreementNumber', 'PrivateLabel', 'ProgramType', 'RelationshipCode', 'LesseeName',
     'LesseeName', 'BillingAddress', 'Phone', 'Fax', 'Email', 'Signer',
     'DocumentProfile', 'InvoiceDescription', 'CollateralCode', 'IndirectBilling', 'InvoiceCode',
     'LateChargeExempt', 'LateChargePercofPmt', 'LeadDays', 'GracePeriod', 'MinimumLateCharge',
@@ -47,8 +47,7 @@ export class ContractComponent implements OnInit {
       const res: Contract[] = response;
       this.workingContract = res.splice(0, 1)[0];
       this.resultContracts = res;
-      this.selectAllContract = this.workingContract;
-      this.modifiedContract = this.workingContract;
+      this.clearAllSelections();
     });
   }
 
@@ -61,17 +60,22 @@ export class ContractComponent implements OnInit {
   }
 
   selectAllNewApplication() {
-    this.selectAllApplication = this.workingContract;
+    // this.selectAllApplication = this.workingContract;
   }
+
   selectAllApplication(c) {
     this.selectAllContract = c;
     this.modifyProps.forEach(k => {
       this.modifiedContract[k] = c[k];
-    })
+    });
+    console.log(this.modifiedContract);
   }
+
   clearAllSelections() {
     this.selectAllContract = this.workingContract;
+    this.modifiedContract = Object.assign({}, this.workingContract);
   }
+
   checkIfSelected(c, oprop: string): boolean {
     return this.selectAllContract === c;
   }
