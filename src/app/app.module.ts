@@ -28,12 +28,13 @@ import { AssetService } from './Services/asset.service';
 import { ContractService } from './Services/contract.service';
 import { PaymentService } from './Services/payment.service';
 import { UsageService } from './Services/usage.service';
+import { CtsApiService } from './Services/cts-api.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
 const appservices = [
-  AssetService, ContractService, PaymentService, UsageService
-]
+  AssetService, ContractService, PaymentService, UsageService, CtsApiService
+];
 
 const matmodules = [
   MatTableModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,

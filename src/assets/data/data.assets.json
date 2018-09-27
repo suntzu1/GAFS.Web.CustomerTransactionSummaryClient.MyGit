@@ -1,0 +1,105 @@
+[
+    {
+        "ContractNumber": "1083023-081",
+        "AssetID": 1273115,
+        "Manufacturer": "Epson",
+        "Model": "SureColor T5270",
+        "SerialNumber": "U7UE000364",
+        "VendorMachineID": "",
+        "AssetAddress": {
+            "StreetAddress": "450 Riverchase Pkwy E",
+            "Address2": "Facilities",
+            "City": "Hoover",
+            "State": "AL",
+            "Zip": "35244-2858",
+            "Contact": "'"
+        },
+        "PPTX": "",
+        "AgreementOveragesBilledOn": "",
+        "ContractActive": true,
+        "SalesTax": 100.37,
+        "FinancedAmt": 10007.37
+    },
+    {
+        "ContractNumber": "1083023-079",
+        "AssetID": 1262201,
+        "Manufacturer": "Xerox",
+        "Model": "AltaLink C8035 with",
+        "SerialNumber": "2TX061119",
+        "VendorMachineID": "",
+        "AssetAddress": {
+            "StreetAddress": "450 Riverchase Pkwy E",
+            "Address2": "Parking Deck Maint",
+            "City": "Hoover",
+            "State": "AL",
+            "Zip": "35244-2858",
+            "Contact": "'"
+        },
+        "PPTX": "",
+        "AgreementOveragesBilledOn": "",
+        "ContractActive": true
+    },
+    {
+        "ContractNumber": "1083023-078",
+        "AssetID": 1265252,
+        "Manufacturer": "Xerox",
+        "Model": "AltaLink C8055",
+        "SerialNumber": "8TB581152",
+        "VendorMachineID": "",
+        "AssetAddress:{": {
+            "StreetAddress": "450 Riverchase Pkwy E",
+            "Address2": "Facilities 1st West",
+            "City": "Hoover",
+            "State": "AL",
+            "Zip": "35244-2858",
+            "Contact": "'"
+        },
+        "PPTX": "",
+        "AgreementOveragesBilledOn": "",
+        "ContractActive": true,
+        "SalesTax": 150.48,
+        "FinancedAmt": 15153.48
+    },
+    {
+        "ContractNumber": "1083023-080",
+        "AssetID": 1262973,
+        "Manufacturer": "Xerox",
+        "Model": "AltaLink C8035 with",
+        "SerialNumber": "2TX059024",
+        "VendorMachineID": "",
+        "AssetAddress:{": {
+            "StreetAddress": "2 N Jackson St Ste 202",
+            "Address2": null,
+            "City": "Montgomery",
+            "State": "AL",
+            "Zip": "36104-3821",
+            "Contact": "'"
+        },
+        "PPTX": "Lessor Files ",
+        "AgreementOveragesBilledOn": "1083023-081",
+        "ContractActive": true,
+        "SalesTax": 110.62,
+        "FinancedAmt": 11189.62
+    },
+    {
+        "ContractNumber": "1083023-081",
+        "AssetID": 1273127,
+        "Manufacturer": "Epson",
+        "Model": "SureColor T5270",
+        "SerialNumber": "U7UE000364",
+        "VendorMachineID": "",
+        "AssetAddress:{": {
+            "StreetAddress": "450 Riverchase Pkwy E",
+            "Address2": "Facilities",
+            "City": "Hoover",
+            "State": "AL",
+            "Zip": "35244-2858",
+            "Contact": "'"
+        },
+        "PPTX": "",
+        "AgreementOveragesBilledOn": "",
+        "ContractActive": true,
+        "SalesTax": 101.99,
+        "FinancedAmt": 10127.99
+    }
+]

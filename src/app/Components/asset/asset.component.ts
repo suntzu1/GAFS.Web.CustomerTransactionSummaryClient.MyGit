@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Asset } from '../../Models/asset';
 import { Address } from '../../Models/address';
 import { ContractAssets } from '../../Models/contract';
+import { AssetService } from '../../Services/asset.service';
 
 @Component({
   selector: 'cts-asset',
@@ -9,38 +10,56 @@ import { ContractAssets } from '../../Models/contract';
   styleUrls: ['./asset.component.css', '../datagridstyle.css']
 })
 export class AssetComponent implements OnInit {
-  workingAsset: Asset;
+  workingAsset: Asset = {
+    ContractNumber: null,
+    AssetID: null,
+    Manufacturer: '',
+    Model: '',
+    SerialNumber: '',
+    VendorMachineID: '',
+    AssetAddress: null,
+    PPTX: '',
+    SalesTax: null,
+    FinancedAmt: 0,
+    AgreementOveragesBilledOn: '',
+    ContractActive: null
+  };
   resultAssets: Asset[];
   showCheckBoxes: boolean;
   selectAllContract: any;
 
   workingcontractAsset: ContractAssets;
   allcontractsAssets: ContractAssets[] = [];
-  constructor() { }
+  constructor(private api: AssetService) { }
 
   ngOnInit() {
-    this.workingAsset = w_Asset;
+    // this.workingAsset = w_Asset;
     this.resultAssets = [];
     this.showCheckBoxes = true;
-    this.resultAssets.push(r_Asset1);
-    this.resultAssets.push(r_Asset2);
-    this.resultAssets.push(r_Asset3);
-    this.resultAssets.push(r_Asset4);
-    this.resultAssets.push(r_Asset5);
+    // this.resultAssets.push(r_Asset1);
+    // this.resultAssets.push(r_Asset2);
+    // this.resultAssets.push(r_Asset3);
+    // this.resultAssets.push(r_Asset4);
+    // this.resultAssets.push(r_Asset5);
     this.selectAllContract = this.workingAsset;
-    for (let i = 0; i < 5; ++i) {
-      const a = this.resultAssets[i];
-      const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
-      if (c) {
-        c.Assets.push(a);
-      } else {
-        const ca: ContractAssets = {
-          ContractNumber: a.ContractNumber,
-          Assets: [a]
-        };
-        this.allcontractsAssets.push(ca);
+    this.api.GetAllAssets('', '').subscribe(
+      (response: any) => {
+        this.resultAssets = response;
+        for (let i = 0; i < 5; ++i) {
+          const a = this.resultAssets[i];
+          const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
+          if (c) {
+            c.Assets.push(a);
+          } else {
+            const ca: ContractAssets = {
+              ContractNumber: a.ContractNumber,
+              Assets: [a]
+            };
+            this.allcontractsAssets.push(ca);
+          }
+        }
       }
-    }
+    );
   }
 
   ToAddressString(address: Address): string {
@@ -62,6 +81,7 @@ export class AssetComponent implements OnInit {
   }
 }
 
+/*
 const w_Asset: Asset = {
   ContractNumber: null,
   AssetID: null,
@@ -186,4 +206,5 @@ const r_Asset5: Asset = {
   AgreementOveragesBilledOn: '',
   ContractActive: true
 };
+*/
 

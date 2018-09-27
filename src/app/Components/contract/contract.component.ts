@@ -6,6 +6,8 @@ import {
 } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import * as CONSTANTS from '../../app.constants';
+import { ContractService } from '../../Services/contract.service';
+
 
 @Component({
   selector: 'cts-contract',
@@ -14,7 +16,7 @@ import * as CONSTANTS from '../../app.constants';
 })
 export class ContractComponent implements OnInit {
 
-  workingContract: Contract;
+  workingContract: any = {};
   resultContracts: Contract[] = [];
   showCheckBoxes: boolean;
   selectAllContract: Contract;
@@ -27,20 +29,12 @@ export class ContractComponent implements OnInit {
 
 
   constructor(
-    private http: HttpClient,
+    private api: ContractService
   ) { }
 
   ngOnInit() {
-    this.workingContract = null;
-    // this.resultContracts = [];
     this.showCheckBoxes = true;
-    // this.workingContract = w_contract;
-    // this.resultContracts.push(r_contract1);
-    // this.resultContracts.push(r_contract2);
-    // this.resultContracts.push(r_contract3);
-    // this.resultContracts.push(r_contract4);
-    this.http.get(CONSTANTS.API_CONTRACTS_GET).subscribe((response: any) => {
-      debugger;
+    this.api.GetAllContracts('', '').subscribe((response: any) => {
       const res: Contract[] = response;
       this.workingContract = res.splice(0, 1)[0];
       this.resultContracts = res;
@@ -69,6 +63,7 @@ export class ContractComponent implements OnInit {
   }
 }
 
+/*
 const w_contract: Contract = {
   ApplicationNumber: '1376455',
   MasterAgreementNumber: '-',
@@ -382,3 +377,4 @@ const r_contract4: Contract = {
   CurrentOnly: false,
   ElectronicInvoice: true
 };
+*/
