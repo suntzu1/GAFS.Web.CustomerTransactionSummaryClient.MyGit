@@ -1,3 +1,42 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+
+  private messageSource = new BehaviorSubject('');
+  currentMesssage = this.messageSource.asObservable();
+  constructor() { }
+
+  changeContractTriggered(payload: any) {
+    this.messageSource.next(payload);
+  }
+
+  changeAssetTriggered(payload: any) {
+    this.messageSource.next(payload);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// keep below: just as reference, no longer used in code
+
+
 // import { Contract } from '../Models/contract';
 
 

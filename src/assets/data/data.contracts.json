@@ -76,8 +76,7 @@
             "Contact":"Jessica Jones",
             "State":"AL",
             "StreetAddress":"4000 Colonnade Pkw",
-            "Zip":"35243-3212",
-            "StreetAddress":"205-220-66204000 Colonnade Pkw'"
+            "Zip":"35243-3212"
         },
         "LesseeName":"Stewart of Alabama",
         "Phone":"",
@@ -136,7 +135,7 @@
             "City":"Birmingham",
             "Contact":"Jessica Jones",
             "State":"AL",
-            "StreetAddress":"4000 Colonnade Pkw",
+            "StreetAddress":"4001 Colonnade Pkw",
             "Zip":"35243-3212"
         },
         "LesseeName":"Stewart of Alabama",
@@ -198,7 +197,7 @@
             "City":"Birmingham",
             "Contact":"Jessica Jones",
             "State":"AL",
-            "StreetAddress":"205-220-66204000 Colonnade Pkw",
+            "StreetAddress":"4002 Colonnade Pkw",
             "Zip":"35243-3212"
         },
         "LesseeName":"Stewart of Alabama",
@@ -261,7 +260,7 @@
             "City":"Birmingham",
             "Contact":"Jessica Jones",
             "State":"AL",
-            "StreetAddress":"205-220-66204000 Colonnade Pkw",
+            "StreetAddress":"4003 Colonnade Pkw",
             "Zip":"35243-3212"
         },
         "Phone":"205-220-6620",

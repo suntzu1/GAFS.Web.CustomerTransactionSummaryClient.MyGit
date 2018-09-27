@@ -7,6 +7,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import * as CONSTANTS from '../../app.constants';
 import { ContractService } from '../../Services/contract.service';
+import { DataService } from '../../Services/data.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { ContractService } from '../../Services/contract.service';
 export class ContractComponent implements OnInit {
 
   workingContract: any = {};
+  modifiedContract: Contract;
   resultContracts: Contract[] = [];
   showCheckBoxes: boolean;
   selectAllContract: Contract;
@@ -27,9 +29,16 @@ export class ContractComponent implements OnInit {
     { key: 'ContractNumber', display: 'ContractNumber' },
     { key: 'DealerNumber', display: 'DealerNumber' }];
 
+  modifyProps: ['MasterAgreementNumber', 'PrivateLabel', 'ProgramType', 'RelationshipCode', 'LesseeName',
+    'LesseeName', 'BillingAddress', 'Phone', 'Fax', 'Email', 'Signer',
+    'DocumentProfile', 'InvoiceDescription', 'CollateralCode', 'IndirectBilling', 'InvoiceCode',
+    'LateChargeExempt', 'LateChargePercofPmt', 'LeadDays', 'GracePeriod', 'MinimumLateCharge',
+    'MaximumLateCharge', 'VendorContractID', 'VendorCustomerID', 'RenewalTerm'
+  ];
 
   constructor(
-    private api: ContractService
+    private api: ContractService,
+    private data: DataService
   ) { }
 
   ngOnInit() {
@@ -39,6 +48,7 @@ export class ContractComponent implements OnInit {
       this.workingContract = res.splice(0, 1)[0];
       this.resultContracts = res;
       this.selectAllContract = this.workingContract;
+      this.modifiedContract = this.workingContract;
     });
   }
 
@@ -51,15 +61,23 @@ export class ContractComponent implements OnInit {
   }
 
   selectAllNewApplication() {
+    this.selectAllApplication = this.workingContract;
   }
   selectAllApplication(c) {
     this.selectAllContract = c;
+    this.modifyProps.forEach(k => {
+      this.modifiedContract[k] = c[k];
+    })
   }
   clearAllSelections() {
     this.selectAllContract = this.workingContract;
   }
-  checkIfSelected(c): boolean {
+  checkIfSelected(c, oprop: string): boolean {
     return this.selectAllContract === c;
+  }
+
+  propertyChanged(c, oprop: string) {
+    this.modifiedContract[oprop] = c[oprop];
   }
 }
 

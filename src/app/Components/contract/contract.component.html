@@ -21,10 +21,12 @@
     <tr>
       <td>Master Agreement Number</td>
       <td>{{ workingContract.MasterAgreementNumber }}
-          <input type="radio" name="rdbConMasterAgreementNumber" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+          <input type="radio" name="rdbConMasterAgreementNumber" class="checkbox" *ngIf="showCheckBoxes" 
+          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'MasterAgreementNumber')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.MasterAgreementNumber }}
-        <input type="radio" name="rdbConMasterAgreementNumber" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConMasterAgreementNumber" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'MasterAgreementNumber')">
       </td>
     </tr>
     <tr>
@@ -51,82 +53,101 @@
     <tr>
       <td>Private Label</td>
       <td>{{ workingContract.PrivateLabel | yesNo }}
-        <input type="radio" name="rdbConPrivateLabel" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConPrivateLabel" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'PrivateLabel')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.PrivateLabel | yesNo }}
-        <input type="radio" name="rdbConPrivateLabel" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConPrivateLabel" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'PrivateLabel')">
       </td>
     </tr>
     <tr>
       <td>Program Type</td>
       <td>{{ workingContract.ProgramType }}
-        <input type="radio" name="rdbConProgramType" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConProgramType" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'ProgramType')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.ProgramType }}
-        <input type="radio" name="rdbConProgramType" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConProgramType" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'ProgramType')">
       </td>
     </tr>
     <tr>
       <td>Relationship Code</td>
       <td>{{ workingContract.RelationshipCode }}
-        <input type="radio" name="rdbConRelationshipCode" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConRelationshipCode" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'RelationshipCode')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.RelationshipCode }}
-        <input type="radio" name="rdbConRelationshipCode" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConRelationshipCode" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'RelationshipCode')">
       </td>
     </tr>
     <tr>
       <td>Lessee Name</td>
       <td>{{ workingContract.LesseeName }}
-        <input type="radio" name="rdbConLesseeName" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConLesseeName" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'LesseeName')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.LesseeName }}
-        <input type="radio" name="rdbConLesseeName" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConLesseeName" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'LesseeName')">
       </td>
     </tr>
     <tr>
       <td>Billing Address</td>
       <td><div [innerHTML]="ToAddressString(workingContract.BillingAddress)"></div>
-        <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'BillingAddress')">
       </td>
       <td *ngFor="let c of resultContracts"><div [innerHTML]="ToAddressString(c.BillingAddress)"></div>
-        <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'BillingAddress')">
+        <!--  (ngModelChange)="propertyChanged(c,'BillingAddress')" -->
       </td>
     </tr>
     <tr>
       <td>Phone</td>
       <td>{{ workingContract.Phone }}
-        <input type="radio" name="rdbConPhone" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConPhone" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'Phone')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.Phone }}
-        <input type="radio" name="rdbConPhone" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConPhone" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'Phone')">
       </td>
     </tr>
     <tr>
       <td>Fax</td>
       <td>{{ workingContract.Fax }}
-        <input type="radio" name="rdbConFax" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConFax" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'Fax')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.Fax }}
-        <input type="radio" name="rdbConFax" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConFax" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'Fax')">
       </td>
     </tr>
     <tr>
       <td>Email</td>
       <td>{{ workingContract.Email }}
-        <input type="radio" name="rdbConEmail" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConEmail" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'Email')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.Email }}
-        <input type="radio" name="rdbConEmail" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConEmail" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'Email')">
       </td>
     </tr>
     <tr>
       <td>Signer</td>
       <td>{{ workingContract.Signer }}
-          <input type="radio" name="rdbConSigner" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+          <input type="radio" name="rdbConSigner" class="checkbox" *ngIf="showCheckBoxes" 
+          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'Signer')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.Signer }}
-        <input type="radio" name="rdbConSigner" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConSigner" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'Signer')">
       </td>
     </tr>
     <tr>
@@ -174,10 +195,12 @@
     <tr>
       <td>Document Profile</td>
       <td>{{ workingContract.DocumentProfile }}
-          <input type="radio" name="rdbConDocumentProfile" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+          <input type="radio" name="rdbConDocumentProfile" class="checkbox" *ngIf="showCheckBoxes" 
+          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'DocumentProfile')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.DocumentProfile }}
-        <input type="radio" name="rdbConDocumentProfile" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConDocumentProfile" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'DocumentProfile')">
       </td>
     </tr>
     <tr>
@@ -215,91 +238,111 @@
     <tr>
       <td>Invoice Description</td>
       <td>{{ workingContract.InvoiceDescription }}
-        <input type="radio" name="rdbConInvoiceDescription" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConInvoiceDescription" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'InvoiceDescription')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.InvoiceDescription }}
-        <input type="radio" name="rdbConInvoiceDescription" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConInvoiceDescription" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'InvoiceDescription')">
       </td>
     </tr>
     <tr>
       <td>Collateral Code</td>
       <td>{{ workingContract.CollateralCode }}
-        <input type="radio" name="rdbConCollateralCode" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConCollateralCode" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'CollateralCode')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.CollateralCode }}
-        <input type="radio" name="rdbConCollateralCode" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConCollateralCode" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'CollateralCode')">
       </td>
     </tr>
     <tr>
       <td>Indirect Billing</td>
       <td>{{ workingContract.IndirectBilling }}
-        <input type="radio" name="rdbConIndirectBilling" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConIndirectBilling" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'IndirectBilling')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.IndirectBilling }}
-        <input type="radio" name="rdbConIndirectBilling" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConIndirectBilling" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'IndirectBilling')">
       </td>
     </tr>
     <tr>
       <td>Invoice Code</td>
       <td>{{ workingContract.InvoiceCode }}
-        <input type="radio" name="rdbConInvoiceCode" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConInvoiceCode" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'InvoiceCode')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.InvoiceCode }}
-        <input type="radio" name="rdbConInvoiceCode" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConInvoiceCode" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'InvoiceCode')">
       </td>
     </tr>
     <tr>
       <td>Late Charge Exempt</td>
       <td>{{ workingContract.LateChargeExempt | yesNo }}
-        <input type="radio" name="rdbConLateChargeExempt" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConLateChargeExempt" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'LateChargeExempt')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.LateChargeExempt | yesNo }}
-        <input type="radio" name="rdbConLateChargeExempt" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConLateChargeExempt" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'LateChargeExempt')">
       </td>
     </tr>
     <tr>
       <td>Late Charge % of Pmt</td>
       <td>{{ workingContract.LateChargePercofPmt }}
-        <input type="radio" name="rdbConLateChargePercofPmt" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConLateChargePercofPmt" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'LateChargePercofPmt')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.LateChargePercofPmt }}
-        <input type="radio" name="rdbConLateChargePercofPmt" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConLateChargePercofPmt" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'LateChargePercofPmt')">
       </td>
     </tr>
     <tr>
       <td>Lead Days</td>
       <td>{{ workingContract.LeadDays }}
-        <input type="radio" name="rdbConLeadDays" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConLeadDays" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'LeadDays')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.LeadDays }}
-        <input type="radio" name="rdbConLeadDays" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConLeadDays" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'LeadDays')">
       </td>
     </tr>
     <tr>
       <td>Grace Period</td>
       <td>{{ workingContract.GracePeriod }}
-        <input type="radio" name="rdbConGracePeriod" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConGracePeriod" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'GracePeriod')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.GracePeriod }}
-        <input type="radio" name="rdbConGracePeriod" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConGracePeriod" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'GracePeriod')">
       </td>
     </tr>
     <tr>
       <td>Minimum Late Charge ($)</td>
       <td>{{ workingContract.MinimumLateCharge }}
-        <input type="radio" name="rdbConMinimumLateCharge" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+        <input type="radio" name="rdbConMinimumLateCharge" class="checkbox" *ngIf="showCheckBoxes" 
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'MinimumLateCharge')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.MinimumLateCharge }}
-        <input type="radio" name="rdbConMinimumLateCharge" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+        <input type="radio" name="rdbConMinimumLateCharge" class="checkbox" *ngIf="showCheckBoxes" 
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'MinimumLateCharge')">
       </td>
     </tr>
     <tr>
       <td>Maximum Late Charge ($)</td>
       <td>{{ workingContract.MaximumLateCharge }}
-          <input type="radio" name="rdbConMaximumLateCharge" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+          <input type="radio" name="rdbConMaximumLateCharge" class="checkbox" *ngIf="showCheckBoxes" 
+          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'MaximumLateCharge')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.MaximumLateCharge }}
-          <input type="radio" name="rdbConMaximumLateCharge" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+          <input type="radio" name="rdbConMaximumLateCharge" class="checkbox" *ngIf="showCheckBoxes" 
+          [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'MaximumLateCharge')">
       </td>
     </tr>
     <tr>
@@ -315,28 +358,34 @@
     <tr>
       <td>Vendor Contract ID</td>
       <td>{{ workingContract.VendorContractID }}
-          <input type="radio" name="rdbConVendorContractID" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+          <input type="radio" name="rdbConVendorContractID" class="checkbox" *ngIf="showCheckBoxes" 
+          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'VendorContractID')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.VendorContractID }}
-          <input type="radio" name="rdbConVendorContractID" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+          <input type="radio" name="rdbConVendorContractID" class="checkbox" *ngIf="showCheckBoxes" 
+          [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'VendorContractID')">
       </td>
     </tr>
     <tr>
       <td>Vendor Customer ID</td>
       <td>{{ workingContract.VendorCustomerID }}
-          <input type="radio" name="rdbConVendorCustomerID" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+          <input type="radio" name="rdbConVendorCustomerID" class="checkbox" *ngIf="showCheckBoxes" 
+          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'VendorCustomerID')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.VendorCustomerID }}
-          <input type="radio" name="rdbConVendorCustomerID" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+          <input type="radio" name="rdbConVendorCustomerID" class="checkbox" *ngIf="showCheckBoxes" 
+          [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'VendorCustomerID')">
       </td>
     </tr>
     <tr>
       <td>Renewal Term</td>
       <td>{{ workingContract.RenewalTerm }}
-          <input type="radio" name="rdbConRenewalTerm" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)">
+          <input type="radio" name="rdbConRenewalTerm" class="checkbox" *ngIf="showCheckBoxes" 
+          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'RenewalTerm')">
       </td>
       <td *ngFor="let c of resultContracts">{{ c.RenewalTerm }}
-          <input type="radio" name="rdbConRenewalTerm" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+          <input type="radio" name="rdbConRenewalTerm" class="checkbox" *ngIf="showCheckBoxes"
+           [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'RenewalTerm')">
       </td>
     </tr>
     <tr>
