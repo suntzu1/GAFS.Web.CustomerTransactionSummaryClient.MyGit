@@ -1,22 +1,32 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Contract } from 'src/app/Models/contract';
+import { Asset } from 'src/app/Models/asset';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private messageSource = new BehaviorSubject('');
-  currentMesssage = this.messageSource.asObservable();
+  private selectedContract: Contract;
+  private selectedAssets: Asset[];
+
+  private contractSource = new BehaviorSubject(this.selectedContract);
+  private assetsSource = new BehaviorSubject(this.selectedAssets);
+
+  currentContract = this.contractSource.asObservable();
+  currentAssets = this.assetsSource.asObservable();
+
   constructor() { }
 
-  changeContractTriggered(payload: any) {
-    this.messageSource.next(payload);
+  changeContractTriggered(contract: Contract) {
+    this.contractSource.next(contract);
   }
 
-  changeAssetTriggered(payload: any) {
-    this.messageSource.next(payload);
+  changeAssetsTriggered(assets: Asset[]) {
+    this.assetsSource.next(assets);
   }
+
 }
 
 

@@ -22,3 +22,14 @@ div {
 .hidden {
     display: none;  
 }
+.dialog-close {
+    border-radius: 15px;
+    padding: 12px;
+    position: relative;
+    top: -22px;
+    right: -22px;
+    float: right;
+}
+mat-dialog-actions button {
+    margin-right: 10px;
+}

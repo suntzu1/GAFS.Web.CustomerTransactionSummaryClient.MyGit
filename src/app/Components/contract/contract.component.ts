@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Contract } from '../../Models/contract';
 import { Address } from '../../Models/address';
 import {
-  MatTableModule, MatPaginatorModule, MatInputModule, MatProgressSpinnerModule, MatSortModule
+  MatDialog,
+  MatTableModule, MatPaginatorModule, MatInputModule, MatProgressSpinnerModule, MatSortModule, MatDialogConfig
 } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import * as CONSTANTS from '../../app.constants';
 import { ContractService } from '../../Services/contract.service';
 import { DataService } from '../../Services/data.service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { ContractViewerComponent } from '../contract-viewer/contract-viewer.component';
+import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
 
 
 @Component({
@@ -36,10 +40,12 @@ export class ContractComponent implements OnInit {
     'MaximumLateCharge', 'VendorContractID', 'VendorCustomerID', 'RenewalTerm'
   ];
 
+  private serviceObject = new BehaviorSubject(this.modifiedContract);
+
   constructor(
     private api: ContractService,
-    private data: DataService
-  ) { }
+    private datasvc: DataService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.showCheckBoxes = true;
@@ -82,6 +88,39 @@ export class ContractComponent implements OnInit {
 
   propertyChanged(c, oprop: string) {
     this.modifiedContract[oprop] = c[oprop];
+  }
+
+  sendContractData() {
+    this.datasvc.changeContractTriggered(this.modifiedContract);
+    const diaCnfg: MatDialogConfig = {
+      disableClose: true,
+      autoFocus: true
+    };
+    diaCnfg.data = {
+      title: 'Confirmation Page'
+    };
+    const dialogRef = this.dialog.open(ContractViewerComponent, diaCnfg);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      if (result === 'accept') {
+        // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
+        this.showAlert('Information', '', 'Contract data submitted', IconTypes.Information, AlertTypes.Info);
+      }
+    });
+  }
+
+  showAlert(title, header, message, icon = IconTypes.Information, alertType = AlertTypes.Info) {
+    const cusAlert = this.dialog.open(CustomAlertComponent);
+    cusAlert.componentInstance.AlertData = {
+      ca_title: title,
+      ca_header: header,
+      ca_message: message,
+      CriticalIcon: (icon === IconTypes.Critical),
+      WarningIcon: (icon === IconTypes.Warning),
+      InfoIcon: (icon === IconTypes.Information),
+      AlertType: alertType
+    };
+    return cusAlert;
   }
 }
 

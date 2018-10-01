@@ -18,7 +18,7 @@ import { Routing } from './app.routing';
 import { YesNo } from './Pipes/YesNo';
 
 import {
-  MatTableModule, MatPaginatorModule, MatInputModule, MatProgressSpinnerModule, MatSortModule, MatDialogModule
+  MatTableModule, MatPaginatorModule, MatInputModule, MatProgressSpinnerModule, MatSortModule, MatDialogModule, MatDialogContent
 } from '@angular/material';
 import { CustomAlertComponent } from './Components/CustomAlert/customalert.component';
 import { AssetCardComponent } from './Components/asset/asset-card/asset-card.component';
@@ -31,6 +31,7 @@ import { UsageService } from './Services/usage.service';
 import { CtsApiService } from './Services/cts-api.service';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ContractViewerComponent } from './Components/contract-viewer/contract-viewer.component';
 
 const appservices = [
   AssetService, ContractService, PaymentService, UsageService, CtsApiService
@@ -54,7 +55,8 @@ const matmodules = [
     AssetCardComponent,
     PaymentCardComponent,
     MaterialGridComponent,
-    DataTransferConfirmationComponent
+    DataTransferConfirmationComponent,
+    ContractViewerComponent
   ],
   imports: [
     HttpClientModule,
@@ -64,7 +66,8 @@ const matmodules = [
     NgMultiSelectDropDownModule.forRoot()
   ],
   entryComponents: [
-    CustomAlertComponent
+    CustomAlertComponent,
+    ContractViewerComponent
   ],
   providers: [
     appservices

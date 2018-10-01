@@ -6,6 +6,7 @@ import { MatDialogRef } from '@angular/material';
   templateUrl: './customalert.component.html',
   styleUrls: ['./customalert.component.scss']
 }) export class CustomAlertComponent implements OnInit {
+
   @Input() message;
   _ref: any;
   ca_title: string;
@@ -19,7 +20,10 @@ import { MatDialogRef } from '@angular/material';
   WarningIcon: boolean = false;
   InfoIcon: boolean = false;
   public AlertData: AlertService;
-  constructor(public dialogRef: MatDialogRef<CustomAlertComponent>) {
+
+  constructor(
+    public dialogRef: MatDialogRef<CustomAlertComponent>
+    ) {
     dialogRef.disableClose = true;
   }
 

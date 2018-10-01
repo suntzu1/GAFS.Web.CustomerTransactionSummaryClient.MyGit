@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '../../../../node_modules/@angular/router';
-import { AlertTypes, CustomAlertComponent, IconTypes } from '../CustomAlert/customalert.component';
+import { AlertTypes, IconTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
