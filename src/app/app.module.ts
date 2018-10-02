@@ -32,6 +32,7 @@ import { CtsApiService } from './Services/cts-api.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ContractViewerComponent } from './Components/contract-viewer/contract-viewer.component';
+import { CommonfunctionsModule } from 'src/app/commonfunctions/commonfunctions.module';
 import { AssetViewerComponent } from './Components/asset-viewer/asset-viewer.component';
 
 const appservices = [
@@ -65,6 +66,7 @@ const matmodules = [
     BrowserModule,
     BrowserAnimationsModule,
     Routing, FormsModule, matmodules,
+    CommonfunctionsModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   entryComponents: [
