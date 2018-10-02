@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { DataService } from '../../Services/data.service';
 
 import { Contract } from 'src/app/Models/contract';
@@ -11,6 +11,7 @@ import { Address } from 'src/app/Models/address';
   styleUrls: ['./contract-viewer.component.css']
 })
 export class ContractViewerComponent implements OnInit {
+  @Input()hideActions: boolean=false;
   showCheckBoxes = false;
   workingContract: Contract;
   description: string;

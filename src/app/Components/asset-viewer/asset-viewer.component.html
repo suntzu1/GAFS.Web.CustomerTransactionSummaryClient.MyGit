@@ -6,7 +6,7 @@
     </div>
   </mat-dialog-content>
   <hr />
-  <mat-dialog-actions>
+  <mat-dialog-actions *ngIf="!hideActions">
     <button class="button btn btn-sm btn-success" (click)="accept()"><span class="fas fa-check-circle"></span><span>&nbsp;ACCEPT</span></button>
     <button class="button btn btn-sm btn-danger" (click)="cancel()"><span class=" fas fa-times-circle"></span><span>&nbsp;CANCEL</span></button>
   </mat-dialog-actions>

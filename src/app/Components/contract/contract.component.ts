@@ -12,6 +12,8 @@ import { DataService } from '../../Services/data.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ContractViewerComponent } from '../contract-viewer/contract-viewer.component';
 import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
+import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
+import { ContractAssetViewerComponent } from '../contract-asset-viewer/contract-asset-viewer.component';
 
 
 @Component({
@@ -45,7 +47,8 @@ export class ContractComponent implements OnInit {
   constructor(
     private api: ContractService,
     private datasvc: DataService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private cmnfn: CommonfunctionsModule) { }
 
   ngOnInit() {
     this.showCheckBoxes = true;
@@ -104,25 +107,33 @@ export class ContractComponent implements OnInit {
       console.log(`Dialog closed: ${result}`);
       if (result === 'accept') {
         // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        this.showAlert('Information', '', 'Contract data submitted', IconTypes.Information, AlertTypes.Info);
+        this.cmnfn.showAlert(this.dialog, 'Information', '', 
+        'Contract data submitted', IconTypes.Information, 
+        AlertTypes.Info);
       }
     });
   }
 
-  showAlert(title, header, message, icon = IconTypes.Information, alertType = AlertTypes.Info) {
-    const cusAlert = this.dialog.open(CustomAlertComponent);
-    cusAlert.componentInstance.AlertData = {
-      ca_title: title,
-      ca_header: header,
-      ca_message: message,
-      CriticalIcon: (icon === IconTypes.Critical),
-      WarningIcon: (icon === IconTypes.Warning),
-      InfoIcon: (icon === IconTypes.Information),
-      AlertType: alertType
+  sendContractAssetData() {
+    this.datasvc.changeContractTriggered(this.modifiedContract);
+    const diaCnfg: MatDialogConfig = {
+      disableClose: true,
+      autoFocus: true
     };
-    return cusAlert;
-  }
-}
+    diaCnfg.data = {
+      title: 'Confirmation Page'
+    };
+    const dialogRef = this.dialog.open(ContractAssetViewerComponent, diaCnfg);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      if (result === 'accept') {
+        // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
+        this.cmnfn.showAlert(this.dialog, 'Information', '', 
+        'Contract data submitted', IconTypes.Information, 
+        AlertTypes.Info);
+      }
+    });
+  }}
 
 /*
 const w_contract: Contract = {

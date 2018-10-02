@@ -20,7 +20,7 @@ import { YesNo } from './Pipes/YesNo';
 import {
   MatTableModule, MatPaginatorModule, MatInputModule, MatProgressSpinnerModule, MatSortModule, MatDialogModule, MatDialogContent
 } from '@angular/material';
-import { CustomAlertComponent } from './Components/CustomAlert/customalert.component';
+// import { CustomAlertComponent } from './Components/CustomAlert/customalert.component';
 import { AssetCardComponent } from './Components/asset/asset-card/asset-card.component';
 import { PaymentCardComponent } from './Components/payment/payment-card/payment-card.component';
 import { DataTransferConfirmationComponent } from './Components/data-transfer-confirmation/data-transfer-confirmation.component';
@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContractViewerComponent } from './Components/contract-viewer/contract-viewer.component';
 import { CommonfunctionsModule } from 'src/app/commonfunctions/commonfunctions.module';
 import { AssetViewerComponent } from './Components/asset-viewer/asset-viewer.component';
+import { ContractAssetViewerComponent } from './Components/contract-asset-viewer/contract-asset-viewer.component';
 
 const appservices = [
   AssetService, ContractService, PaymentService, UsageService, CtsApiService
@@ -52,14 +53,15 @@ const matmodules = [
     AssetComponent,
     PaymentComponent,
     UsageComponent,
-    CustomAlertComponent,
+    // CustomAlertComponent,
     YesNo,
     AssetCardComponent,
     PaymentCardComponent,
     MaterialGridComponent,
     DataTransferConfirmationComponent,
     ContractViewerComponent,
-    AssetViewerComponent
+    AssetViewerComponent,
+    ContractAssetViewerComponent
   ],
   imports: [
     HttpClientModule,
@@ -70,9 +72,10 @@ const matmodules = [
     NgMultiSelectDropDownModule.forRoot()
   ],
   entryComponents: [
-    CustomAlertComponent,
+    // CustomAlertComponent,
     ContractViewerComponent,
-    AssetViewerComponent
+    AssetViewerComponent,
+    ContractAssetViewerComponent
   ],
   providers: [
     appservices

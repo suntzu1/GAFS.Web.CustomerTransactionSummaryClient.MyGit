@@ -8,6 +8,7 @@ import { DataService } from '../../Services/data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AssetViewerComponent } from '../asset-viewer/asset-viewer.component';
 import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
+import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
 
 @Component({
   selector: 'cts-asset',
@@ -40,7 +41,8 @@ export class AssetComponent implements OnInit {
 
   constructor(private api: AssetService,
     private datasvc: DataService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private cmnfn: CommonfunctionsModule) { }
 
   ngOnInit() {
     // this.workingAsset = w_Asset;
@@ -109,23 +111,11 @@ export class AssetComponent implements OnInit {
       console.log(`Dialog closed: ${result}`);
       if (result === 'accept') {
         // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        this.showAlert('Information', '', 'Assets data submitted', IconTypes.Information, AlertTypes.Info);
+        this.cmnfn.showAlert(this.dialog,
+          'Information', '', 'Assets data submitted', 
+          IconTypes.Information, AlertTypes.Info);
       }
     });
-  }
-
-  showAlert(title, header, message, icon = IconTypes.Information, alertType = AlertTypes.Info) {
-    const cusAlert = this.dialog.open(CustomAlertComponent);
-    cusAlert.componentInstance.AlertData = {
-      ca_title: title,
-      ca_header: header,
-      ca_message: message,
-      CriticalIcon: (icon === IconTypes.Critical),
-      WarningIcon: (icon === IconTypes.Warning),
-      InfoIcon: (icon === IconTypes.Information),
-      AlertType: alertType
-    };
-    return cusAlert;
   }
 
   checkToggled(o) {

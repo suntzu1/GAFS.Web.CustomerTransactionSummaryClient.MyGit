@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { DataService } from '../../Services/data.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -9,6 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class AssetViewerComponent implements OnInit {
 
+  @Input()hideActions: boolean = false;
   allcontractsAssets: any;
   description: string;
   constructor(
