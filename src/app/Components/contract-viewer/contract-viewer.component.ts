@@ -11,7 +11,7 @@ import { Address } from 'src/app/Models/address';
   styleUrls: ['./contract-viewer.component.css']
 })
 export class ContractViewerComponent implements OnInit {
-
+  showCheckBoxes = false;
   workingContract: Contract;
   description: string;
   constructor(

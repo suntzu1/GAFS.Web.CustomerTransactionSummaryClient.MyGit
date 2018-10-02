@@ -3,6 +3,11 @@ import { Asset } from '../../Models/asset';
 import { Address } from '../../Models/address';
 import { ContractAssets } from '../../Models/contract';
 import { AssetService } from '../../Services/asset.service';
+import { BehaviorSubject } from 'rxjs';
+import { DataService } from '../../Services/data.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { AssetViewerComponent } from '../asset-viewer/asset-viewer.component';
+import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
 
 @Component({
   selector: 'cts-asset',
@@ -28,19 +33,25 @@ export class AssetComponent implements OnInit {
   showCheckBoxes: boolean;
   selectAllContract: any;
 
-  workingcontractAsset: ContractAssets;
+  workingcontractAsset: Asset[] = [];
   allcontractsAssets: ContractAssets[] = [];
-  constructor(private api: AssetService) { }
+
+  private serviceObject = new BehaviorSubject(this.allcontractsAssets);
+
+  constructor(private api: AssetService,
+    private datasvc: DataService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     // this.workingAsset = w_Asset;
-    this.resultAssets = [];
-    this.showCheckBoxes = true;
     // this.resultAssets.push(r_Asset1);
     // this.resultAssets.push(r_Asset2);
     // this.resultAssets.push(r_Asset3);
     // this.resultAssets.push(r_Asset4);
     // this.resultAssets.push(r_Asset5);
+    this.resultAssets = [];
+    this.showCheckBoxes = true;
+
     this.selectAllContract = this.workingAsset;
     this.api.GetAllAssets('', '').subscribe(
       (response: any) => {
@@ -62,6 +73,10 @@ export class AssetComponent implements OnInit {
     );
   }
 
+  addSelectedContractAsset(ca: ContractAssets) {
+
+  }
+
   ToAddressString(address: Address): string {
     if (address == null) {
       return '';
@@ -78,6 +93,54 @@ export class AssetComponent implements OnInit {
   }
   checkIfSelected(c): boolean {
     return this.selectAllContract === c;
+  }
+
+  sendAssetData() {
+    this.datasvc.changeAssetsTriggered(this.workingcontractAsset);
+    const diaCnfg: MatDialogConfig = {
+      disableClose: true,
+      autoFocus: true
+    };
+    diaCnfg.data = {
+      title: 'Confirmation Page'
+    };
+    const dialogRef = this.dialog.open(AssetViewerComponent, diaCnfg);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      if (result === 'accept') {
+        // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
+        this.showAlert('Information', '', 'Assets data submitted', IconTypes.Information, AlertTypes.Info);
+      }
+    });
+  }
+
+  showAlert(title, header, message, icon = IconTypes.Information, alertType = AlertTypes.Info) {
+    const cusAlert = this.dialog.open(CustomAlertComponent);
+    cusAlert.componentInstance.AlertData = {
+      ca_title: title,
+      ca_header: header,
+      ca_message: message,
+      CriticalIcon: (icon === IconTypes.Critical),
+      WarningIcon: (icon === IconTypes.Warning),
+      InfoIcon: (icon === IconTypes.Information),
+      AlertType: alertType
+    };
+    return cusAlert;
+  }
+
+  checkToggled(o) {
+    const index = this.workingcontractAsset.indexOf(o.asset);
+    if (index > -1) {
+      if (!o.selected) {
+        this.workingcontractAsset.splice(index, 1);
+      }
+    } else {
+      this.workingcontractAsset.push(o.asset);
+    }
+    // const fa = this.workingcontractAsset.find(a => a.AssetID === o.asset.AssetID);
+    // if (!fa) {
+    //   this.workingcontractAsset.push(o.asset);
+    // }
   }
 }
 

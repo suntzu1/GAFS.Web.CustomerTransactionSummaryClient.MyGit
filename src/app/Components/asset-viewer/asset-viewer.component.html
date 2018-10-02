@@ -1,0 +1,13 @@
+<div class="container-fluid freezediv">
+  <h2 class="text-primary" mat-dialog-title>{{description}}</h2>
+  <mat-dialog-content>
+    <div *ngFor="let a of allcontractsAssets" class="row">
+      <cts-asset-card [assetdata]="a" [noHeader]="true"></cts-asset-card>
+    </div>
+  </mat-dialog-content>
+  <hr />
+  <mat-dialog-actions>
+    <button class="button btn btn-sm btn-success" (click)="accept()"><span class="fas fa-check-circle"></span><span>&nbsp;ACCEPT</span></button>
+    <button class="button btn btn-sm btn-danger" (click)="cancel()"><span class=" fas fa-times-circle"></span><span>&nbsp;CANCEL</span></button>
+  </mat-dialog-actions>
+</div>

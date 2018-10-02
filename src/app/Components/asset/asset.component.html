@@ -9,11 +9,24 @@
         <input type="checkbox" class="checkbox"><span>Select all</span>
       </div>
       <div *ngFor="let a of ca.Assets" class="row">
-        <cts-asset-card [assetdata]="a"></cts-asset-card>
+        <cts-asset-card [assetdata]="a" (toggle)="checkToggled($event)"></cts-asset-card>
       </div>
     </div>
   </div>
-
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <button class="btn btn-primary btn-sm" (click)="sendAssetData()">SEND ASSET DATA</button>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary btn-sm">SEND ASSET AND CONTRACT DATA</button>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary btn-sm" (click)="clearAllSelections()">CLEAR ASSET DATA SELECTIONS</button>
+    </div>
+  </div>
+</div>
   <!-- <table class="table table-striped">
     <tr class="headerrow">
       <td>Description</td>
@@ -111,17 +124,3 @@
       </td>
     </tr>
   </table> -->
-</div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4">
-      <button class="btn btn-primary btn-sm">SEND ASSET DATA</button>
-    </div>
-    <div class="col-md-4">
-      <button class="btn btn-primary btn-sm">SEND ASSET AND CONTRACT DATA</button>
-    </div>
-    <div class="col-md-4">
-      <button class="btn btn-primary btn-sm" (click)="clearAllSelections()">CLEAR ASSET DATA SELECTIONS</button>
-    </div>
-  </div>
-</div>

@@ -1,7 +1,7 @@
 <div class="card" style="width: 100%;">
-  <div class="card-header">
+  <div class="card-header" *ngIf="!noHeader">
     <div class="row">
-      <div class="col-sm-1"><input type="checkbox" [(ngModel)]="assetchecked" class="input"></div>
+      <div class="col-sm-1"><input type="checkbox" [(ngModel)]="assetchecked" class="input" (change)="checkChanged(assetdata)"></div>
       <div class="col-sm-5">Asset ID</div>
       <div class="col-sm-5">{{ assetdata.AssetID }}</div>
     </div>
@@ -14,7 +14,8 @@
               <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(assetdata)">
             </td>
             <td *ngFor="let c of resultAssets">{{ c.AssetID }}
-              <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)">
+              <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" [checked]="checkIfSelected(c)"
+              (change)="checkChanged(c)">
             </td>
           </tr>
           <tr>

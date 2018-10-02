@@ -32,6 +32,7 @@ import { CtsApiService } from './Services/cts-api.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ContractViewerComponent } from './Components/contract-viewer/contract-viewer.component';
+import { AssetViewerComponent } from './Components/asset-viewer/asset-viewer.component';
 
 const appservices = [
   AssetService, ContractService, PaymentService, UsageService, CtsApiService
@@ -56,7 +57,8 @@ const matmodules = [
     PaymentCardComponent,
     MaterialGridComponent,
     DataTransferConfirmationComponent,
-    ContractViewerComponent
+    ContractViewerComponent,
+    AssetViewerComponent
   ],
   imports: [
     HttpClientModule,
@@ -67,7 +69,8 @@ const matmodules = [
   ],
   entryComponents: [
     CustomAlertComponent,
-    ContractViewerComponent
+    ContractViewerComponent,
+    AssetViewerComponent
   ],
   providers: [
     appservices
