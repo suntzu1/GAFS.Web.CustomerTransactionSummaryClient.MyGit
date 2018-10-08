@@ -55,6 +55,7 @@ export class ContractComponent implements OnInit {
     this.api.GetAllContracts('', '').subscribe((response: any) => {
       const res: Contract[] = response;
       this.workingContract = res.splice(0, 1)[0];
+      this.datasvc.changeOriginalContractTriggered(this.workingContract);
       this.resultContracts = res;
       this.clearAllSelections();
     });
@@ -107,9 +108,9 @@ export class ContractComponent implements OnInit {
       console.log(`Dialog closed: ${result}`);
       if (result === 'accept') {
         // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        this.cmnfn.showAlert(this.dialog, 'Information', '', 
-        'Contract data submitted', IconTypes.Information, 
-        AlertTypes.Info);
+        this.cmnfn.showAlert(this.dialog, 'Information', '',
+          'Contract data submitted', IconTypes.Information,
+          AlertTypes.Info);
       }
     });
   }
@@ -128,12 +129,13 @@ export class ContractComponent implements OnInit {
       console.log(`Dialog closed: ${result}`);
       if (result === 'accept') {
         // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        this.cmnfn.showAlert(this.dialog, 'Information', '', 
-        'Contract data submitted', IconTypes.Information, 
-        AlertTypes.Info);
+        this.cmnfn.showAlert(this.dialog, 'Information', '',
+          'Contract data submitted', IconTypes.Information,
+          AlertTypes.Info);
       }
     });
-  }}
+  }
+}
 
 /*
 const w_contract: Contract = {

@@ -11,9 +11,10 @@ import { Address } from 'src/app/Models/address';
   styleUrls: ['./contract-viewer.component.css']
 })
 export class ContractViewerComponent implements OnInit {
-  @Input()hideActions: boolean=false;
+  @Input() hideActions: boolean = false;
   showCheckBoxes = false;
   workingContract: Contract;
+  orignalContract: Contract;
   description: string;
   constructor(
     private datasvc: DataService,
@@ -32,6 +33,7 @@ export class ContractViewerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.datasvc.originalContract.subscribe(orignalContract => this.orignalContract = orignalContract);
     this.datasvc.currentContract.subscribe(workingContract => this.workingContract = workingContract);
   }
   cancel() {

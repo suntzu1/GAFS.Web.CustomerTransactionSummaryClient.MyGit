@@ -3,296 +3,144 @@
   <mat-dialog-content>
     <table class="table table-striped">
       <tr>
+        <th>Description</th>
+        <th>Origianl</th>
+        <th>Modifications</th>
+      </tr>
+      <tr>
         <td>Application Number</td>
-        <td>{{ workingContract.ApplicationNumber }}
-        </td>
+        <td>{{ orignalContract.ApplicationNumber }}</td>
+        <td [ngClass]="{'modified': orignalContract.ApplicationNumber !== workingContract.ApplicationNumber}">{{ workingContract.ApplicationNumber }}</td>
       </tr>
       <tr>
         <td>Master Agreement Number</td>
-        <td>{{ workingContract.MasterAgreementNumber }}
-          <input type="radio" name="rdbConMasterAgreementNumber" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'MasterAgreementNumber')">
-        </td>
-      </tr>
-      <tr>
-        <td>Contract Number</td>
-        <td>{{ workingContract.ContractNumber }}
-        </td>
-      </tr>
-      <tr>
-        <td>Dealer Number</td>
-        <td>{{ workingContract.DealerNumber }}
-        </td>
-      </tr>
-      <tr>
-        <td>Invoicing As</td>
-        <td>{{ workingContract.InvoicingAs }}
-        </td>
+        <td>{{ orignalContract.MasterAgreementNumber }}</td>
+        <td [ngClass]="{'modified': orignalContract.MasterAgreementNumber !== workingContract.MasterAgreementNumber}">{{ workingContract.MasterAgreementNumber }}</td>
       </tr>
       <tr>
         <td>Private Label</td>
-        <td>{{ workingContract.PrivateLabel | yesNo }}
-          <input type="radio" name="rdbConPrivateLabel" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'PrivateLabel')">
-        </td>
+        <td>{{ orignalContract.PrivateLabel | yesNo }}</td>
+        <td [ngClass]="{'modified': orignalContract.PrivateLabel !== workingContract.PrivateLabel}">{{ workingContract.PrivateLabel | yesNo }}</td>
       </tr>
       <tr>
         <td>Program Type</td>
-        <td>{{ workingContract.ProgramType }}
-          <input type="radio" name="rdbConProgramType" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'ProgramType')">
-        </td>
+        <td>{{ orignalContract.ProgramType }}</td>
+        <td [ngClass]="{'modified': orignalContract.ProgramType !== workingContract.ProgramType}">{{ workingContract.ProgramType }}</td>
       </tr>
       <tr>
         <td>Relationship Code</td>
-        <td>{{ workingContract.RelationshipCode }}
-          <input type="radio" name="rdbConRelationshipCode" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'RelationshipCode')">
-        </td>
+        <td>{{ orignalContract.RelationshipCode }}</td>
+        <td [ngClass]="{'modified': orignalContract.RelationshipCode !== workingContract.RelationshipCode}">{{ workingContract.RelationshipCode }}</td>
       </tr>
       <tr>
         <td>Lessee Name</td>
-        <td>{{ workingContract.LesseeName }}
-          <input type="radio" name="rdbConLesseeName" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'LesseeName')">
-        </td>
+        <td>{{ orignalContract.LesseeName }}</td>
+        <td [ngClass]="{'modified': orignalContract.LesseeName !== workingContract.LesseeName}">{{ workingContract.LesseeName }}</td>
       </tr>
       <tr>
         <td>Billing Address</td>
         <td>
+          <div [innerHTML]="ToAddressString(orignalContract.BillingAddress)"></div>
+        </td>
+        <td [ngClass]="{'modified': orignalContract.BillingAddress !== workingContract.BillingAddress}">
           <div [innerHTML]="ToAddressString(workingContract.BillingAddress)"></div>
-          <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'BillingAddress')">
         </td>
       </tr>
       <tr>
         <td>Phone</td>
-        <td>{{ workingContract.Phone }}
-          <input type="radio" name="rdbConPhone" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)"
-            (change)="propertyChanged(workingContract,'Phone')">
-        </td>
+        <td>{{ orignalContract.Phone }}</td>
+        <td [ngClass]="{'modified': orignalContract.Phone !== workingContract.Phone}">{{ workingContract.Phone }}</td>
       </tr>
       <tr>
         <td>Fax</td>
-        <td>{{ workingContract.Fax }}
-          <input type="radio" name="rdbConFax" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)"
-            (change)="propertyChanged(workingContract,'Fax')">
-        </td>
+        <td>{{ orignalContract.Fax }}</td>
+        <td [ngClass]="{'modified': orignalContract.Fax !== workingContract.Fax}">{{ workingContract.Fax }}</td>
       </tr>
       <tr>
         <td>Email</td>
-        <td>{{ workingContract.Email }}
-          <input type="radio" name="rdbConEmail" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)"
-            (change)="propertyChanged(workingContract,'Email')">
-        </td>
+        <td>{{ orignalContract.Email }}</td>
+        <td [ngClass]="{'modified': orignalContract.Email !== workingContract.Email}">{{ workingContract.Email }}</td>
       </tr>
       <tr>
         <td>Signer</td>
-        <td>{{ workingContract.Signer }}
-          <input type="radio" name="rdbConSigner" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)"
-            (change)="propertyChanged(workingContract,'Signer')">
-        </td>
-      </tr>
-      <tr>
-        <td>PG</td>
-        <td>{{ workingContract.PG }}</td>
-      </tr>
-      <tr>
-        <td>PG Required</td>
-        <td>{{ workingContract.PGRequired | yesNo }}</td>
-      </tr>
-      <tr>
-        <td>Invoice Due Day</td>
-        <td>{{ workingContract.InvoiceDueDay }}</td>
-      </tr>
-      <tr>
-        <td>Lease Type</td>
-        <td>{{ workingContract.LeaseType }}</td>
-      </tr>
-      <tr>
-        <td>Term</td>
-        <td>{{ workingContract.Term }}</td>
-      </tr>
-      <tr>
-        <td>Purchase Option</td>
-        <td>{{ workingContract.PurchaseOption }}</td>
-      </tr>
-      <tr>
-        <td>Billing Cycle</td>
-        <td>{{ workingContract.BillingCycle }}</td>
-      </tr>
-      <tr>
-        <td>Variable Payment</td>
-        <td>{{ workingContract.VariablePayment | yesNo }}
-        </td>
+        <td>{{ orignalContract.Signer }}</td>
+        <td [ngClass]="{'modified': orignalContract.Signer !== workingContract.Signer}">{{ workingContract.Signer }}</td>
       </tr>
       <tr>
         <td>Document Profile</td>
-        <td>{{ workingContract.DocumentProfile }}
-          <input type="radio" name="rdbConDocumentProfile" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'DocumentProfile')">
-        </td>
-      </tr>
-      <tr>
-        <td>Total Finance Amount</td>
-        <td>{{ workingContract.TotalFinanceAmount | currency }}</td>
-      </tr>
-      <tr>
-        <td>PO</td>
-        <td>{{ workingContract.PO }}</td>
-      </tr>
-      <tr>
-        <td>PO Infolease Flag</td>
-        <td>{{ workingContract.POInfoleaseFlag | yesNo }}</td>
-      </tr>
-      <tr>
-        <td>EOT Option</td>
-        <td>{{ workingContract.EOTOption }}</td>
-      </tr>
-      <tr>
-        <td>Insurance Status</td>
-        <td>{{ workingContract.InsuranceStatus }}</td>
+        <td>{{ orignalContract.DocumentProfile }}</td>
+        <td [ngClass]="{'modified': orignalContract.DocumentProfile !== workingContract.DocumentProfile}">{{ workingContract.DocumentProfile }}</td>
       </tr>
       <tr>
         <td>Invoice Description</td>
-        <td>{{ workingContract.InvoiceDescription }}
-          <input type="radio" name="rdbConInvoiceDescription" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'InvoiceDescription')">
-        </td>
+        <td>{{ orignalContract.InvoiceDescription }}</td>
+        <td [ngClass]="{'modified': orignalContract.InvoiceDescription !== workingContract.InvoiceDescription}">{{ workingContract.InvoiceDescription }}</td>
       </tr>
       <tr>
         <td>Collateral Code</td>
-        <td>{{ workingContract.CollateralCode }}
-          <input type="radio" name="rdbConCollateralCode" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'CollateralCode')">
-        </td>
+        <td>{{ orignalContract.CollateralCode }}</td>
+        <td [ngClass]="{'modified': orignalContract.CollateralCode !== workingContract.CollateralCode}">{{ workingContract.CollateralCode }}</td>
       </tr>
       <tr>
         <td>Indirect Billing</td>
-        <td>{{ workingContract.IndirectBilling }}
-          <input type="radio" name="rdbConIndirectBilling" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'IndirectBilling')">
-        </td>
+        <td>{{ orignalContract.IndirectBilling }}</td>
+        <td [ngClass]="{'modified': orignalContract.IndirectBilling !== workingContract.IndirectBilling}">{{ workingContract.IndirectBilling }}</td>
       </tr>
       <tr>
         <td>Invoice Code</td>
-        <td>{{ workingContract.InvoiceCode }}
-          <input type="radio" name="rdbConInvoiceCode" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'InvoiceCode')">
-        </td>
+        <td>{{ orignalContract.InvoiceCode }}</td>
+        <td [ngClass]="{'modified': orignalContract.InvoiceCode !== workingContract.InvoiceCode}">{{ workingContract.InvoiceCode }}</td>
       </tr>
       <tr>
         <td>Late Charge Exempt</td>
-        <td>{{ workingContract.LateChargeExempt | yesNo }}
-          <input type="radio" name="rdbConLateChargeExempt" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'LateChargeExempt')">
-        </td>
+        <td>{{ orignalContract.LateChargeExempt | yesNo }}</td>
+        <td [ngClass]="{'modified': orignalContract.LateChargeExempt !== workingContract.LateChargeExempt}">{{ workingContract.LateChargeExempt | yesNo }}</td>
       </tr>
       <tr>
         <td>Late Charge % of Pmt</td>
-        <td>{{ workingContract.LateChargePercofPmt }}
-          <input type="radio" name="rdbConLateChargePercofPmt" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'LateChargePercofPmt')">
-        </td>
+        <td>{{ orignalContract.LateChargePercofPmt }}</td>
+        <td [ngClass]="{'modified': orignalContract.LateChargePercofPmt !== workingContract.LateChargePercofPmt}">{{ workingContract.LateChargePercofPmt }}</td>
       </tr>
       <tr>
         <td>Lead Days</td>
-        <td>{{ workingContract.LeadDays }}
-          <input type="radio" name="rdbConLeadDays" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(workingContract)"
-            (change)="propertyChanged(workingContract,'LeadDays')">
-        </td>
+        <td>{{ orignalContract.LeadDays }}</td>
+        <td [ngClass]="{'modified': orignalContract.LeadDays !== workingContract.LeadDays}">{{ workingContract.LeadDays }}</td>
       </tr>
       <tr>
         <td>Grace Period</td>
-        <td>{{ workingContract.GracePeriod }}
-          <input type="radio" name="rdbConGracePeriod" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'GracePeriod')">
-        </td>
+        <td>{{ orignalContract.GracePeriod }}</td>
+        <td [ngClass]="{'modified': orignalContract.GracePeriod !== workingContract.GracePeriod}">{{ workingContract.GracePeriod }}</td>
       </tr>
       <tr>
         <td>Minimum Late Charge ($)</td>
-        <td>{{ workingContract.MinimumLateCharge }}
-          <input type="radio" name="rdbConMinimumLateCharge" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'MinimumLateCharge')">
-        </td>
+        <td>{{ orignalContract.MinimumLateCharge }}</td>
+        <td [ngClass]="{'modified': orignalContract.MinimumLateCharge !== workingContract.MinimumLateCharge}">{{ workingContract.MinimumLateCharge }}</td>
       </tr>
       <tr>
         <td>Maximum Late Charge ($)</td>
-        <td>{{ workingContract.MaximumLateCharge }}
-          <input type="radio" name="rdbConMaximumLateCharge" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'MaximumLateCharge')">
-        </td>
-      </tr>
-      <tr>
-        <td>Securitization Code</td>
-        <td>{{ workingContract.SecuritizationCode }}</td>
-      </tr>
-      <tr>
-        <td>Permanent Exclusion Reason</td>
-        <td>{{ workingContract.PermanentExclusionReason }}</td>
+        <td>{{ orignalContract.MaximumLateCharge }}</td>
+        <td [ngClass]="{'modified': orignalContract.MaximumLateCharge !== workingContract.MaximumLateCharge}">{{ workingContract.MaximumLateCharge }}</td>
       </tr>
       <tr>
         <td>Vendor Contract ID</td>
-        <td>{{ workingContract.VendorContractID }}
-          <input type="radio" name="rdbConVendorContractID" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'VendorContractID')">
-        </td>
+        <td>{{ orignalContract.VendorContractID }}</td>
+        <td [ngClass]="{'modified': orignalContract.VendorContractID !== workingContract.VendorContractID}">{{ workingContract.VendorContractID }}</td>
       </tr>
       <tr>
         <td>Vendor Customer ID</td>
-        <td>{{ workingContract.VendorCustomerID }}
-          <input type="radio" name="rdbConVendorCustomerID" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'VendorCustomerID')">
-        </td>
+        <td>{{ orignalContract.VendorCustomerID }}</td>
+        <td [ngClass]="{'modified': orignalContract.VendorCustomerID !== workingContract.VendorCustomerID}">{{ workingContract.VendorCustomerID }}</td>
       </tr>
       <tr>
         <td>Renewal Term</td>
-        <td>{{ workingContract.RenewalTerm }}
-          <input type="radio" name="rdbConRenewalTerm" class="checkbox" *ngIf="showCheckBoxes" checked="checked"
-            [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'RenewalTerm')">
-        </td>
-      </tr>
-      <tr>
-        <td>Booked Date</td>
-        <td>{{ workingContract.BookedDate }}</td>
-      </tr>
-      <tr>
-        <td>Invoice Exception</td>
-        <td>{{ workingContract.InvoiceException }}</td>
-      </tr>
-      <tr>
-        <td>CMT Comments</td>
-        <td>{{ workingContract.CMTComments }}</td>
-      </tr>
-      <tr>
-        <td>ACH Code</td>
-        <td>{{ workingContract.ACHCode | yesNo }}</td>
-      </tr>
-      <tr>
-        <td>Asset Detail</td>
-        <td>{{ workingContract.AssetDetail | yesNo }}</td>
-      </tr>
-      <tr>
-        <td>Asset Level Billing</td>
-        <td>{{ workingContract.AssetLevelBilling | yesNo }}</td>
-      </tr>
-      <tr>
-        <td>Consolidated</td>
-        <td>{{ workingContract.Consolidated | yesNo }}</td>
-      </tr>
-      <tr>
-        <td>Current Only</td>
-        <td>{{ workingContract.CurrentOnly | yesNo }}</td>
-      </tr>
-      <tr>
-        <td>Electronic Invoice</td>
-        <td>{{ workingContract.ElectronicInvoice | yesNo }}</td>
+        <td>{{ orignalContract.RenewalTerm }}</td>        
+        <td [ngClass]="{'modified': orignalContract.RenewalTerm !== workingContract.RenewalTerm}">{{ workingContract.RenewalTerm }}</td>
       </tr>
     </table>
   </mat-dialog-content>
   <hr />
   <mat-dialog-actions *ngIf="!hideActions">
-    <button class="button btn btn-sm btn-success" (click)="accept()"><span class="fas fa-check-circle"></span><span>&nbsp;ACCEPT</span></button>
-    <button class="button btn btn-sm btn-danger" (click)="cancel()"><span class=" fas fa-times-circle"></span><span>&nbsp;CANCEL</span></button>
+    <button class="button btn btn-sm btn-success" (click)="accept()"><span class="fas fa-check-circle"></span><span>&nbsp;PROCESS DATA TRANSFER</span></button>
+    <button class="button btn btn-sm btn-danger" (click)="cancel()"><span class=" fas fa-times-circle"></span><span>&nbsp;CANCEL DATA TRANSFER</span></button>
   </mat-dialog-actions>
 </div>

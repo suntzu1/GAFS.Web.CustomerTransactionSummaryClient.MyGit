@@ -132,6 +132,16 @@ export class AssetComponent implements OnInit {
     //   this.workingcontractAsset.push(o.asset);
     // }
   }
+
+  clickAssetSelectAll(ca, e) {
+    debugger;
+    let chk = e.srcElement.checked;
+    if (chk) {
+
+    } else {
+      
+    }
+  }
 }
 
 /*

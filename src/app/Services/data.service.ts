@@ -8,16 +8,23 @@ import { Asset } from '../Models/asset';
 })
 export class DataService {
 
+  private selectedOriginalContract: Contract;
   private selectedContract: Contract;
   private selectedAssets: Asset[];
 
+  private oContractSource = new BehaviorSubject(this.selectedOriginalContract);
   private contractSource = new BehaviorSubject(this.selectedContract);
   private assetsSource = new BehaviorSubject(this.selectedAssets);
 
+  originalContract = this.oContractSource.asObservable();
   currentContract = this.contractSource.asObservable();
   currentAssets = this.assetsSource.asObservable();
 
   constructor() { }
+
+  changeOriginalContractTriggered(contract: Contract) {
+    this.oContractSource.next(contract);
+  }
 
   changeContractTriggered(contract: Contract) {
     this.contractSource.next(contract);
