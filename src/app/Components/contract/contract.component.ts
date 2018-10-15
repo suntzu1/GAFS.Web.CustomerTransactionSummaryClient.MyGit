@@ -3,7 +3,7 @@ import { Address } from '../../Models/address';
 import {
   MatDialog, MatDialogConfig
 } from '@angular/material';
-import { ContractService } from '../../Services/contract.service';
+// import { ContractService } from '../../Services/contract.service';
 import { DataService } from '../../Services/data.service';
 import { BehaviorSubject } from 'rxjs';
 import { ContractViewerComponent } from '../contract-viewer/contract-viewer.component';
@@ -41,7 +41,7 @@ export class ContractComponent implements OnInit {
   private serviceObject = new BehaviorSubject(this.modifiedContract);
 
   constructor(
-    private api: ContractService,
+    // private api: ContractService,
     private datasvc: DataService,
     public dialog: MatDialog,
     private cmnfn: CommonfunctionsModule) { }
@@ -59,7 +59,6 @@ export class ContractComponent implements OnInit {
   }
 
   applyResult() {
-    debugger;
     const res: Contract[] = this.datasvc.respcontracts;
     console.log(res);
     this.workingContract = res.splice(0, 1)[0];
@@ -105,6 +104,15 @@ export class ContractComponent implements OnInit {
     oprops.map(oprop => {
       this.modifiedContract[oprop] = c[oprop];
     });
+  }
+  propertyChangedBillingAddress(contract) {
+    this.modifiedContract.billToName = contract.billToName;
+    this.modifiedContract.billToAddress1 = contract.billToAddress1;
+    this.modifiedContract.billToAddress2 = contract.billToAddress2;
+    this.modifiedContract.billToCity = contract.billToCity;
+    this.modifiedContract.billToState = contract.billToState;
+    this.modifiedContract.billToZip = contract.billToZip;
+    this.modifiedContract.billToAttnName = contract.billToAttnName;
   }
   sendContractData() {
     this.datasvc.changeContractTriggered(this.modifiedContract);

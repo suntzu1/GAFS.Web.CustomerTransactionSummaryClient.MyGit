@@ -6,7 +6,8 @@ import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.mod
 import { CtsApiService } from 'src/app/Services/cts-api.service';
 import { DataService } from 'src/app/Services/data.service';
 import { ContractComponent } from '../contract/contract.component';
-
+import { Contract } from 'src/app/Models/cts-api.contract';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'cts-results',
   templateUrl: './results.component.html',
@@ -32,13 +33,12 @@ export class ResultsComponent implements OnInit {
       if (!func || !id || func === '' || id === '') {
         return;
       }
-      debugger;
       switch (func) {
         case 'application':
           this.ctsapi.GetByApplicationId(id).subscribe(
             (resp) => {
-              debugger;
               console.log(resp);
+              this.AddBillingAddress(resp.message.contractInfo.contracts);
               this.data.respcontracts = resp.message.contractInfo.contracts;
               this.compcontract.applyResult();
             }
@@ -47,8 +47,8 @@ export class ResultsComponent implements OnInit {
         case 'ccan':
           this.ctsapi.GetByCustomerId(id, this.data.dealerlist, this.data.incldc).subscribe(
             (resp) => {
-              debugger;
               console.log(resp);
+              this.AddBillingAddress(resp.message.contractInfo.contracts);
               this.data.respcontracts = resp.message.contractInfo.contracts;
               this.compcontract.applyResult();
             }
@@ -56,6 +56,21 @@ export class ResultsComponent implements OnInit {
           break;
       }
     });
+  }
+
+  AddBillingAddress(contracts: Contract[]) {
+    contracts.map(
+      (contract) => {
+        contract['BillingAddress'] = 
+        (contract.billToName && contract.billToName != '' ? contract.billToName + '<br/>' : '') +
+        (contract.billToAddress1 && contract.billToAddress1 != '' ? contract.billToAddress1 : '') +
+        (contract.billToAddress2 && contract.billToAddress2 != '' ? ' ' + contract.billToAddress2 : '') + '<br/>' +
+        (contract.billToCity && contract.billToCity != '' ? contract.billToCity + ', ' : '') +
+        (contract.billToState && contract.billToState != '' ? contract.billToState + ', ' : '') +
+        (contract.billToZip && contract.billToZip != '' ? contract.billToZip : '') +
+        (contract.billToAttnName && contract.billToAttnName != '' ? '<br/>' + contract.billToAttnName : '');
+      }
+    );
   }
   gobacktosearch() {
     this.router.navigateByUrl('/search');

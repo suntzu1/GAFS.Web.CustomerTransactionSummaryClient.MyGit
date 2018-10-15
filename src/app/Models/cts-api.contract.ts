@@ -356,5 +356,5 @@ export interface Contract extends ContractBase {
     yearsInBusiness: number;
     yearToDateInterest: number;
     yearToDateInterestReceived: number;
-    yield: number;
+    yield: number;    
 }

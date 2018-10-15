@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Asset } from 'src/app/Models/asset';
+// import { Asset } from 'src/app/Models/asset';
 import { Address } from 'src/app/Models/address';
+import { Asset } from 'src/app/Models/cts-api.asset';
 
 @Component({
   selector: 'cts-asset-card',

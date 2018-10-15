@@ -25,7 +25,7 @@ import { AssetCardComponent } from './Components/asset/asset-card/asset-card.com
 import { PaymentCardComponent } from './Components/payment/payment-card/payment-card.component';
 import { DataTransferConfirmationComponent } from './Components/data-transfer-confirmation/data-transfer-confirmation.component';
 import { AssetService } from './Services/asset.service';
-import { ContractService } from './Services/contract.service';
+// import { ContractService } from './Services/contract.service';
 import { PaymentService } from './Services/payment.service';
 import { UsageService } from './Services/usage.service';
 import { CtsApiService } from './Services/cts-api.service';
@@ -36,9 +36,9 @@ import { CommonfunctionsModule } from 'src/app/commonfunctions/commonfunctions.m
 import { AssetViewerComponent } from './Components/asset-viewer/asset-viewer.component';
 import { ContractAssetViewerComponent } from './Components/contract-asset-viewer/contract-asset-viewer.component';
 import { TaxPopupComponent } from './Components/tax-popup/tax-popup.component';
-
+// ContractService
 const appservices = [
-  AssetService, ContractService, PaymentService, UsageService, CtsApiService
+  AssetService, , PaymentService, UsageService, CtsApiService
 ];
 
 const matmodules = [

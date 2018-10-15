@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ContractAssets } from 'src/app/Models/contract';
-import { Asset } from '../Models/asset';
+// import { ContractAssets } from 'src/app/Models/contract';
+// import { Asset } from '../Models/asset';
 import { Contract } from '../Models/cts-api.contract';
+import { Asset } from '../Models/cts-api.asset';
 
 @Injectable({
   providedIn: 'root'

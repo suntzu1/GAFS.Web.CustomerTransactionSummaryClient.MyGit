@@ -1,5 +1,7 @@
-import { Address } from './address';
-import { Asset } from './asset';
+import { Asset } from "./cts-api.asset";
+
+// import { Address } from './address';
+// import { Asset } from './asset';
 
 // export interface Contract {
 //     ApplicationNumber: string;

@@ -117,13 +117,13 @@ ElectronicInvoice
     </tr>
     <tr>
       <td>Billing Address</td>
-      <td><div [innerHTML]="ToAddressString(workingContract.BillingAddress)"></div>
+      <td><div [innerHTML]="workingContract.BillingAddress"></div>
         <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" 
-        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'BillingAddress')">
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChangedBillingAddress(workingContract)">
       </td>
-      <td *ngFor="let c of resultContracts"><div [innerHTML]="ToAddressString(c.BillingAddress)"></div>
+      <td *ngFor="let c of resultContracts"><div [innerHTML]="c.BillingAddress"></div>
         <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" 
-        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'BillingAddress')">
+        [checked]="checkIfSelected(c)" (change)="propertyChangedBillingAddress(c)">
         <!--  (ngModelChange)="propertyChanged(c,'BillingAddress')" -->
       </td>
     </tr>

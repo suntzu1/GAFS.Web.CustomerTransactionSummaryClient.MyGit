@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Asset } from '../../Models/asset';
+// import { Asset } from '../../Models/asset';
 import { Address } from '../../Models/address';
 import { ContractAssets } from '../../Models/contract';
 import { AssetService } from '../../Services/asset.service';
@@ -9,6 +9,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AssetViewerComponent } from '../asset-viewer/asset-viewer.component';
 import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
 import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
+import { Asset } from 'src/app/Models/cts-api.asset';
 
 @Component({
   selector: 'cts-asset',
@@ -16,20 +17,7 @@ import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.mod
   styleUrls: ['./asset.component.css', '../datagridstyle.css']
 })
 export class AssetComponent implements OnInit {
-  workingAsset: Asset = {
-    ContractNumber: null,
-    AssetID: null,
-    Manufacturer: '',
-    Model: '',
-    SerialNumber: '',
-    VendorMachineID: '',
-    AssetAddress: null,
-    PPTX: '',
-    SalesTax: null,
-    FinancedAmt: 0,
-    AgreementOveragesBilledOn: '',
-    ContractActive: null
-  };
+  workingAsset: Asset;
   resultAssets: Asset[];
   showCheckBoxes: boolean;
   selectAllContract: any;
@@ -45,34 +33,28 @@ export class AssetComponent implements OnInit {
     private cmnfn: CommonfunctionsModule) { }
 
   ngOnInit() {
-    // this.workingAsset = w_Asset;
-    // this.resultAssets.push(r_Asset1);
-    // this.resultAssets.push(r_Asset2);
-    // this.resultAssets.push(r_Asset3);
-    // this.resultAssets.push(r_Asset4);
-    // this.resultAssets.push(r_Asset5);
     this.resultAssets = [];
     this.showCheckBoxes = true;
 
-    this.selectAllContract = this.workingAsset;
-    this.api.GetAllAssets('', '').subscribe(
-      (response: any) => {
-        this.resultAssets = response;
-        for (let i = 0; i < 5; ++i) {
-          const a = this.resultAssets[i];
-          const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
-          if (c) {
-            c.Assets.push(a);
-          } else {
-            const ca: ContractAssets = {
-              ContractNumber: a.ContractNumber,
-              Assets: [a]
-            };
-            this.allcontractsAssets.push(ca);
-          }
-        }
-      }
-    );
+    // this.selectAllContract = this.workingAsset;
+    // this.api.GetAllAssets('', '').subscribe(
+    //   (response: any) => {
+    //     this.resultAssets = response;
+    //     for (let i = 0; i < 5; ++i) {
+    //       const a = this.resultAssets[i];
+    //       const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
+    //       if (c) {
+    //         c.Assets.push(a);
+    //       } else {
+    //         const ca: ContractAssets = {
+    //           ContractNumber: a.ContractNumber,
+    //           Assets: [a]
+    //         };
+    //         this.allcontractsAssets.push(ca);
+    //       }
+    //     }
+    //   }
+    // );
   }
 
   addSelectedContractAsset(ca: ContractAssets) {
