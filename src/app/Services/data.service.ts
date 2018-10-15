@@ -19,6 +19,9 @@ export class DataService {
   originalContract = this.oContractSource.asObservable();
   currentContract = this.contractSource.asObservable();
   currentAssets = this.assetsSource.asObservable();
+  dealerlist: string[];
+  incldc: boolean;
+  respcontracts: CtsApi.Contract[];
 
   constructor() { }
 

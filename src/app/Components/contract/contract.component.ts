@@ -14,6 +14,7 @@ import { ContractViewerComponent } from '../contract-viewer/contract-viewer.comp
 import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
 import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
 import { ContractAssetViewerComponent } from '../contract-asset-viewer/contract-asset-viewer.component';
+import { CtsApiService } from 'src/app/Services/cts-api.service';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class ContractComponent implements OnInit {
 
   ngOnInit() {
     this.showCheckBoxes = true;
+
     this.api.GetAllContracts('', '').subscribe((response: any) => {
       const res: Contract[] = response;
       this.workingContract = res.splice(0, 1)[0];

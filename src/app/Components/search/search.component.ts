@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../app.component';
-import { AlertTypes } from '../CustomAlert/customalert.component';
-// import {} from '../../../app/Components/results/results.component'
+import { DataService } from 'src/app/Services/data.service';
 
 @Component({
   selector: 'cts-search',
@@ -11,7 +10,10 @@ import { AlertTypes } from '../CustomAlert/customalert.component';
 })
 export class SearchComponent implements OnInit {
   tab = 0;
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private data: DataService
+  ) { }
 
   showDealerList = false;
 
@@ -45,21 +47,31 @@ export class SearchComponent implements OnInit {
       allowSearchFilter: true
     };
   }
-  onItemSelect (item: any) {
+  onItemSelect(item: any) {
     console.log(item);
   }
-  onSelectAll (items: any) {
+  onSelectAll(items: any) {
     console.log(items);
   }
   clearsearch() {
     this.searchparams.appid = '';
     this.searchparams.ccan = '';
-    this.searchparams.incldc = 'no';
+    this.searchparams.incldc = false;
     this.searchparams.dealers = [];
     this.showDealerList = false;
   }
   onappidsearchclick() {
-    this.router.navigateByUrl('/results');
+    this.router.navigateByUrl('/results/application/' + this.searchparams.appid);
   }
-
+  onccanalldealersclick() {
+    this.searchparams.dealers = [];
+    this.data.dealerlist = this.searchparams.dealers;
+    this.data.incldc = this.searchparams.incldc;
+    this.router.navigateByUrl('/results/ccan/' + this.searchparams.ccan);
+  }
+  onccanselecteddealersclick() {
+    this.data.dealerlist = this.searchparams.dealers;
+    this.data.incldc = this.searchparams.incldc;
+    this.router.navigateByUrl('/results/ccan/' + this.searchparams.ccan);
+  }
 }

@@ -14,12 +14,12 @@
     <div class="col-md-3"><input type="text" [(ngModel)]="searchparams.ccan"></div>
     <div class="col-md-3">Incl. Disposed Contracts?:&nbsp;
       <select name="" id="" [(ngModel)]="searchparams.incldc">
-        <option value="no" selected="selected">No</option>
-        <option value="yes">Yes</option>
+        <option value="false" selected="selected">No</option>
+        <option value="true">Yes</option>
       </select>
     </div>
     <div class="col-md-4">
-      <button class="btn btn-primary btn-sm">SEARCH ALL DEALERS</button>
+      <button class="btn btn-primary btn-sm" (click)="onccanalldealersclick()">SEARCH ALL DEALERS</button>
       <button class="btn btn-secondary btn-sm" (click)="showDealerList = !showDealerList">
         {{ showDealerList ? "HIDE" : "DISPLAY" }} LIST OF DEALERS
       </button>
@@ -29,17 +29,11 @@
     <div class="col-md-2">Dealer(s)</div>
     <div class="col-md-3">
       <!-- <select name="ddlDealers" id="ddlDealers" class="select sel-min-w" ></select> -->
-      <ng-multiselect-dropdown
-  [placeholder]="'not selected'"
-  [data]="dealerlist"
-  [(ngModel)]="searchparams.dealers"
-  [settings]="dropdownSettings"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
->
-</ng-multiselect-dropdown>
+      <ng-multiselect-dropdown [placeholder]="'not selected'" [data]="dealerlist" [(ngModel)]="searchparams.dealers"
+        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+      </ng-multiselect-dropdown>
     </div>
-    <div class="col-md-3"><button class="btn btn-primary btn-sm">SEARCH</button></div>
+    <div class="col-md-3"><button class="btn btn-primary btn-sm" (click)="onccanselecteddealersclick()">SEARCH SELECTED DEALERS</button></div>
   </div>
   <div class="row">
     <div class="col-md-12">

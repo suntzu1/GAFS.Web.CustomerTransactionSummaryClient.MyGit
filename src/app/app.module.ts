@@ -35,6 +35,7 @@ import { ContractViewerComponent } from './Components/contract-viewer/contract-v
 import { CommonfunctionsModule } from 'src/app/commonfunctions/commonfunctions.module';
 import { AssetViewerComponent } from './Components/asset-viewer/asset-viewer.component';
 import { ContractAssetViewerComponent } from './Components/contract-asset-viewer/contract-asset-viewer.component';
+import { TaxPopupComponent } from './Components/tax-popup/tax-popup.component';
 
 const appservices = [
   AssetService, ContractService, PaymentService, UsageService, CtsApiService
@@ -61,7 +62,8 @@ const matmodules = [
     DataTransferConfirmationComponent,
     ContractViewerComponent,
     AssetViewerComponent,
-    ContractAssetViewerComponent
+    ContractAssetViewerComponent,
+    TaxPopupComponent
   ],
   imports: [
     HttpClientModule,
