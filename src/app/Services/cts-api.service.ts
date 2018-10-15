@@ -4,6 +4,7 @@ import * as CONSTANTS from '../app.constants';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, catchError, retry } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { ApiResponse, ApplicationUpdate } from '../Models/cts-api';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class CtsApiService {
 
   constructor(private http: HttpClient) { }
 
-  GetByCustomerId(customerid: string, dealerids: any[], incldisposed: boolean): Observable<CtsApi.ApiResponse> {
+  GetByCustomerId(customerid: string, dealerids: any[], incldisposed: boolean): Observable<ApiResponse> {
     const ds = dealerids != null && dealerids.length > 0 ? dealerids.map(i => i.item_id.toString()) : [];
     return this.http.get(CONSTANTS.CTS_API_GET_BY_CUSTOMER + customerid, {
       headers: new HttpHeaders({
@@ -40,39 +41,39 @@ export class CtsApiService {
       })
     })
       .pipe(
-        map(resp => resp as CtsApi.ApiResponse)
+        map(resp => resp as ApiResponse)
         , catchError(this.handleError)
       );
   }
 
-  GetByContractId(contractid: string): Observable<CtsApi.ApiResponse> {
+  GetByContractId(contractid: string): Observable<ApiResponse> {
     return this.http.get(CONSTANTS.CTS_API_GET_BY_CONTRACT + contractid, this.httpOptions)
       .pipe(
-        map(resp => resp as CtsApi.ApiResponse)
+        map(resp => resp as ApiResponse)
         , catchError(this.handleError)
       );
   }
 
-  GetByApplicationId(applicationId: string): Observable<CtsApi.ApiResponse> {
+  GetByApplicationId(applicationId: string): Observable<ApiResponse> {
     return this.http.get(CONSTANTS.CTS_API_GET_BY_APPLICATION + applicationId, this.httpOptions)
       .pipe(
-        map(resp => resp as CtsApi.ApiResponse)
+        map(resp => resp as ApiResponse)
         , catchError(this.handleError)
       );
   }
 
-  GetByAssetId(assetid: string): Observable<CtsApi.ApiResponse> {
+  GetByAssetId(assetid: string): Observable<ApiResponse> {
     return this.http.get(CONSTANTS.CTS_API_GET_BY_ASSET + assetid, this.httpOptions)
       .pipe(
-        map(resp => resp as CtsApi.ApiResponse)
+        map(resp => resp as ApiResponse)
         , catchError(this.handleError)
       );
   }
 
-  PutUpdateApplication(updateapplication: CtsApi.ApplicationUpdate): Observable<CtsApi.ApiResponse> {
+  PutUpdateApplication(updateapplication: ApplicationUpdate): Observable<ApiResponse> {
     return this.http.put(CONSTANTS.CTS_API_PUT_APPLICATION, updateapplication, this.httpOptions)
       .pipe(
-        map(resp => resp as CtsApi.ApiResponse)
+        map(resp => resp as ApiResponse)
         , catchError(this.handleError)
       );
   }

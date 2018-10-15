@@ -8,10 +8,10 @@
     </ul>
     <div [ngSwitch]="tab" class="tabcontainer">
         <div *ngSwitchCase="0">
-            <cts-contract></cts-contract>
+            <cts-contract #compcontract></cts-contract>
         </div>
         <div *ngSwitchCase="1">
-            <cts-asset></cts-asset>
+            <cts-asset #compasset></cts-asset>
         </div>
         <div *ngSwitchCase="2">
             <cts-payment></cts-payment>

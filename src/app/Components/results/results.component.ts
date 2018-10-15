@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '../../../../node_modules/@angular/router';
 import { AlertTypes, IconTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
 import { MatDialog } from '@angular/material';
 import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
 import { CtsApiService } from 'src/app/Services/cts-api.service';
 import { DataService } from 'src/app/Services/data.service';
+import { ContractComponent } from '../contract/contract.component';
 
 @Component({
   selector: 'cts-results',
@@ -12,6 +13,8 @@ import { DataService } from 'src/app/Services/data.service';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
+  @ViewChild(ContractComponent)
+  private compcontract: ContractComponent;
   tab = 0;
   constructor(
     private router: Router,
@@ -37,6 +40,7 @@ export class ResultsComponent implements OnInit {
               debugger;
               console.log(resp);
               this.data.respcontracts = resp.message.contractInfo.contracts;
+              this.compcontract.applyResult();
             }
           );
           break;
@@ -46,6 +50,7 @@ export class ResultsComponent implements OnInit {
               debugger;
               console.log(resp);
               this.data.respcontracts = resp.message.contractInfo.contracts;
+              this.compcontract.applyResult();
             }
           );
           break;

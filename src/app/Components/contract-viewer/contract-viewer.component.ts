@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { DataService } from '../../Services/data.service';
 
-import { Contract } from 'src/app/Models/contract';
+import { Contract } from 'src/app/Models/cts-api.contract';
 import { MatDialogContent, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Address } from 'src/app/Models/address';
 

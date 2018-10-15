@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Contract } from '../../Models/contract';
 import { Address } from '../../Models/address';
 import {
-  MatDialog,
-  MatTableModule, MatPaginatorModule, MatInputModule, MatProgressSpinnerModule, MatSortModule, MatDialogConfig
+  MatDialog, MatDialogConfig
 } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import * as CONSTANTS from '../../app.constants';
 import { ContractService } from '../../Services/contract.service';
 import { DataService } from '../../Services/data.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ContractViewerComponent } from '../contract-viewer/contract-viewer.component';
-import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
+import { IconTypes, AlertTypes } from '../CustomAlert/customalert.component';
 import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
 import { ContractAssetViewerComponent } from '../contract-asset-viewer/contract-asset-viewer.component';
-import { CtsApiService } from 'src/app/Services/cts-api.service';
+import { Contract } from 'src/app/Models/cts-api.contract';
 
 
 @Component({
@@ -23,7 +19,6 @@ import { CtsApiService } from 'src/app/Services/cts-api.service';
   styleUrls: ['./contract.component.css', '../datagridstyle.css']
 })
 export class ContractComponent implements OnInit {
-
   workingContract: any = {};
   modifiedContract: Contract;
   resultContracts: Contract[] = [];
@@ -54,13 +49,23 @@ export class ContractComponent implements OnInit {
   ngOnInit() {
     this.showCheckBoxes = true;
 
-    this.api.GetAllContracts('', '').subscribe((response: any) => {
-      const res: Contract[] = response;
-      this.workingContract = res.splice(0, 1)[0];
-      this.datasvc.changeOriginalContractTriggered(this.workingContract);
-      this.resultContracts = res;
-      this.clearAllSelections();
-    });
+    // this.api.GetAllContracts('', '').subscribe((response: any) => {
+    //   const res: Contract[] = response;
+    //   this.workingContract = res.splice(0, 1)[0];
+    //   this.datasvc.changeOriginalContractTriggered(this.workingContract);
+    //   this.resultContracts = res;
+    //   this.clearAllSelections();
+    // });
+  }
+
+  applyResult() {
+    debugger;
+    const res: Contract[] = this.datasvc.respcontracts;
+    console.log(res);
+    this.workingContract = res.splice(0, 1)[0];
+    this.datasvc.changeOriginalContractTriggered(this.workingContract);
+    this.resultContracts = res;
+    this.clearAllSelections();
   }
 
   ToAddressString(address: Address): string {
@@ -96,6 +101,11 @@ export class ContractComponent implements OnInit {
     this.modifiedContract[oprop] = c[oprop];
   }
 
+  propertyChangedMul(c, oprops: string[]) {
+    oprops.map(oprop => {
+      this.modifiedContract[oprop] = c[oprop];
+    });
+  }
   sendContractData() {
     this.datasvc.changeContractTriggered(this.modifiedContract);
     const diaCnfg: MatDialogConfig = {

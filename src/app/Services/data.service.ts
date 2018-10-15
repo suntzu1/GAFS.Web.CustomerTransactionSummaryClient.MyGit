@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Contract, ContractAssets } from 'src/app/Models/contract';
+import { ContractAssets } from 'src/app/Models/contract';
 import { Asset } from '../Models/asset';
+import { Contract } from '../Models/cts-api.contract';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class DataService {
   currentAssets = this.assetsSource.asObservable();
   dealerlist: string[];
   incldc: boolean;
-  respcontracts: CtsApi.Contract[];
+  respcontracts: Contract[];
 
   constructor() { }
 

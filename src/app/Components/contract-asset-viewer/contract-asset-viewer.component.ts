@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from '../../Services/data.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AssetViewerComponent } from '../asset-viewer/asset-viewer.component';
-import { Contract } from 'src/app/Models/contract';
+import { Contract } from 'src/app/Models/cts-api.contract';
 
 @Component({
   selector: 'cts-contract-asset-viewer',
