@@ -9,132 +9,132 @@
       </tr>
       <tr>
         <td>Application Number</td>
-        <td>{{ orignalContract.ApplicationNumber }}</td>
-        <td [ngClass]="{'modified': orignalContract.ApplicationNumber !== workingContract.ApplicationNumber}">{{ workingContract.ApplicationNumber }}</td>
+        <td>{{ orignalContract.applicationId }}</td>
+        <td [ngClass]="{'modified': orignalContract.applicationId !== workingContract.applicationId}">{{ workingContract.applicationId }}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td>Master Agreement Number</td>
         <td>{{ orignalContract.MasterAgreementNumber }}</td>
         <td [ngClass]="{'modified': orignalContract.MasterAgreementNumber !== workingContract.MasterAgreementNumber}">{{ workingContract.MasterAgreementNumber }}</td>
-      </tr>
+      </tr> -->
       <tr>
         <td>Private Label</td>
-        <td>{{ orignalContract.PrivateLabel | yesNo }}</td>
-        <td [ngClass]="{'modified': orignalContract.PrivateLabel !== workingContract.PrivateLabel}">{{ workingContract.PrivateLabel | yesNo }}</td>
+        <td>{{ orignalContract.privateLabel | yesNo }}</td>
+        <td [ngClass]="{'modified': orignalContract.privateLabel !== workingContract.privateLabel}">{{ workingContract.privateLabel | yesNo }}</td>
       </tr>
       <tr>
         <td>Program Type</td>
-        <td>{{ orignalContract.ProgramType }}</td>
-        <td [ngClass]="{'modified': orignalContract.ProgramType !== workingContract.ProgramType}">{{ workingContract.ProgramType }}</td>
+        <td>{{ orignalContract.programTypeDesc }}</td>
+        <td [ngClass]="{'modified': orignalContract.programTypeDesc !== workingContract.programTypeDesc}">{{ workingContract.programTypeDesc }}</td>
       </tr>
       <tr>
         <td>Relationship Code</td>
-        <td>{{ orignalContract.RelationshipCode }}</td>
-        <td [ngClass]="{'modified': orignalContract.RelationshipCode !== workingContract.RelationshipCode}">{{ workingContract.RelationshipCode }}</td>
+        <td>{{ orignalContract.relationshipDesc }}</td>
+        <td [ngClass]="{'modified': orignalContract.relationshipDesc !== workingContract.relationshipDesc}">{{ workingContract.relationshipDesc }}</td>
       </tr>
       <tr>
         <td>Lessee Name</td>
-        <td>{{ orignalContract.LesseeName }}</td>
-        <td [ngClass]="{'modified': orignalContract.LesseeName !== workingContract.LesseeName}">{{ workingContract.LesseeName }}</td>
+        <td>{{ orignalContract.lesseeName }}</td>
+        <td [ngClass]="{'modified': orignalContract.lesseeName !== workingContract.lesseeName}">{{ workingContract.lesseeName }}</td>
       </tr>
       <tr>
         <td>Billing Address</td>
         <td>
-          <div [innerHTML]="ToAddressString(orignalContract.BillingAddress)"></div>
+          <div [innerHTML]="ToAddressString(orignalContract)"></div>
         </td>
-        <td [ngClass]="{'modified': orignalContract.BillingAddress !== workingContract.BillingAddress}">
-          <div [innerHTML]="ToAddressString(workingContract.BillingAddress)"></div>
+        <td [ngClass]="{'modified': compareAddress(orignalContract, workingContract)}">
+          <div [innerHTML]="ToAddressString(workingContract)"></div>
         </td>
       </tr>
       <tr>
         <td>Phone</td>
-        <td>{{ orignalContract.Phone }}</td>
-        <td [ngClass]="{'modified': orignalContract.Phone !== workingContract.Phone}">{{ workingContract.Phone }}</td>
+        <td>{{ orignalContract.lesseePhone }}</td>
+        <td [ngClass]="{'modified': orignalContract.lesseePhone !== workingContract.lesseePhone}">{{ workingContract.lesseePhone }}</td>
       </tr>
       <tr>
         <td>Fax</td>
-        <td>{{ orignalContract.Fax }}</td>
-        <td [ngClass]="{'modified': orignalContract.Fax !== workingContract.Fax}">{{ workingContract.Fax }}</td>
+        <td>{{ orignalContract.lesseeFax }}</td>
+        <td [ngClass]="{'modified': orignalContract.lesseeFax !== workingContract.lesseeFax}">{{ workingContract.lesseeFax }}</td>
       </tr>
       <tr>
         <td>Email</td>
-        <td>{{ orignalContract.Email }}</td>
-        <td [ngClass]="{'modified': orignalContract.Email !== workingContract.Email}">{{ workingContract.Email }}</td>
+        <td>{{ orignalContract.lesseeEmail }}</td>
+        <td [ngClass]="{'modified': orignalContract.lesseeEmail !== workingContract.lesseeEmail}">{{ workingContract.lesseeEmail }}</td>
       </tr>
       <tr>
         <td>Signer</td>
-        <td>{{ orignalContract.Signer }}</td>
-        <td [ngClass]="{'modified': orignalContract.Signer !== workingContract.Signer}">{{ workingContract.Signer }}</td>
+        <td>{{ orignalContract.requiredSigner }}</td>
+        <td [ngClass]="{'modified': orignalContract.requiredSigner !== workingContract.requiredSigner}">{{ workingContract.requiredSigner }}</td>
       </tr>
       <tr>
         <td>Document Profile</td>
-        <td>{{ orignalContract.DocumentProfile }}</td>
-        <td [ngClass]="{'modified': orignalContract.DocumentProfile !== workingContract.DocumentProfile}">{{ workingContract.DocumentProfile }}</td>
+        <td>{{ orignalContract.documentProfileName }}</td>
+        <td [ngClass]="{'modified': orignalContract.documentProfileName !== workingContract.documentProfileName}">{{ workingContract.documentProfileName }}</td>
       </tr>
       <tr>
         <td>Invoice Description</td>
-        <td>{{ orignalContract.InvoiceDescription }}</td>
-        <td [ngClass]="{'modified': orignalContract.InvoiceDescription !== workingContract.InvoiceDescription}">{{ workingContract.InvoiceDescription }}</td>
+        <td>{{ orignalContract.invoiceDescription }}</td>
+        <td [ngClass]="{'modified': orignalContract.invoiceDescription !== workingContract.invoiceDescription}">{{ workingContract.invoiceDescription }}</td>
       </tr>
       <tr>
         <td>Collateral Code</td>
-        <td>{{ orignalContract.CollateralCode }}</td>
-        <td [ngClass]="{'modified': orignalContract.CollateralCode !== workingContract.CollateralCode}">{{ workingContract.CollateralCode }}</td>
+        <td>{{ orignalContract.collateralCodeDesc }}</td>
+        <td [ngClass]="{'modified': orignalContract.collateralCodeDesc !== workingContract.collateralCodeDesc}">{{ workingContract.collateralCodeDesc }}</td>
       </tr>
       <tr>
         <td>Indirect Billing</td>
-        <td>{{ orignalContract.IndirectBilling }}</td>
-        <td [ngClass]="{'modified': orignalContract.IndirectBilling !== workingContract.IndirectBilling}">{{ workingContract.IndirectBilling }}</td>
+        <td>{{ orignalContract.indirectBillingDesc }}</td>
+        <td [ngClass]="{'modified': orignalContract.indirectBillingDesc !== workingContract.indirectBillingDesc}">{{ workingContract.indirectBillingDesc }}</td>
       </tr>
       <tr>
         <td>Invoice Code</td>
-        <td>{{ orignalContract.InvoiceCode }}</td>
-        <td [ngClass]="{'modified': orignalContract.InvoiceCode !== workingContract.InvoiceCode}">{{ workingContract.InvoiceCode }}</td>
+        <td>{{ orignalContract.invoiceCodeDesc }}</td>
+        <td [ngClass]="{'modified': orignalContract.invoiceCodeDesc !== workingContract.invoiceCodeDesc}">{{ workingContract.invoiceCodeDesc }}</td>
       </tr>
       <tr>
         <td>Late Charge Exempt</td>
-        <td>{{ orignalContract.LateChargeExempt | yesNo }}</td>
-        <td [ngClass]="{'modified': orignalContract.LateChargeExempt !== workingContract.LateChargeExempt}">{{ workingContract.LateChargeExempt | yesNo }}</td>
+        <td>{{ orignalContract.lateChargeExempt | yesNo }}</td>
+        <td [ngClass]="{'modified': orignalContract.lateChargeExempt !== workingContract.lateChargeExempt}">{{ workingContract.lateChargeExempt | yesNo }}</td>
       </tr>
       <tr>
         <td>Late Charge % of Pmt</td>
-        <td>{{ orignalContract.LateChargePercofPmt }}</td>
-        <td [ngClass]="{'modified': orignalContract.LateChargePercofPmt !== workingContract.LateChargePercofPmt}">{{ workingContract.LateChargePercofPmt }}</td>
+        <td>{{ orignalContract.lateChargeRate }}</td>
+        <td [ngClass]="{'modified': orignalContract.lateChargeRate !== workingContract.lateChargeRate}">{{ workingContract.lateChargeRate }}</td>
       </tr>
       <tr>
         <td>Lead Days</td>
-        <td>{{ orignalContract.LeadDays }}</td>
-        <td [ngClass]="{'modified': orignalContract.LeadDays !== workingContract.LeadDays}">{{ workingContract.LeadDays }}</td>
+        <td>{{ orignalContract.leadDays }}</td>
+        <td [ngClass]="{'modified': orignalContract.leadDays !== workingContract.leadDays}">{{ workingContract.leadDays }}</td>
       </tr>
       <tr>
         <td>Grace Period</td>
-        <td>{{ orignalContract.GracePeriod }}</td>
-        <td [ngClass]="{'modified': orignalContract.GracePeriod !== workingContract.GracePeriod}">{{ workingContract.GracePeriod }}</td>
+        <td>{{ orignalContract.gracePeriod }}</td>
+        <td [ngClass]="{'modified': orignalContract.gracePeriod !== workingContract.gracePeriod}">{{ workingContract.gracePeriod }}</td>
       </tr>
       <tr>
         <td>Minimum Late Charge ($)</td>
-        <td>{{ orignalContract.MinimumLateCharge }}</td>
-        <td [ngClass]="{'modified': orignalContract.MinimumLateCharge !== workingContract.MinimumLateCharge}">{{ workingContract.MinimumLateCharge }}</td>
+        <td>{{ orignalContract.lateChargeMin }}</td>
+        <td [ngClass]="{'modified': orignalContract.lateChargeMin !== workingContract.lateChargeMin}">{{ workingContract.lateChargeMin }}</td>
       </tr>
       <tr>
         <td>Maximum Late Charge ($)</td>
-        <td>{{ orignalContract.MaximumLateCharge }}</td>
-        <td [ngClass]="{'modified': orignalContract.MaximumLateCharge !== workingContract.MaximumLateCharge}">{{ workingContract.MaximumLateCharge }}</td>
+        <td>{{ orignalContract.lateChargeMax }}</td>
+        <td [ngClass]="{'modified': orignalContract.lateChargeMax !== workingContract.lateChargeMax}">{{ workingContract.lateChargeMax }}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td>Vendor Contract ID</td>
         <td>{{ orignalContract.VendorContractID }}</td>
         <td [ngClass]="{'modified': orignalContract.VendorContractID !== workingContract.VendorContractID}">{{ workingContract.VendorContractID }}</td>
-      </tr>
+      </tr> -->
       <tr>
         <td>Vendor Customer ID</td>
-        <td>{{ orignalContract.VendorCustomerID }}</td>
-        <td [ngClass]="{'modified': orignalContract.VendorCustomerID !== workingContract.VendorCustomerID}">{{ workingContract.VendorCustomerID }}</td>
+        <td>{{ orignalContract.vendorCustomerNumber }}</td>
+        <td [ngClass]="{'modified': orignalContract.vendorCustomerNumber !== workingContract.vendorCustomerNumber}">{{ workingContract.vendorCustomerNumber }}</td>
       </tr>
       <tr>
         <td>Renewal Term</td>
-        <td>{{ orignalContract.RenewalTerm }}</td>        
-        <td [ngClass]="{'modified': orignalContract.RenewalTerm !== workingContract.RenewalTerm}">{{ workingContract.RenewalTerm }}</td>
+        <td>{{ orignalContract.renewalTermLength }}</td>        
+        <td [ngClass]="{'modified': orignalContract.renewalTermLength !== workingContract.renewalTermLength}">{{ workingContract.renewalTermLength }}</td>
       </tr>
     </table>
   </mat-dialog-content>

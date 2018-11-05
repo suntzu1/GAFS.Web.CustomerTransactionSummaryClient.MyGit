@@ -16,6 +16,8 @@ import { map } from 'rxjs/operators';
 export class ResultsComponent implements OnInit {
   @ViewChild(ContractComponent)
   private compcontract: ContractComponent;
+  @ViewChild(AssetComponent)
+  private assetComp: AssetComponent;
   tab = 0;
   constructor(
     private router: Router,
@@ -39,7 +41,7 @@ export class ResultsComponent implements OnInit {
             (resp) => {
               console.log(resp);
               this.AddBillingAddress(resp.message.contractInfo.contracts);
-              this.data.respcontracts = resp.message.contractInfo.contracts;
+              this.data.respcontracts = resp.message.applicationInfo.applications;
               this.compcontract.applyResult();
             }
           );
@@ -85,5 +87,21 @@ export class ResultsComponent implements OnInit {
         this.router.navigateByUrl('/search');
       }
     });
+  }
+
+  onTabClick(e) {
+    debugger;
+    switch (this.tab) {
+      case 0:
+      this.compcontract.applyResult();
+        break;
+      case 1:
+      this.assetComp.ngOnInit();
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+    }
   }
 }

@@ -15,11 +15,14 @@ export class CtsApiService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'system': 'vision',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'system': 'GFSC',
       'dealerids': '[]',
       'incldisposed': 'false',
-      'Authorization': 'some12345kind3456of567security543token3456will7890be432added-0982here35465to34323secure`123=-09the@#$%^api'
+      'Authorization': 'Basic c3ZjTXVsZXNvZnQ6bWFkTWF4MjIk',
+      'Access-Control-Allow-Origin': '*',
+'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+      // 'Authorization': 'some12345kind3456of567security543token3456will7890be432added-0982here35465to34323secure`123=-09the@#$%^api'
     })
   };
   headerItems = {
@@ -35,9 +38,10 @@ export class CtsApiService {
         'Accept': 'application/json',
         'Access-Control-Allow-Headers': 'Content-Type',
         'system': 'vision',
+        'Authorization': 'Basic c3ZjTXVsZXNvZnQ6bWFkTWF4MjIk',
         'dealerids': ds,
         'incldisposed': incldisposed == null ? 'false' : incldisposed.toString(),
-        'Authorization': 'some12345kind3456of567security543token3456will7890be432added-0982here35465to34323secure`123=-09the@#$%^api'
+        // 'Authorization': 'some12345kind3456of567security543token3456will7890be432added-0982here35465to34323secure`123=-09the@#$%^api'
       })
     })
       .pipe(

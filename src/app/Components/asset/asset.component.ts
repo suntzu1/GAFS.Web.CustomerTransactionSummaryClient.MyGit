@@ -17,7 +17,20 @@ import { Asset } from 'src/app/Models/cts-api.asset';
   styleUrls: ['./asset.component.css', '../datagridstyle.css']
 })
 export class AssetComponent implements OnInit {
-  workingAsset: Asset;
+  workingAsset: Asset = {
+    ContractNumber: null,
+    AssetID: null,
+    Manufacturer: '',
+    Model: '',
+    SerialNumber: '',
+    VendorMachineID: '',
+    AssetAddress: null,
+    PPTX: '',
+    SalesTax: null,
+    FinancedAmt: 0,
+    AgreementOveragesBilledOn: '',
+    ContractActive: null
+  };
   resultAssets: Asset[];
   showCheckBoxes: boolean;
   selectAllContract: any;
@@ -36,25 +49,29 @@ export class AssetComponent implements OnInit {
     this.resultAssets = [];
     this.showCheckBoxes = true;
 
-    // this.selectAllContract = this.workingAsset;
-    // this.api.GetAllAssets('', '').subscribe(
-    //   (response: any) => {
-    //     this.resultAssets = response;
-    //     for (let i = 0; i < 5; ++i) {
-    //       const a = this.resultAssets[i];
-    //       const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
-    //       if (c) {
-    //         c.Assets.push(a);
-    //       } else {
-    //         const ca: ContractAssets = {
-    //           ContractNumber: a.ContractNumber,
-    //           Assets: [a]
-    //         };
-    //         this.allcontractsAssets.push(ca);
-    //       }
-    //     }
-    //   }
-    // );
+    this.selectAllContract = this.workingAsset;
+    // this.applyResult();
+  }
+
+  applyResult() {
+    this.api.GetAllAssets('', '').subscribe(
+      (response: any) => {
+        this.resultAssets = response;
+        for (let i = 0; i < 5; ++i) {
+          const a = this.resultAssets[i];
+          const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
+          if (c) {
+            c.Assets.push(a);
+          } else {
+            const ca: ContractAssets = {
+              ContractNumber: a.ContractNumber,
+              Assets: [a]
+            };
+            this.allcontractsAssets.push(ca);
+          }
+        }
+      }
+    );
   }
 
   addSelectedContractAsset(ca: ContractAssets) {

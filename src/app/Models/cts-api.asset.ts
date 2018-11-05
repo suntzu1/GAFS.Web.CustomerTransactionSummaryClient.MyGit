@@ -1,4 +1,4 @@
-import { OtherCost, LocationRecord } from "./cts-api";
+import { OtherCost, LocationRecord } from './cts-api';
 
 export interface Asset {
     assetId: number;

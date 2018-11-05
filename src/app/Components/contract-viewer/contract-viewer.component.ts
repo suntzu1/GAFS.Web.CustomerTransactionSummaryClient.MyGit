@@ -24,14 +24,6 @@ export class ContractViewerComponent implements OnInit {
     this.description = data.title;
   }
 
-  ToAddressString(address: Address): string {
-    if (address == null) {
-      return '';
-    }
-    return `${address.StreetAddress} ${address.Address2}<br/>
-    ${ address.City}, ${address.State}, ${address.Zip}<br/>${address.Contact}`;
-  }
-
   ngOnInit() {
     this.datasvc.originalContract.subscribe(orignalContract => this.orignalContract = orignalContract);
     this.datasvc.currentContract.subscribe(workingContract => this.workingContract = workingContract);
@@ -41,5 +33,21 @@ export class ContractViewerComponent implements OnInit {
   }
   accept() {
     this.dialogRef.close('accept');
+  }
+
+  ToAddressString(c: Contract): string {
+    if (c == null) {
+      return '';
+    }
+    return `${c.lesseeAddress1} ${c.lesseeAddress2}<br/>
+    ${ c.lesseeCity}, ${c.lesseeState}, ${c.lesseeZip}<br/>${c.collectionContactName}`;
+  }
+  compareAddress(c1: Contract, c2: Contract) {
+    if (c1.lesseeAddress1 !== c2.lesseeAddress1) { return true; }
+    if (c1.lesseeAddress2 !== c2.lesseeAddress2) { return true; }
+    if (c1.lesseeCity !== c2.lesseeCity) { return true; }
+    if (c1.lesseeState !== c2.lesseeState) { return true; }
+    if (c1.lesseeZip !== c2.lesseeZip) { return true; }
+    if (c1.collectionContactName !== c2.collectionContactName) { return true; }
   }
 }

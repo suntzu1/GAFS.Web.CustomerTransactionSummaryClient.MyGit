@@ -41,13 +41,13 @@ ElectronicInvoice
     </tr>
     <tr>
       <td>Master Agreement Number</td>
-      <td>{{ workingContract.MasterAgreementNumber }}
+      <td>{{ workingContract.masterAgreementNumber }}
           <input type="radio" name="rdbConMasterAgreementNumber" class="checkbox" *ngIf="showCheckBoxes" 
-          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'MasterAgreementNumber')">
+          checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'masterAgreementNumber')">
       </td>
-      <td *ngFor="let c of resultContracts">{{ c.MasterAgreementNumber }}
+      <td *ngFor="let c of resultContracts">{{ c.masterAgreementNumber }}
         <input type="radio" name="rdbConMasterAgreementNumber" class="checkbox" *ngIf="showCheckBoxes" 
-        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'MasterAgreementNumber')">
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'masterAgreementNumber')">
       </td>
     </tr>
     <tr>
@@ -57,20 +57,20 @@ ElectronicInvoice
       <td *ngFor="let c of resultContracts">{{ c.contractId }}
       </td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td>Dealer Number</td>
       <td>{{ workingContract.DealerNumber }}
       </td>
       <td *ngFor="let c of resultContracts">{{ c.DealerNumber }}
       </td>
-    </tr>
-    <tr>
+    </tr> -->
+    <!-- <tr>
       <td>Invoicing As</td>
       <td>{{ workingContract.InvoicingAs }}
       </td>
       <td *ngFor="let c of resultContracts">{{ c.InvoicingAs }}
       </td>
-    </tr>
+    </tr> -->
     <tr>
       <td>Private Label</td>
       <td>{{ workingContract.privateLabel | yesNo }}
@@ -117,61 +117,61 @@ ElectronicInvoice
     </tr>
     <tr>
       <td>Billing Address</td>
-      <td><div [innerHTML]="workingContract.BillingAddress"></div>
+      <td><div [innerHTML]="ToAddressString(workingContract)"></div>
         <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" 
-        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChangedBillingAddress(workingContract)">
+        checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'BillingAddress')">
       </td>
-      <td *ngFor="let c of resultContracts"><div [innerHTML]="c.BillingAddress"></div>
+      <td *ngFor="let c of resultContracts"><div [innerHTML]="ToAddressString(c)"></div>
         <input type="radio" name="rdbConBillingAddress" class="checkbox" *ngIf="showCheckBoxes" 
-        [checked]="checkIfSelected(c)" (change)="propertyChangedBillingAddress(c)">
+        [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'BillingAddress')">
         <!--  (ngModelChange)="propertyChanged(c,'BillingAddress')" -->
       </td>
     </tr>
     <tr>
       <td>Phone</td>
-      <td>{{ workingContract.Phone }}
+      <td>{{ workingContract.lesseePhone }}
         <input type="radio" name="rdbConPhone" class="checkbox" *ngIf="showCheckBoxes" 
         checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'Phone')">
       </td>
-      <td *ngFor="let c of resultContracts">{{ c.Phone }}
+      <td *ngFor="let c of resultContracts">{{ c.lesseePhone }}
         <input type="radio" name="rdbConPhone" class="checkbox" *ngIf="showCheckBoxes" 
         [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'Phone')">
       </td>
     </tr>
     <tr>
       <td>Fax</td>
-      <td>{{ workingContract.Fax }}
+      <td>{{ workingContract.lesseeFax }}
         <input type="radio" name="rdbConFax" class="checkbox" *ngIf="showCheckBoxes" 
         checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'Fax')">
       </td>
-      <td *ngFor="let c of resultContracts">{{ c.Fax }}
+      <td *ngFor="let c of resultContracts">{{ c.lesseeFax }}
         <input type="radio" name="rdbConFax" class="checkbox" *ngIf="showCheckBoxes" 
         [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'Fax')">
       </td>
     </tr>
     <tr>
       <td>Email</td>
-      <td>{{ workingContract.Email }}
+      <td>{{ workingContract.lesseeEmail }}
         <input type="radio" name="rdbConEmail" class="checkbox" *ngIf="showCheckBoxes" 
         checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'Email')">
       </td>
-      <td *ngFor="let c of resultContracts">{{ c.Email }}
+      <td *ngFor="let c of resultContracts">{{ c.lesseeEmail }}
         <input type="radio" name="rdbConEmail" class="checkbox" *ngIf="showCheckBoxes" 
         [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'Email')">
       </td>
     </tr>
     <tr>
       <td>Signer</td>
-      <td>{{ workingContract.Signer }}
+      <td>{{ workingContract.requiredSigner }}
           <input type="radio" name="rdbConSigner" class="checkbox" *ngIf="showCheckBoxes" 
           checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'Signer')">
       </td>
-      <td *ngFor="let c of resultContracts">{{ c.Signer }}
+      <td *ngFor="let c of resultContracts">{{ c.requiredSigner }}
         <input type="radio" name="rdbConSigner" class="checkbox" *ngIf="showCheckBoxes" 
         [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'Signer')">
       </td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td>PG</td>
       <td>{{ workingContract.PG }}</td>
       <td *ngFor="let c of resultContracts">{{ c.PG }}</td>
@@ -180,7 +180,7 @@ ElectronicInvoice
       <td>PG Required</td>
       <td>{{ workingContract.PGRequired | yesNo }}</td>
       <td *ngFor="let c of resultContracts">{{ c.PGRequired | yesNo }}</td>
-    </tr>
+    </tr> -->
     <tr>
       <td>Invoice Due Day</td>
       <td>{{ workingContract.invoiceDueDay }}</td>
@@ -234,11 +234,11 @@ ElectronicInvoice
       <td>{{ workingContract.purchaseOrderNum }}</td>
       <td *ngFor="let c of resultContracts">{{ c.purchaseOrderNum }}</td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td>PO Infolease Flag</td>
       <td>{{ workingContract.POInfoleaseFlag | yesNo }}</td>
       <td *ngFor="let c of resultContracts">{{ c.POInfoleaseFlag | yesNo }}</td>
-    </tr>
+    </tr> -->
     <tr>
       <td>EOT Option</td>
       <td>{{ workingContract.endOfTermOptionDesc }}</td>
@@ -313,11 +313,11 @@ ElectronicInvoice
     </tr>
     <tr>
       <td>Late Charge % of Pmt</td>
-      <td>{{ workingContract.LateChargePercofPmt }}
+      <td>{{ workingContract.lateChargeRate }}
         <input type="radio" name="rdbConLateChargePercofPmt" class="checkbox" *ngIf="showCheckBoxes" 
         checked="checked" [checked]="checkIfSelected(workingContract)" (change)="propertyChanged(workingContract,'LateChargePercofPmt')">
       </td>
-      <td *ngFor="let c of resultContracts">{{ c.LateChargePercofPmt }}
+      <td *ngFor="let c of resultContracts">{{ c.lateChargeRate }}
         <input type="radio" name="rdbConLateChargePercofPmt" class="checkbox" *ngIf="showCheckBoxes" 
         [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'LateChargePercofPmt')">
       </td>
@@ -371,12 +371,12 @@ ElectronicInvoice
       <td>{{ workingContract.securitizationCode }}</td>
       <td *ngFor="let c of resultContracts">{{ c.securitizationCode }}</td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td>Permanent Exclusion Reason</td>
       <td>{{ workingContract.PermanentExclusionReason }}</td>
       <td *ngFor="let c of resultContracts">{{ c.PermanentExclusionReason }}</td>
-    </tr>
-    <tr>
+    </tr> -->
+    <!-- <tr>
       <td>Vendor Contract ID</td>
       <td>{{ workingContract.VendorContractID }}
           <input type="radio" name="rdbConVendorContractID" class="checkbox" *ngIf="showCheckBoxes" 
@@ -386,7 +386,7 @@ ElectronicInvoice
           <input type="radio" name="rdbConVendorContractID" class="checkbox" *ngIf="showCheckBoxes" 
           [checked]="checkIfSelected(c)" (change)="propertyChanged(c,'VendorContractID')">
       </td>
-    </tr>
+    </tr> -->
     <tr>
       <td>Vendor Customer ID</td>
       <td>{{ workingContract.vendorCustomerNumber }}
@@ -421,8 +421,8 @@ ElectronicInvoice
     </tr>
     <tr>
       <td>CMT Comments</td>
-      <td>{{ workingContract.CMTComments }}</td>
-      <td *ngFor="let c of resultContracts">{{ c.CMTComments }}</td>
+      <td>{{ workingContract.contractComment }}</td>
+      <td *ngFor="let c of resultContracts">{{ c.contractComment }}</td>
     </tr>
     <tr>
       <td>ACH Code</td>
@@ -431,29 +431,29 @@ ElectronicInvoice
     </tr>
     <tr>
       <td>Asset Detail</td>
-      <td>{{ workingContract.AssetDetail | yesNo }}</td>
-      <td *ngFor="let c of resultContracts">{{ c.AssetDetail | yesNo }}</td>
+      <td>{{ workingContract.assetDetail | yesNo }}</td>
+      <td *ngFor="let c of resultContracts">{{ c.assetDetail | yesNo }}</td>
     </tr>
     <tr>
       <td>Asset Level Billing</td>
-      <td>{{ workingContract.AssetLevelBilling | yesNo }}</td>
-      <td *ngFor="let c of resultContracts">{{ c.AssetLevelBilling | yesNo }}</td>
+      <td>{{ workingContract.assetLevelBilling | yesNo }}</td>
+      <td *ngFor="let c of resultContracts">{{ c.assetLevelBilling | yesNo }}</td>
     </tr>
     <tr>
       <td>Consolidated</td>
-      <td>{{ workingContract.Consolidated | yesNo }}</td>
-      <td *ngFor="let c of resultContracts">{{ c.Consolidated | yesNo }}</td>
+      <td>{{ workingContract.consolidatedInvoicing | yesNo }}</td>
+      <td *ngFor="let c of resultContracts">{{ c.consolidatedInvoicing | yesNo }}</td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td>Current Only</td>
       <td>{{ workingContract.CurrentOnly | yesNo }}</td>
       <td *ngFor="let c of resultContracts">{{ c.CurrentOnly | yesNo }}</td>
-    </tr>
-    <tr>
+    </tr> -->
+    <!-- <tr>
       <td>Electronic Invoice</td>
       <td>{{ workingContract.ElectronicInvoice | yesNo }}</td>
       <td *ngFor="let c of resultContracts">{{ c.ElectronicInvoice | yesNo }}</td>
-    </tr>
+    </tr> -->
   </table>
 </div>
 <div class="container-fluid">

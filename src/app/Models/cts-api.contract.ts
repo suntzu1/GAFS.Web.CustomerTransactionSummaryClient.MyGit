@@ -1,4 +1,4 @@
-import { ContractBase, Guarantor, InsuranceRecord, Payment } from "./cts-api";
+import { ContractBase, Guarantor, InsuranceRecord, Payment, Renewal } from './cts-api';
 
 export interface Contract extends ContractBase {
     a1Term: number;
@@ -10,11 +10,14 @@ export interface Contract extends ContractBase {
     addOn: string;
     allowQuote: boolean;
     amortizedResidual: number;
-    // applicationId: number;
+    // applicationId: number; // from ConstractBase
     approver1Id: number;
     approver1Name: string;
     approver2ID: number;
     approver2Name: string;
+    assetDetail: boolean;
+    assetLevelBilling: boolean;
+    auditedBy: string;
     baseContractId: string;
     billingCycle: string;
     billingFrequency: string;
@@ -29,8 +32,11 @@ export interface Contract extends ContractBase {
     billToName: string;
     billToState: string;
     billToZip: string;
+    bookedBy: string;
+    bookingAudit: string;
     bookingDate: string;
     bookNoFund: string;
+    broker: string;
     brokerPointsActive: number;
     brokerPointsTotal: number;
     businessSegmentDesc: string;
@@ -43,6 +49,7 @@ export interface Contract extends ContractBase {
     cityTransitTaxAmt: number;
     collateralCodeId: number;
     collateralCodeDesc: string;
+    collectExempt: string;
     collectionContactEmail: string;
     collectionContactName: string;
     collectionContactPhone: string;
@@ -52,11 +59,13 @@ export interface Contract extends ContractBase {
     collectorName: string;
     commencementDate: string;
     concentrations: string;
+    consolidatedContracts: string;
+    consolidatedInvoicing: boolean;
     consolidationNumber: number;
     contractBalance: number;
     contractBalanceRemaining: number;
     contractComment: string;
-    // contractId: string;
+    // contractId: string; // from ConstractBase
     contractStatusDate: string;
     contractStatusDesc: string;
     contractStatusEOTDesc: string;
@@ -76,10 +85,12 @@ export interface Contract extends ContractBase {
     contractualDelin181: number;
     countyTaxAmt: number;
     countyTransitTaxAmt: number;
+    creditCardDate: string;
     creditRep1Id: number;
     creditRep1Name: string;
     creditRep2Id: number;
     creditRep2Name: string;
+    currentOnly: boolean;
     currentRentDue: number;
     dateIntoSystem: string;
     daysDeferred: number;
@@ -87,14 +98,20 @@ export interface Contract extends ContractBase {
     delinquencyStatusCode: string;
     delinquencyStatusPreviousMonth: string;
     discountResidual: number;
+    displayPeriodCovered: boolean;
+    displayUsagePercentage: boolean;
     dispoAmount: number;
     disposedInterestAccrued: number;
     dispositionDate: string;
     dispoSuspense: number;
     documentationRepName: string;
+    documentProfileFooter: string;
     documentProfileId: number;
     documentProfileName: string;
     downPaymentAmount: number;
+    emailedInvoicing: string;
+    emailedInvoicingDesc: string;
+    emailedInvoicingDestination: string;
     endingDeposit: number;
     endingDepositCityTax: number;
     endingDepositCityTransitTax: number;
@@ -118,7 +135,7 @@ export interface Contract extends ContractBase {
     firstPaymentAmount: number;
     firstPaymentDate: string;
     firstPaymentDefault: boolean;
-    fixtureOnly: boolean;
+    fixtureOnly: string;
     floatTypeCode: string;
     fmvEquipmentCost: number;
     followUpCode: string;
@@ -142,6 +159,7 @@ export interface Contract extends ContractBase {
     indirectBilling: string;
     indirectBillingDesc: string;
     initialDirectCosts: number;
+    installerNumber: string;
     insuranceRecords: InsuranceRecord[];
     insuranceCarrierNumber: string;
     insuranceCode: string;
@@ -168,6 +186,7 @@ export interface Contract extends ContractBase {
     lateChargeCodeDesc: string;
     lateChargeDueWithTax: number;
     lateChargeExempt: boolean;
+    lateChargeInRate: number;
     lateChargeMax: number;
     lateChargeMin: number;
     lateChargeRate: number;
@@ -199,6 +218,7 @@ export interface Contract extends ContractBase {
     manufacturerPointsAmount: number;
     manufacturerPointsActive: number;
     manufacturerPointsTotal: number;
+    masterAgreementNumber: string;
     monthToDateFinance: number;
     monthToDateInitialDirectCosts: number;
     monthToDateInterest: number;
@@ -218,8 +238,10 @@ export interface Contract extends ContractBase {
     numOfAssets: number;
     numOfAssetsDisposed: number;
     numOfAssetsNonFinanced: number;
+    originalCollateralCode: string;
     originalCostActive: number;
     originalCostTotal: number;
+    originalProgram: string;
     originalRenewalFirstPaymentDate: string;
     paidToDate: string;
     partialDisposition: boolean;
@@ -229,6 +251,7 @@ export interface Contract extends ContractBase {
     pastDueAmount91: number;
     pastDueCBR: number;
     pastDueTaxAmountDue: number;
+    paymentAddressLetter: number;
     payments: Payment[];
     paymentPlan: string;
     paymentsAdvancedAmount: number;
@@ -238,6 +261,8 @@ export interface Contract extends ContractBase {
     paymentsMade: number;
     paymentsUpfront: number;
     poOnly: boolean;
+    paymentXOfYInvoicing: boolean;
+    portfolioPurchase: string;
     prefundCode: string;
     prefundCodeDesc: string;
     presentValueAmount: number;
@@ -251,13 +276,18 @@ export interface Contract extends ContractBase {
     profitOnResidual: number;
     programTypeDesc: string;
     programTypeId: number;
+    programVariation: string;
     programVariationDesc: string;
     programVariationId: string;
     promotionId: string;
     provForLoss: number;
+    psgBillingTier: string;
+    psgCustomerId: string;
+    psgTaxCode: string;
     purchaseOptionDesc: string;
     purchaseOptionId: number;
     purchaseOrder: string;
+    purchaseOrderIndicator: string;
     purchaseOrderNum: string;
     purchaseOriginalEquipmentCost: number;
     purchaseReferenceNum: string;
@@ -278,18 +308,16 @@ export interface Contract extends ContractBase {
     renewalContractualDelin121: number;
     renewalContractualDelin151: number;
     renewalContractualDelin181: number;
+    renewalCurrentStatusDesc: string;
+    renewalCurrentStatusId: string;
+    renewalCurrentTermLength: number;
     renewalEligibleDesc: string;
     renewalEligibleId: string;
     renewalEligibleTerm: string;
-    renewalFirstPaymentDate: string;
     renewalMessageOff: boolean;
     renewalPaymentsReceived: number;
     renewalPaymentsReceivedDisposed: number;
-    renewalPercentage: number;
-    renewalStatusDesc: string;
-    renewalStatusId: string;
-    renewalTermDate: string;
-    renewalTermLength: number;
+    renewals: Renewal[];
     rentalPayment: number;
     requiredSigner: string;
     residual: number;
@@ -297,6 +325,7 @@ export interface Contract extends ContractBase {
     residualIncomeMethodDesc: string;
     residualIncomeMethodId: string;
     residualWritedown: number;
+    riskRating: string;
     salesRep1Id: number;
     salesRep1Name: string;
     salesRep2Id: number;
@@ -309,8 +338,11 @@ export interface Contract extends ContractBase {
     securitizationCodeDesc: string;
     securityDeposit: number;
     setupIncome: number;
+    source: string;
     specialInvoicingOptions: boolean;
+    spreadsheetInvoicing: boolean;
     standardIndustrialClassificationCode: string;
+    startDateTerm: string;
     stateTaxAmount: number;
     termDate: string;
     termLength: number;
@@ -318,6 +350,7 @@ export interface Contract extends ContractBase {
     timesDelinquent31: number;
     timesDelinquent61: number;
     timesDelinquent91: number;
+    titleStatus: string;
     totalAssetCost: number;
     totalCustomerPayment: number;
     totalDue: number;
@@ -327,6 +360,7 @@ export interface Contract extends ContractBase {
     totalPastDue: number;
     totalTaxAmountDue: number;
     totalVolumeReported: number;
+    trueCurrentOnly: boolean;
     uccCollateralDesc: string;
     uccCollateralReference: string;
     uccSendStatus: string;
@@ -337,7 +371,9 @@ export interface Contract extends ContractBase {
     unpaidInterest: number;
     upgradeAmount: number;
     upgraded: boolean;
+    upgradeFlag: number;
     upgradeResidualPercent: number;
+    usageAudit: string;
     useTaxResponsibility: string;
     variablePayment: boolean;
     vbsComments: string;
@@ -347,11 +383,21 @@ export interface Contract extends ContractBase {
     vendorDiscountTotal: number;
     vendorDiscountAmount: number;
     vendorExternalRep: string;
-    // vendorId: string;
-    // vendorName: string;
+    // vendorId: string; // from ConstractBase
+    vendorInvoiceNumber: string;
+    // vendorName: string; // from ConstractBase
+    vendorPercentage: string;
     vendorPointsAmount: number;
     vendorPointsActive: number;
     vendorPointsTotal: number;
+    vendorRenewalShareDollarOutApproved: boolean;
+    vendorRenewalShareFMVApproved: boolean;
+    vendorRenewalShareFrequency: string;
+    vendorRenewalShareFMVPercent: number;
+    vendorRenewalShareFMVProgram: string;
+    vendorRenewalShareFMVPayments: number;
+    vendorRenewalShareDollarOutFee: number;
+    vendorRenewalShareNonStandard: boolean;
     writeOffReasonDesc: string;
     yearsInBusiness: number;
     yearToDateInterest: number;

@@ -1,5 +1,5 @@
-import { Asset } from "./cts-api.asset";
-import { Contract } from "./cts-api.contract";
+import { Asset } from './cts-api.asset';
+import { Contract } from './cts-api.contract';
 
 export interface Error {
     code: number;
@@ -46,6 +46,16 @@ export interface Payment {
     payablePayCode: string;
 }
 
+export interface Renewal {
+    renewalFirstPaymentDate: string;
+    renewalFinalPaymentDate: string;
+    renewalPercentage: number;
+    renewalStatusDesc: string;
+    renewalStatusId: string;
+    renewalTermDate: string;
+    renewalTermLength: number;
+}
+
 export interface ContractBase {
     contractId: string;
     applicationId: number;
@@ -62,6 +72,7 @@ export interface ContractInfo {
     customerName: string;
     customerDBA: string;
     contracts: Contract[];
+    applications: Contract[];
 }
 
 export interface AssetInfo {
@@ -73,6 +84,7 @@ export interface AssetInfo {
 
 export interface Message {
     contractInfo: ContractInfo;
+    applicationInfo: ContractInfo;
     assetInfo: AssetInfo;
 }
 

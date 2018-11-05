@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Asset } from '../Models/asset';
 import { HttpClient } from '@angular/common/http';
 import * as CONSTANTS from '../app.constants';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
+import { Asset } from '../Models/cts-api.asset';
 
 @Injectable({
   providedIn: 'root'
