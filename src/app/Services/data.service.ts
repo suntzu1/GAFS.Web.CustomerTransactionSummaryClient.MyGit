@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-// import { ContractAssets } from 'src/app/Models/contract';
-// import { Asset } from '../Models/asset';
 import { Contract } from '../Models/cts-api.contract';
 import { Asset } from '../Models/cts-api.asset';
+import { ContractInfo } from '../Models/cts-api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-
   private selectedOriginalContract: Contract;
   private selectedContract: Contract;
   private selectedAssets: Asset[];
@@ -25,6 +23,10 @@ export class DataService {
   incldc: boolean;
   respcontracts: Contract[];
 
+  loadedApplication: ContractInfo;
+  loadedContracts: Contract[];
+  loadedAssets: Asset[];
+
   constructor() { }
 
   changeOriginalContractTriggered(contract: Contract) {
@@ -39,6 +41,18 @@ export class DataService {
     this.assetsSource.next(assets);
   }
 
+  ResetAllStoredData(): any {
+    this.loadedApplication = null;
+    this.loadedContracts = [];
+    this.loadedAssets = [];
+
+    this.selectedOriginalContract = null;
+    this.selectedContract = null;
+    this.selectedAssets = [];
+    this.dealerlist = [];
+    this.incldc = false;
+    this.respcontracts = [];
+  }
 }
 
 

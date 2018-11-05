@@ -21,7 +21,7 @@ export class CtsApiService {
       'incldisposed': 'false',
       'Authorization': 'Basic c3ZjTXVsZXNvZnQ6bWFkTWF4MjIk',
       'Access-Control-Allow-Origin': '*',
-'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
       // 'Authorization': 'some12345kind3456of567security543token3456will7890be432added-0982here35465to34323secure`123=-09the@#$%^api'
     })
   };
@@ -32,7 +32,7 @@ export class CtsApiService {
 
   GetByCustomerId(customerid: string, dealerids: any[], incldisposed: boolean): Observable<ApiResponse> {
     const ds = dealerids != null && dealerids.length > 0 ? dealerids.map(i => i.item_id.toString()) : [];
-    return this.http.get(CONSTANTS.CTS_API_GET_BY_CUSTOMER + customerid, {
+    return this.http.get(CONSTANTS.CTS_API_CONTRACT_GET_BY_CUSTOMERID + customerid, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -51,15 +51,23 @@ export class CtsApiService {
   }
 
   GetByContractId(contractid: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_GET_BY_CONTRACT + contractid, this.httpOptions)
+    return this.http.get(CONSTANTS.CTS_API_CONTRACT_GET_BY_CONTRACTID + contractid, this.httpOptions)
       .pipe(
         map(resp => resp as ApiResponse)
         , catchError(this.handleError)
       );
   }
 
-  GetByApplicationId(applicationId: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_GET_BY_APPLICATION + applicationId, this.httpOptions)
+  GetContractsByApplicationId(applicationid: string): Observable<ApiResponse> {
+    return this.http.get(CONSTANTS.CTS_API_CONTRACT_GET_BY_APPLICATIONID + applicationid, this.httpOptions)
+      .pipe(
+        map(resp => resp as ApiResponse)
+        , catchError(this.handleError)
+      );
+  }
+
+  GetContractsByCustomerId(customerid: string): Observable<ApiResponse> {
+    return this.http.get(CONSTANTS.CTS_API_CONTRACT_GET_BY_CUSTOMERID + customerid, this.httpOptions)
       .pipe(
         map(resp => resp as ApiResponse)
         , catchError(this.handleError)
@@ -67,7 +75,31 @@ export class CtsApiService {
   }
 
   GetByAssetId(assetid: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_GET_BY_ASSET + assetid, this.httpOptions)
+    return this.http.get(CONSTANTS.CTS_API_ASSET_GET_BY_ASSETID + assetid, this.httpOptions)
+      .pipe(
+        map(resp => resp as ApiResponse)
+        , catchError(this.handleError)
+      );
+  }
+
+  GetAssetsByContractId(contractid: string): Observable<ApiResponse> {
+    return this.http.get(CONSTANTS.CTS_API_ASSET_GET_BY_CONTRACTID + contractid, this.httpOptions)
+      .pipe(
+        map(resp => resp as ApiResponse)
+        , catchError(this.handleError)
+      );
+  }
+
+  GetAssetsByCustomerId(customerid: string): Observable<ApiResponse> {
+    return this.http.get(CONSTANTS.CTS_API_ASSET_GET_BY_CUSTOMERID + customerid, this.httpOptions)
+      .pipe(
+        map(resp => resp as ApiResponse)
+        , catchError(this.handleError)
+      );
+  }
+
+  GetByApplicationId(applicationId: string): Observable<ApiResponse> {
+    return this.http.get(CONSTANTS.CTS_API_APPLICATION_GET_BY_APPLICATIONID + applicationId, this.httpOptions)
       .pipe(
         map(resp => resp as ApiResponse)
         , catchError(this.handleError)
@@ -75,7 +107,7 @@ export class CtsApiService {
   }
 
   PutUpdateApplication(updateapplication: ApplicationUpdate): Observable<ApiResponse> {
-    return this.http.put(CONSTANTS.CTS_API_PUT_APPLICATION, updateapplication, this.httpOptions)
+    return this.http.put(CONSTANTS.CTS_API_APPLICATION_PUT_APPLICATION, updateapplication, this.httpOptions)
       .pipe(
         map(resp => resp as ApiResponse)
         , catchError(this.handleError)

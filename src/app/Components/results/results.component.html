@@ -1,23 +1,66 @@
 <div class="container-fluid">
-    <ul class="nav nav-tabs tabs">
-        <li [ngClass]="{'active': tab === 0}" (click)="tab=0;onTabClick($event)">Contract</li>
-        <li [ngClass]="{'active': tab === 1}" (click)="tab=1;onTabClick($event)">Asset</li>
-        <li [ngClass]="{'active': tab === 2}" (click)="tab=2;onTabClick($event)">Payment</li>
-        <li [ngClass]="{'active': tab === 3}" (click)="tab=3;onTabClick($event)">Usage</li>
-        <li class="notab"><button class="btn btn-primary btn-sm" (click)="onbackpressed()">BACK TO SEARCH</button></li>
-    </ul>
-    <div [ngSwitch]="tab" class="tabcontainer">
-        <div *ngSwitchCase="0">
-            <cts-contract #compcontract></cts-contract>
-        </div>
-        <div *ngSwitchCase="1">
-            <cts-asset #compasset></cts-asset>
-        </div>
-        <div *ngSwitchCase="2">
-            <cts-payment></cts-payment>
-        </div>
-        <div *ngSwitchCase="3">
-            <div class="container">Usage</div>
-        </div>
-    </div>
+  <button class="btn btn-primary btn-sm" (click)="onbackpressed()">BACK TO SEARCH</button>
+  <mat-tab-group (selectedTabChange)="selectedTabChange($event)">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <ul class="nav nav-tabs tabs">
+          <li [ngClass]="{'active': tab === 0}" (click)="tab=0">Contract</li>
+        </ul>
+      </ng-template>
+      <ng-template matTabContent>
+        <cts-contract #compcontract></cts-contract>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Asset">
+      <ng-template mat-tab-label>
+        <ul class="nav nav-tabs tabs">
+          <li [ngClass]="{'active': tab === 1}" (click)="tab=1">Asset</li>
+        </ul>
+      </ng-template>
+      <ng-template matTabContent>
+        <cts-asset #compasset></cts-asset>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Payment">
+      <ng-template mat-tab-label>
+        <ul class="nav nav-tabs tabs">
+          <li [ngClass]="{'active': tab === 2}" (click)="tab=2">Payment</li>
+        </ul>
+      </ng-template>
+      <ng-template matTabContent>
+        <cts-payment></cts-payment>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Usage">
+      <ng-template mat-tab-label>
+        <ul class="nav nav-tabs tabs">
+          <li [ngClass]="{'active': tab === 3}" (click)="tab=3">Usage</li>
+        </ul>
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="container">Usage</div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 </div>
+<!-- <ul class="nav nav-tabs tabs">
+  <li [ngClass]="{'active': tab === 0}" (click)="tab=0;onTabClick($event)">Contract</li>
+  <li [ngClass]="{'active': tab === 1}" (click)="tab=1;onTabClick($event)">Asset</li>
+  <li [ngClass]="{'active': tab === 2}" (click)="tab=2;onTabClick($event)">Payment</li>
+  <li [ngClass]="{'active': tab === 3}" (click)="tab=3;onTabClick($event)">Usage</li>
+  <li class="notab"></li>
+</ul>
+<div [ngSwitch]="tab" class="tabcontainer">
+  <div *ngSwitchCase="0">
+
+  </div>
+  <div *ngSwitchCase="1">
+
+  </div>
+  <div *ngSwitchCase="2">
+
+  </div>
+  <div *ngSwitchCase="3">
+
+  </div>
+</div> -->

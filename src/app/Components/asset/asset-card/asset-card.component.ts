@@ -20,13 +20,13 @@ export class AssetCardComponent implements OnInit {
   public resultAssets: Asset[] = [];
   ngOnInit() {
   }
-  ToAddressString(address: Address): string {
+  ToAddressString(address: any): string {
     if (address == null) {
       return '';
     }
-    return `${address.StreetAddress}
-    ${ address.Address2}
-    ${ address.City}, ${address.State}, ${address.Zip}`;
+    return `${address.currentEquipmentAddress1}
+    ${ address.currentEquipmentAddress2}
+    ${ address.currentEquipmentCity}, ${address.currentEquipmentState}, ${address.currentEquipmentZip}`;
   }
   checkChanged(asset: any) {
     this.toggle.emit({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // import { Asset } from '../../Models/asset';
 import { Address } from '../../Models/address';
 import { ContractAssets } from '../../Models/contract';
-import { AssetService } from '../../Services/asset.service';
+// import { AssetService } from '../../Services/asset.service';
 import { BehaviorSubject } from 'rxjs';
 import { DataService } from '../../Services/data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
@@ -10,6 +10,7 @@ import { AssetViewerComponent } from '../asset-viewer/asset-viewer.component';
 import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
 import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
 import { Asset } from 'src/app/Models/cts-api.asset';
+import { CtsApiService } from 'src/app/Services/cts-api.service';
 
 @Component({
   selector: 'cts-asset',
@@ -18,18 +19,27 @@ import { Asset } from 'src/app/Models/cts-api.asset';
 })
 export class AssetComponent implements OnInit {
   workingAsset: Asset = {
-    ContractNumber: null,
-    AssetID: null,
-    Manufacturer: '',
-    Model: '',
-    SerialNumber: '',
-    VendorMachineID: '',
-    AssetAddress: null,
-    PPTX: '',
-    SalesTax: null,
-    FinancedAmt: 0,
-    AgreementOveragesBilledOn: '',
-    ContractActive: null
+    // ContractNumber: null,
+    assetId: null,
+    assetDescription: '',
+    assetCost: 0,
+    // assetDetailGrouping: '',
+    assetVendorId: '',
+    assetVendorName: '',
+    assetManufacturer: '',
+    assetModel: '',
+    serialNumber: '',
+    vendorMachineId: '',
+    // AssetAddress: null,
+    // PPTX: '',
+    // SalesTax: null,
+    financedAmount: 0,
+    // AgreementOveragesBilledOn: '',
+    // ContractActive: null,
+    quantity: 0,
+    salesTaxExempt: false,
+    listPrice: 0,
+    originalCost: 0,
   };
   resultAssets: Asset[];
   showCheckBoxes: boolean;
@@ -40,8 +50,9 @@ export class AssetComponent implements OnInit {
 
   private serviceObject = new BehaviorSubject(this.allcontractsAssets);
 
-  constructor(private api: AssetService,
-    private datasvc: DataService,
+  constructor(
+    private api: CtsApiService,
+    private data: DataService,
     public dialog: MatDialog,
     private cmnfn: CommonfunctionsModule) { }
 
@@ -54,24 +65,45 @@ export class AssetComponent implements OnInit {
   }
 
   applyResult() {
-    this.api.GetAllAssets('', '').subscribe(
-      (response: any) => {
-        this.resultAssets = response;
-        for (let i = 0; i < 5; ++i) {
-          const a = this.resultAssets[i];
-          const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
-          if (c) {
-            c.Assets.push(a);
-          } else {
-            const ca: ContractAssets = {
-              ContractNumber: a.ContractNumber,
-              Assets: [a]
-            };
-            this.allcontractsAssets.push(ca);
-          }
+    if (this.data.loadedAssets && this.data.loadedAssets.length > 0) {
+      this.parseContractAssets();
+    } else {
+      this.api.GetAssetsByCustomerId('').subscribe(
+        (response: any) => {
+          // this.resultAssets = response;
+          // for (let i = 0; i < 5; ++i) {
+          //   const a = this.resultAssets[i];
+          //   const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
+          //   if (c) {
+          //     c.Assets.push(a);
+          //   } else {
+          //     const ca: ContractAssets = {
+          //       ContractNumber: a.ContractNumber,
+          //       Assets: [a]
+          //     };
+          //     this.allcontractsAssets.push(ca);
+          //   }
+          // }
         }
+      );
+    }
+  }
+
+  parseContractAssets() {
+    for (let i = 0; i < this.data.loadedAssets.length; ++i) {
+      const a = this.data.loadedAssets[i];
+      const c = this.allcontractsAssets.find(x => x.ContractNumber === a['ContractNumber']);
+      if (c) {
+        const x = c.Assets.find(xc => xc.assetId === a.assetId);
+        if (!x) { c.Assets.push(a); }
+      } else {
+        const ca: ContractAssets = {
+          ContractNumber: a['ContractNumber'],
+          Assets: [a]
+        };
+        this.allcontractsAssets.push(ca);
       }
-    );
+    }
   }
 
   addSelectedContractAsset(ca: ContractAssets) {
@@ -97,7 +129,7 @@ export class AssetComponent implements OnInit {
   }
 
   sendAssetData() {
-    this.datasvc.changeAssetsTriggered(this.workingcontractAsset);
+    this.data.changeAssetsTriggered(this.workingcontractAsset);
     const diaCnfg: MatDialogConfig = {
       disableClose: true,
       autoFocus: true
@@ -111,7 +143,7 @@ export class AssetComponent implements OnInit {
       if (result === 'accept') {
         // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
         this.cmnfn.showAlert(this.dialog,
-          'Information', '', 'Assets data submitted', 
+          'Information', '', 'Assets data submitted',
           IconTypes.Information, AlertTypes.Info);
       }
     });
@@ -133,12 +165,11 @@ export class AssetComponent implements OnInit {
   }
 
   clickAssetSelectAll(ca, e) {
-    debugger;
-    let chk = e.srcElement.checked;
+    const chk = e.srcElement.checked;
     if (chk) {
 
     } else {
-      
+
     }
   }
 }

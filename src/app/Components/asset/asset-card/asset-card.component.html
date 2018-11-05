@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-sm-1"><input type="checkbox" [(ngModel)]="assetchecked" class="input" (change)="checkChanged(assetdata)"></div>
       <div class="col-sm-5">Asset ID</div>
-      <div class="col-sm-5">{{ assetdata.AssetID }}</div>
+      <div class="col-sm-5">{{ assetdata.assetId }}</div>
     </div>
   </div>
   <div class="card-body">
     <table class="table-striped assetdata">
         <tr>
             <td>Asset ID</td>
-            <td>{{ assetdata.AssetID }}
+            <td>{{ assetdata.assetId }}
               <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(assetdata)">
             </td>
             <td *ngFor="let c of resultAssets">{{ c.AssetID }}
@@ -20,35 +20,35 @@
           </tr>
           <tr>
             <td>Manufacturer</td>
-            <td>{{ assetdata.Manufacturer }}</td>
-            <td *ngFor="let c of resultAssets">{{ c.Manufacturer }}</td>
+            <td>{{ assetdata.manufacturerDesc }}</td>
+            <td *ngFor="let c of resultAssets">{{ c.manufacturerDesc }}</td>
           </tr>
           <tr>
             <td>Model</td>
-            <td>{{ assetdata.Model }}
+            <td>{{ assetdata.assetModel }}
             </td>
-            <td *ngFor="let c of resultAssets">{{ c.Model }}
+            <td *ngFor="let c of resultAssets">{{ c.assetModel }}
             </td>
           </tr>
           <tr>
             <td>Serial Number</td>
-            <td>{{ assetdata.SerialNumber }}
+            <td>{{ assetdata.serialNumber }}
             </td>
-            <td *ngFor="let c of resultAssets">{{ c.SerialNumber }}
+            <td *ngFor="let c of resultAssets">{{ c.serialNumber }}
             </td>
           </tr>
           <tr>
             <td>Vendor Machine ID</td>
-            <td>{{ assetdata.VendorMachineID }}
+            <td>{{ assetdata.vendorMachineId }}
             </td>
-            <td *ngFor="let c of resultAssets">{{ c.VendorMachineID }}
+            <td *ngFor="let c of resultAssets">{{ c.vendorMachineId }}
             </td>
           </tr>
           <tr>
             <td>Asset Address</td>
-            <td>{{ ToAddressString(assetdata.AssetAddress) }}
+            <td>{{ ToAddressString(assetdata) }}
             </td>
-            <td *ngFor="let c of resultAssets">{{ ToAddressString(c.AssetAddress) }}
+            <td *ngFor="let c of resultAssets">{{ ToAddressString(c) }}
             </td>
           </tr>
           <tr>
@@ -60,30 +60,30 @@
           </tr>
           <tr>
             <td>Sales Tax</td>
-            <td>{{ assetdata.SalesTax }}
+            <td>{{ assetdata.stateTaxRate }}
             </td>
-            <td *ngFor="let c of resultAssets">{{ c.SalesTax }}
+            <td *ngFor="let c of resultAssets">{{ c.stateTaxRate }}
             </td>
           </tr>
           <tr>
             <td>Financed Amt</td>
-            <td>{{ assetdata.FinancedAmt | currency }}
+            <td>{{ assetdata.financedAmount | currency }}
             </td>
-            <td *ngFor="let c of resultAssets">{{ c.FinancedAmt | currency }}
+            <td *ngFor="let c of resultAssets">{{ c.financedAmount | currency }}
             </td>
           </tr>
           <tr>
             <td>Agreement Overages Billed On</td>
-            <td>{{ assetdata.AgreementOveragesBilledOn }}
+            <td>{{ assetdata.agreementOveragesBilledOn }}
             </td>
-            <td *ngFor="let c of resultAssets">{{ c.AgreementOveragesBilledOn }}
+            <td *ngFor="let c of resultAssets">{{ c.agreementOveragesBilledOn }}
             </td>
           </tr>
           <tr>
             <td>Contract Active</td>
-            <td>{{ assetdata.ContractActive | yesNo }}
+            <td>{{ assetdata.contractActive | yesNo }}
             </td>
-            <td *ngFor="let c of resultAssets">{{ c.ContractActive | yesNo }}
+            <td *ngFor="let c of resultAssets">{{ c.contractActive | yesNo }}
             </td>
           </tr>
         </table>

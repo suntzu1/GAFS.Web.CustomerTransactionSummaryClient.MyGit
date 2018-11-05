@@ -1,13 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '../../../../node_modules/@angular/router';
 import { AlertTypes, IconTypes, CustomAlertComponent } from '../CustomAlert/customalert.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTab } from '@angular/material';
 import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
 import { CtsApiService } from 'src/app/Services/cts-api.service';
 import { DataService } from 'src/app/Services/data.service';
 import { ContractComponent } from '../contract/contract.component';
 import { Contract } from 'src/app/Models/cts-api.contract';
 import { map } from 'rxjs/operators';
+import { AssetComponent } from '../asset/asset.component';
+import { Observable } from 'rxjs/internal/observable';
+// import 'rxjs/add/observable/forkJoin';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 @Component({
   selector: 'cts-results',
   templateUrl: './results.component.html',
@@ -17,7 +21,7 @@ export class ResultsComponent implements OnInit {
   @ViewChild(ContractComponent)
   private compcontract: ContractComponent;
   @ViewChild(AssetComponent)
-  private assetComp: AssetComponent;
+  private compasset: AssetComponent;
   tab = 0;
   constructor(
     private router: Router,
@@ -29,6 +33,7 @@ export class ResultsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.data.ResetAllStoredData();
     this.route.paramMap.subscribe(params => {
       const func = params.get('function');
       const id = params.get('id');
@@ -39,10 +44,18 @@ export class ResultsComponent implements OnInit {
         case 'application':
           this.ctsapi.GetByApplicationId(id).subscribe(
             (resp) => {
+              this.data.loadedApplication = resp.message.applicationInfo;
               console.log(resp);
-              this.AddBillingAddress(resp.message.contractInfo.contracts);
-              this.data.respcontracts = resp.message.applicationInfo.applications;
-              this.compcontract.applyResult();
+              // todo: sunil 11/05/2018 - change this to by application id
+              this.ctsapi.GetContractsByCustomerId(resp.message.applicationInfo.applications[0].applicationId.toString()).subscribe(
+                (resp2) => {
+                  this.AddBillingAddress(resp2.message.contractInfo.contracts);
+                  // todo: sunil 11/05/2018 - need to remove respcontracts ??? why the need for 2?
+                  this.data.respcontracts = resp2.message.contractInfo.contracts;
+                  this.data.loadedContracts = Object.assign([], resp2.message.contractInfo.contracts);
+                  this.compcontract.applyResult();
+                }
+              );
             }
           );
           break;
@@ -51,7 +64,7 @@ export class ResultsComponent implements OnInit {
             (resp) => {
               console.log(resp);
               this.AddBillingAddress(resp.message.contractInfo.contracts);
-              this.data.respcontracts = resp.message.contractInfo.contracts;
+              this.data.loadedContracts = resp.message.contractInfo.contracts;
               this.compcontract.applyResult();
             }
           );
@@ -60,17 +73,39 @@ export class ResultsComponent implements OnInit {
     });
   }
 
+  getAssetsForContracts() {
+    const assets = [];
+    const cs: Observable<any>[] = [];
+    this.data.loadedContracts.map(c => {
+      cs.push(this.ctsapi.GetAssetsByContractId(c.contractId));
+    });
+    forkJoin(cs)
+      .subscribe(data => {
+        console.log(data[0].message.assetInfo.contracts[0].assets[0]);
+        data.forEach(n => {
+          n.message.assetInfo.contracts.forEach(c => {
+            c.assets.forEach(a => {
+              a['ContractNumber'] = c.contractId;
+              assets.push(a);
+            });
+          });
+        });
+        this.data.loadedAssets = assets;
+        this.compasset.applyResult();
+      });
+  }
+
   AddBillingAddress(contracts: Contract[]) {
     contracts.map(
       (contract) => {
-        contract['BillingAddress'] = 
-        (contract.billToName && contract.billToName != '' ? contract.billToName + '<br/>' : '') +
-        (contract.billToAddress1 && contract.billToAddress1 != '' ? contract.billToAddress1 : '') +
-        (contract.billToAddress2 && contract.billToAddress2 != '' ? ' ' + contract.billToAddress2 : '') + '<br/>' +
-        (contract.billToCity && contract.billToCity != '' ? contract.billToCity + ', ' : '') +
-        (contract.billToState && contract.billToState != '' ? contract.billToState + ', ' : '') +
-        (contract.billToZip && contract.billToZip != '' ? contract.billToZip : '') +
-        (contract.billToAttnName && contract.billToAttnName != '' ? '<br/>' + contract.billToAttnName : '');
+        contract['BillingAddress'] =
+          (contract.billToName && contract.billToName !== '' ? contract.billToName + '<br/>' : '') +
+          (contract.billToAddress1 && contract.billToAddress1 !== '' ? contract.billToAddress1 : '') +
+          (contract.billToAddress2 && contract.billToAddress2 !== '' ? ' ' + contract.billToAddress2 : '') + '<br/>' +
+          (contract.billToCity && contract.billToCity !== '' ? contract.billToCity + ', ' : '') +
+          (contract.billToState && contract.billToState !== '' ? contract.billToState + ', ' : '') +
+          (contract.billToZip && contract.billToZip !== '' ? contract.billToZip : '') +
+          (contract.billToAttnName && contract.billToAttnName !== '' ? '<br/>' + contract.billToAttnName : '');
       }
     );
   }
@@ -88,15 +123,13 @@ export class ResultsComponent implements OnInit {
       }
     });
   }
-
-  onTabClick(e) {
-    debugger;
+  selectedTabChange(e) {
     switch (this.tab) {
       case 0:
-      this.compcontract.applyResult();
+        this.compcontract.applyResult();
         break;
       case 1:
-      this.assetComp.ngOnInit();
+        this.getAssetsForContracts();
         break;
       case 2:
         break;
