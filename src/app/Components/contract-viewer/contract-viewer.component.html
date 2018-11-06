@@ -131,11 +131,11 @@
         <td>{{ orignalContract.vendorCustomerNumber }}</td>
         <td [ngClass]="{'modified': orignalContract.vendorCustomerNumber !== workingContract.vendorCustomerNumber}">{{ workingContract.vendorCustomerNumber }}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td>Renewal Term</td>
         <td>{{ orignalContract.renewalTermLength }}</td>        
         <td [ngClass]="{'modified': orignalContract.renewalTermLength !== workingContract.renewalTermLength}">{{ workingContract.renewalTermLength }}</td>
-      </tr>
+      </tr> -->
     </table>
   </mat-dialog-content>
   <hr />

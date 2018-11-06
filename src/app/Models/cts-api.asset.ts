@@ -16,6 +16,7 @@ export interface Asset {
     quantity: number;
     assetVendorId: string;
     assetVendorName: string;
+    stateTaxRate: number;
     salesTaxExempt: boolean;
     // propertyTaxStatusId: string;
     // propertyTaxStatusDescription: string;
@@ -53,4 +54,5 @@ export interface Asset {
     // presentValueResidualAmount: number;
     // valueAccruedDate: string;
     // locationRecords: LocationRecord[];
+    manufacturerDesc: string;
 }

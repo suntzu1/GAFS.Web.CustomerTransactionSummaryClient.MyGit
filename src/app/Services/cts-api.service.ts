@@ -98,7 +98,7 @@ export class CtsApiService {
       );
   }
 
-  GetByApplicationId(applicationId: string): Observable<ApiResponse> {
+  GetApplicationByApplicationId(applicationId: string): Observable<ApiResponse> {
     return this.http.get(CONSTANTS.CTS_API_APPLICATION_GET_BY_APPLICATIONID + applicationId, this.httpOptions)
       .pipe(
         map(resp => resp as ApiResponse)

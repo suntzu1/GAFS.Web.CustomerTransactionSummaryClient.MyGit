@@ -23,6 +23,7 @@ export class ResultsComponent implements OnInit {
   @ViewChild(AssetComponent)
   private compasset: AssetComponent;
   tab = 0;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -41,36 +42,88 @@ export class ResultsComponent implements OnInit {
         return;
       }
       switch (func) {
-        case 'application':
-          this.ctsapi.GetByApplicationId(id).subscribe(
+        case 's_application':
+          this.data.showCheckBoxes = false;
+          this.ctsapi.GetContractsByApplicationId(id).subscribe(
             (resp) => {
+              if (!this.validResponse(resp, 'c')) {
+                return;
+              }
+              this.processLoadedContracts(resp);
+            }
+          );
+          break;
+        case 'application':
+          this.data.showCheckBoxes = true;
+          this.ctsapi.GetApplicationByApplicationId(id).subscribe(
+            (resp) => {
+              if (!this.validResponse(resp, 'a')) {
+                return;
+              }
               this.data.loadedApplication = resp.message.applicationInfo;
-              console.log(resp);
               // todo: sunil 11/05/2018 - change this to by application id
               this.ctsapi.GetContractsByCustomerId(resp.message.applicationInfo.applications[0].applicationId.toString()).subscribe(
                 (resp2) => {
-                  this.AddBillingAddress(resp2.message.contractInfo.contracts);
-                  // todo: sunil 11/05/2018 - need to remove respcontracts ??? why the need for 2?
-                  this.data.respcontracts = resp2.message.contractInfo.contracts;
-                  this.data.loadedContracts = Object.assign([], resp2.message.contractInfo.contracts);
-                  this.compcontract.applyResult();
+                  this.processLoadedContracts(resp2);
                 }
               );
             }
           );
           break;
         case 'ccan':
+          this.data.showCheckBoxes = false;
           this.ctsapi.GetByCustomerId(id, this.data.dealerlist, this.data.incldc).subscribe(
             (resp) => {
-              console.log(resp);
-              this.AddBillingAddress(resp.message.contractInfo.contracts);
-              this.data.loadedContracts = resp.message.contractInfo.contracts;
-              this.compcontract.applyResult();
+              this.processLoadedContracts(resp);
             }
           );
           break;
       }
     });
+  }
+
+  validResponse(resp, i): boolean {
+    if (resp.message instanceof Object) {
+      if (i === 'a') {
+        if (resp.message.applicationInfo.customerId < 1 || resp.message.applicationInfo.applications.length < 0) {
+          this.cmnfn.showAlert(this.dialog, 'Information', '',
+            'No results found.', IconTypes.Information, AlertTypes.Info);
+        } else {
+          return true;
+        }
+      } else if (i === 'c') {
+        if (resp.message.contractInfo.customerId < 1 || resp.message.contractInfo.contracts.length < 0) {
+          this.cmnfn.showAlert(this.dialog, 'Information', '',
+            'No results found.', IconTypes.Information, AlertTypes.Info);
+        } else {
+          return true;
+        }
+      }
+    } else {
+      this.cmnfn.showAlert(this.dialog, 'Error', '',
+        resp.message, IconTypes.Critical, AlertTypes.Info);
+    }
+    return false;
+  }
+
+  showCheckBoxes(): boolean {
+    return this.data.showCheckBoxes;
+  }
+
+  clearAllSelections(i) {
+    if (i === 0) {
+      this.compcontract.clearAllSelections();
+    } else if (i === 1) {
+      this.compasset.clearAllSelections();
+    }
+  }
+
+  processLoadedContracts(res) {
+    this.AddBillingAddress(res.message.contractInfo.contracts);
+    // todo: sunil 11/05/2018 - need to remove respcontracts ??? why the need for 2?
+    this.data.respcontracts = res.message.contractInfo.contracts;
+    this.data.loadedContracts = Object.assign([], res.message.contractInfo.contracts);
+    this.compcontract.applyResult();
   }
 
   getAssetsForContracts() {
@@ -114,22 +167,37 @@ export class ResultsComponent implements OnInit {
   }
 
   onbackpressed() {
-    const cusAlert = this.cmnfn.showAlert(this.dialog,
-      'WARNING', 'Are you sure you want to go back to search?',
-      'Any selection(s) made will be lost.', IconTypes.Warning, AlertTypes.OkCancel);
-    cusAlert.afterClosed().subscribe((data) => {
-      if (data === 'ok') {
-        this.router.navigateByUrl('/search');
-      }
-    });
+    if (this.data.showCheckBoxes === false) {
+      this.router.navigateByUrl('/search');
+    } else {
+      const cusAlert = this.cmnfn.showAlert(this.dialog,
+        'WARNING', 'Are you sure you want to go back to search?',
+        'Any selection(s) made will be lost.', IconTypes.Warning, AlertTypes.OkCancel);
+      cusAlert.afterClosed().subscribe((data) => {
+        if (data === 'ok') {
+          this.router.navigateByUrl('/search');
+        }
+      });
+    }
   }
   selectedTabChange(e) {
     switch (this.tab) {
       case 0:
-        this.compcontract.applyResult();
+        if (this.data.loadedContracts !== null && this.data.loadedContracts.length > 0) {
+          this.data.respcontracts = Object.assign([], this.data.loadedContracts);
+          this.compcontract.applyResult();
+        } else {
+          // have to think of this condition???
+        }
         break;
       case 1:
-        this.getAssetsForContracts();
+        debugger;
+        this.compcontract.storeState();
+        if (this.data.loadedAssets !== null && this.data.loadedAssets.length > 0) {
+          this.compasset.applyResult();
+        } else {
+          this.getAssetsForContracts();
+        }
         break;
       case 2:
         break;

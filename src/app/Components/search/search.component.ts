@@ -61,7 +61,7 @@ export class SearchComponent implements OnInit {
     this.showDealerList = false;
   }
   onappidsearchclick() {
-    this.router.navigateByUrl('/results/application/' + this.searchparams.appid);
+    this.router.navigateByUrl('/results/s_application/' + this.searchparams.appid);
   }
   onccanalldealersclick() {
     this.searchparams.dealers = [];

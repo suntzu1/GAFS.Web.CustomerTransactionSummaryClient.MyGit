@@ -51,13 +51,13 @@
             <td *ngFor="let c of resultAssets">{{ ToAddressString(c) }}
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>PPTX</td>
             <td>{{ assetdata.PPTX }}
             </td>
             <td *ngFor="let c of resultAssets">{{ c.PPTX }}
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td>Sales Tax</td>
             <td>{{ assetdata.stateTaxRate }}
@@ -72,20 +72,20 @@
             <td *ngFor="let c of resultAssets">{{ c.financedAmount | currency }}
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>Agreement Overages Billed On</td>
             <td>{{ assetdata.agreementOveragesBilledOn }}
             </td>
             <td *ngFor="let c of resultAssets">{{ c.agreementOveragesBilledOn }}
             </td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td>Contract Active</td>
             <td>{{ assetdata.contractActive | yesNo }}
             </td>
             <td *ngFor="let c of resultAssets">{{ c.contractActive | yesNo }}
             </td>
-          </tr>
+          </tr> -->
         </table>
   </div>
 </div>

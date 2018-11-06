@@ -26,6 +26,9 @@ export class DataService {
   loadedApplication: ContractInfo;
   loadedContracts: Contract[];
   loadedAssets: Asset[];
+  showCheckBoxes: boolean;
+  modifiedContract: Contract;
+  checkBoxArr: boolean[][];
 
   constructor() { }
 

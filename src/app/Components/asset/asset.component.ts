@@ -40,6 +40,8 @@ export class AssetComponent implements OnInit {
     salesTaxExempt: false,
     listPrice: 0,
     originalCost: 0,
+    manufacturerDesc: '',
+    stateTaxRate: 0
   };
   resultAssets: Asset[];
   showCheckBoxes: boolean;

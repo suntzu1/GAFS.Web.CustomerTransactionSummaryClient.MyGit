@@ -21,7 +21,7 @@ import { Contract } from 'src/app/Models/cts-api.contract';
 })
 export class ContractComponent implements OnInit {
   workingContract: any = {};
-  modifiedContract: Contract;
+  // modifiedContract: Contract;
   resultContracts: Contract[] = [];
   showCheckBoxes: boolean;
   selectAllContract: Contract;
@@ -39,17 +39,24 @@ export class ContractComponent implements OnInit {
     'MaximumLateCharge', 'VendorContractID', 'VendorCustomerID', 'RenewalTerm'
   ];
 
-  private serviceObject = new BehaviorSubject(this.modifiedContract);
-
+  private serviceObject = new BehaviorSubject(this.datasvc.modifiedContract);
+  checkBoxArr: boolean[][] = [];
   constructor(
     private api: CtsApiService,
     private datasvc: DataService,
     public dialog: MatDialog,
-    private cmnfn: CommonfunctionsModule) { }
+    private cmnfn: CommonfunctionsModule) {
+    for (let x = 0; x <= 30; ++x) {
+      this.checkBoxArr[x] = [];
+      for (let y = 0; y <= 15; ++y) {
+        this.checkBoxArr[x][y] = false;
+      }
+    }
+  }
 
   ngOnInit() {
-    this.showCheckBoxes = true;
-
+    this.showCheckBoxes = this.datasvc.showCheckBoxes;
+    this.datasvc.checkBoxArr = this.checkBoxArr;
     // this.api.GetAllContracts('', '').subscribe((response: any) => {
     //   const res: Contract[] = response;
     //   this.workingContract = res.splice(0, 1)[0];
@@ -59,13 +66,21 @@ export class ContractComponent implements OnInit {
     // });
   }
 
+  storeState() {
+    this.datasvc.checkBoxArr = this.checkBoxArr;
+  }
+
   applyResult() {
     const res: Contract[] = this.datasvc.respcontracts;
     console.log(res);
+    // debug line to just add more contracts
+    this.resultContracts = Object.assign([], res);
     this.workingContract = res.splice(0, 1)[0];
     this.datasvc.changeOriginalContractTriggered(this.workingContract);
-    this.resultContracts = res;
+    // debug line to just add more contracts
+    // this.resultContracts = res;
     this.clearAllSelections();
+    this.checkBoxArr = this.datasvc.checkBoxArr;
   }
 
   selectAllNewApplication() {
@@ -75,40 +90,46 @@ export class ContractComponent implements OnInit {
   selectAllApplication(c) {
     this.selectAllContract = c;
     this.modifyProps.forEach(k => {
-      this.modifiedContract[k] = c[k];
+      this.datasvc.modifiedContract[k] = c[k];
     });
-    console.log(this.modifiedContract);
   }
 
   clearAllSelections() {
     this.selectAllContract = this.workingContract;
-    this.modifiedContract = Object.assign({}, this.workingContract);
+    this.datasvc.modifiedContract = Object.assign({}, this.workingContract);
   }
 
   checkIfSelected(c, oprop: string): boolean {
+    // return this.datasvc.modifiedContract[oprop] === c[oprop];
     return this.selectAllContract === c;
   }
 
-  propertyChanged(c, oprop: string) {
-    this.modifiedContract[oprop] = c[oprop];
+  propertyChanged(c, oprop: string, r, i) {
+    // debugger;
+    this.datasvc.modifiedContract[oprop] = c[oprop];
+    this.checkBoxArr[r][i] = !this.checkBoxArr[r][i];
+    for (let n = 1; n < 5; ++n) {
+      console.log(this.checkBoxArr[n]);
+    }
   }
 
-  propertyChangedMul(c, oprops: string[]) {
+  propertyChangedMul(c, oprops: string[], r, i) {
+    this.checkBoxArr[r][i] = !this.checkBoxArr[r][i];
     oprops.map(oprop => {
-      this.modifiedContract[oprop] = c[oprop];
+      this.datasvc.modifiedContract[oprop] = c[oprop];
     });
   }
   propertyChangedBillingAddress(contract) {
-    this.modifiedContract.billToName = contract.billToName;
-    this.modifiedContract.billToAddress1 = contract.billToAddress1;
-    this.modifiedContract.billToAddress2 = contract.billToAddress2;
-    this.modifiedContract.billToCity = contract.billToCity;
-    this.modifiedContract.billToState = contract.billToState;
-    this.modifiedContract.billToZip = contract.billToZip;
-    this.modifiedContract.billToAttnName = contract.billToAttnName;
+    this.datasvc.modifiedContract.billToName = contract.billToName;
+    this.datasvc.modifiedContract.billToAddress1 = contract.billToAddress1;
+    this.datasvc.modifiedContract.billToAddress2 = contract.billToAddress2;
+    this.datasvc.modifiedContract.billToCity = contract.billToCity;
+    this.datasvc.modifiedContract.billToState = contract.billToState;
+    this.datasvc.modifiedContract.billToZip = contract.billToZip;
+    this.datasvc.modifiedContract.billToAttnName = contract.billToAttnName;
   }
   sendContractData() {
-    this.datasvc.changeContractTriggered(this.modifiedContract);
+    this.datasvc.changeContractTriggered(this.datasvc.modifiedContract);
     const diaCnfg: MatDialogConfig = {
       disableClose: true,
       autoFocus: true
@@ -129,7 +150,7 @@ export class ContractComponent implements OnInit {
   }
 
   sendContractAssetData() {
-    this.datasvc.changeContractTriggered(this.modifiedContract);
+    this.datasvc.changeContractTriggered(this.datasvc.modifiedContract);
     const diaCnfg: MatDialogConfig = {
       disableClose: true,
       autoFocus: true

@@ -1,5 +1,11 @@
 <div class="container-fluid">
-  <button class="btn btn-primary btn-sm" (click)="onbackpressed()">BACK TO SEARCH</button>
+  <div class="row">
+    <div class="col"><button class="btn btn-primary btn-sm" (click)="onbackpressed()">BACK TO SEARCH</button></div>
+    <div class="col" *ngIf="showCheckBoxes()"><button class="btn btn-primary btn-sm" (click)="clearAllSelections(0)" *ngIf="tab === 0">CLEAR
+        CONTRACT DATA SELECTIONS</button>
+      <button class="btn btn-primary btn-sm" (click)="clearAllSelections(1)" *ngIf="tab === 1">CLEAR ASSET DATA
+        SELECTIONS</button></div>
+  </div>
   <mat-tab-group (selectedTabChange)="selectedTabChange($event)">
     <mat-tab>
       <ng-template mat-tab-label>
