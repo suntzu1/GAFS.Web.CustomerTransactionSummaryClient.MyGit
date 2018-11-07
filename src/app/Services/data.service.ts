@@ -28,7 +28,8 @@ export class DataService {
   loadedAssets: Asset[];
   showCheckBoxes: boolean;
   modifiedContract: Contract;
-  checkBoxArr: boolean[][];
+  checkBoxArr: number[];
+  checkedAsset: any;
 
   constructor() { }
 

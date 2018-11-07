@@ -191,7 +191,6 @@ export class ResultsComponent implements OnInit {
         }
         break;
       case 1:
-        debugger;
         this.compcontract.storeState();
         if (this.data.loadedAssets !== null && this.data.loadedAssets.length > 0) {
           this.compasset.applyResult();

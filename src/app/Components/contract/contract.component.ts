@@ -40,23 +40,20 @@ export class ContractComponent implements OnInit {
   ];
 
   private serviceObject = new BehaviorSubject(this.datasvc.modifiedContract);
-  checkBoxArr: boolean[][] = [];
+  checkBoxArr: number[] = [];
   constructor(
     private api: CtsApiService,
     private datasvc: DataService,
     public dialog: MatDialog,
     private cmnfn: CommonfunctionsModule) {
-    for (let x = 0; x <= 30; ++x) {
-      this.checkBoxArr[x] = [];
-      for (let y = 0; y <= 15; ++y) {
-        this.checkBoxArr[x][y] = false;
-      }
-    }
+    // for (let x = 0; x <= 30; ++x) {
+    //   this.checkBoxArr[x] = -1;
+    // }
   }
 
   ngOnInit() {
     this.showCheckBoxes = this.datasvc.showCheckBoxes;
-    this.datasvc.checkBoxArr = this.checkBoxArr;
+    if (!this.datasvc.checkBoxArr) { this.datasvc.checkBoxArr = this.checkBoxArr; }
     // this.api.GetAllContracts('', '').subscribe((response: any) => {
     //   const res: Contract[] = response;
     //   this.workingContract = res.splice(0, 1)[0];
@@ -74,11 +71,11 @@ export class ContractComponent implements OnInit {
     const res: Contract[] = this.datasvc.respcontracts;
     console.log(res);
     // debug line to just add more contracts
-    this.resultContracts = Object.assign([], res);
+    // this.resultContracts = Object.assign([], res);
     this.workingContract = res.splice(0, 1)[0];
     this.datasvc.changeOriginalContractTriggered(this.workingContract);
     // debug line to just add more contracts
-    // this.resultContracts = res;
+    this.resultContracts = res;
     this.clearAllSelections();
     this.checkBoxArr = this.datasvc.checkBoxArr;
   }
@@ -87,16 +84,24 @@ export class ContractComponent implements OnInit {
     // this.selectAllApplication = this.workingContract;
   }
 
-  selectAllApplication(c) {
+  selectAllApplication(c, i) {
     this.selectAllContract = c;
     this.modifyProps.forEach(k => {
       this.datasvc.modifiedContract[k] = c[k];
     });
+    for (let x = 0; x <= 30; ++x) {
+      this.checkBoxArr[x] = i;
+    }
+    console.log(this.checkBoxArr);
   }
 
   clearAllSelections() {
     this.selectAllContract = this.workingContract;
     this.datasvc.modifiedContract = Object.assign({}, this.workingContract);
+    for (let x = 0; x <= 30; ++x) {
+      this.checkBoxArr[x] = -1;
+    }
+    console.log(this.checkBoxArr);
   }
 
   checkIfSelected(c, oprop: string): boolean {
@@ -105,19 +110,17 @@ export class ContractComponent implements OnInit {
   }
 
   propertyChanged(c, oprop: string, r, i) {
-    // debugger;
     this.datasvc.modifiedContract[oprop] = c[oprop];
-    this.checkBoxArr[r][i] = !this.checkBoxArr[r][i];
-    for (let n = 1; n < 5; ++n) {
-      console.log(this.checkBoxArr[n]);
-    }
+    this.checkBoxArr[r] = i;
+    console.log(this.checkBoxArr);
   }
 
   propertyChangedMul(c, oprops: string[], r, i) {
-    this.checkBoxArr[r][i] = !this.checkBoxArr[r][i];
+    this.checkBoxArr[r] = i;
     oprops.map(oprop => {
       this.datasvc.modifiedContract[oprop] = c[oprop];
     });
+    console.log(this.checkBoxArr);
   }
   propertyChangedBillingAddress(contract) {
     this.datasvc.modifiedContract.billToName = contract.billToName;
@@ -174,7 +177,8 @@ export class ContractComponent implements OnInit {
     if (c == null) {
       return '';
     }
-    return `${c.lesseeAddress1} ${c.lesseeAddress2}<br/>
+    const add2 = c.lesseeAddress2 && c.lesseeAddress2.length > 0 ? '<br/>' + c.lesseeAddress2 : '';
+    return `${c.lesseeAddress1}${add2}<br/>
     ${ c.lesseeCity}, ${c.lesseeState}, ${c.lesseeZip}<br/>${c.collectionContactName}`;
   }
   compareAddress(c1: Contract, c2: Contract) {

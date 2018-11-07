@@ -49,7 +49,7 @@ export class AssetComponent implements OnInit {
 
   workingcontractAsset: Asset[] = [];
   allcontractsAssets: ContractAssets[] = [];
-
+  checkedAsset: any = [];
   private serviceObject = new BehaviorSubject(this.allcontractsAssets);
 
   constructor(
@@ -64,6 +64,7 @@ export class AssetComponent implements OnInit {
 
     this.selectAllContract = this.workingAsset;
     // this.applyResult();
+    if (!this.data.checkedAsset) { this.data.checkedAsset = this.checkedAsset; }
   }
 
   applyResult() {
@@ -89,6 +90,7 @@ export class AssetComponent implements OnInit {
         }
       );
     }
+    this.data.checkedAsset = this.checkedAsset;
   }
 
   parseContractAssets() {
@@ -97,7 +99,10 @@ export class AssetComponent implements OnInit {
       const c = this.allcontractsAssets.find(x => x.ContractNumber === a['ContractNumber']);
       if (c) {
         const x = c.Assets.find(xc => xc.assetId === a.assetId);
-        if (!x) { c.Assets.push(a); }
+        if (!x) {
+          this.checkedAsset.push([]);
+          c.Assets.push(a);
+        }
       } else {
         const ca: ContractAssets = {
           ContractNumber: a['ContractNumber'],
@@ -151,7 +156,8 @@ export class AssetComponent implements OnInit {
     });
   }
 
-  checkToggled(o) {
+  checkToggled(o, x, y) {
+    this.checkedAsset[x][y] = !this.checkedAsset[x][y];
     const index = this.workingcontractAsset.indexOf(o.asset);
     if (index > -1) {
       if (!o.selected) {
@@ -164,12 +170,12 @@ export class AssetComponent implements OnInit {
     // if (!fa) {
     //   this.workingcontractAsset.push(o.asset);
     // }
+    console.log(this.checkedAsset);
   }
 
-  clickAssetSelectAll(ca, e) {
+  clickAssetSelectAll(ca, e, x) {
     const chk = e.srcElement.checked;
     if (chk) {
-
     } else {
 
     }

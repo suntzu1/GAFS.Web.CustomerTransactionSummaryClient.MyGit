@@ -74,4 +74,11 @@ export class SearchComponent implements OnInit {
     this.data.incldc = this.searchparams.incldc;
     this.router.navigateByUrl('/results/ccan/' + this.searchparams.ccan);
   }
+  submit(e) {
+    if (this.searchparams.appid && this.searchparams.appid.length > 0) {
+      this.onappidsearchclick();
+    } else if (this.searchparams.ccan && this.searchparams.ccan.length > 0) {
+      this.onccanalldealersclick();
+    }
+  }
 }

@@ -1,15 +1,15 @@
 <div class="container-fluid freezediv">
   <div class="row">
-    <div *ngFor="let ca of allcontractsAssets" class="col border rounded-top carddiv">
+    <div *ngFor="let ca of allcontractsAssets; let x = index" class="col border rounded-top carddiv">
       <div class="row titlerow">
         <div class="titlebg text-white pull-left">Contract Number:</div>
         <div class="col-md-6 text-white">{{ca.ContractNumber}}</div>
       </div>
       <div *ngIf="ca.Assets.length > 1" class="row selalldiv">
-        <input type="checkbox" class="checkbox" (click)="clickAssetSelectAll(ca, $event)"><span>Select all</span>
+        <input type="checkbox" class="checkbox" (click)="clickAssetSelectAll(ca, $event, x)"><span>Select all</span>
       </div>
-      <div *ngFor="let a of ca.Assets" class="row">
-        <cts-asset-card [assetdata]="a" (toggle)="checkToggled($event)"></cts-asset-card>
+      <div *ngFor="let a of ca.Assets; let y = index" class="row">
+        <cts-asset-card [assetdata]="a" (toggle)="checkToggled($event,x,y)" [assetchecked]="checkedAsset[x] ? checkedAsset[x][y] : false"></cts-asset-card>
       </div>
     </div>
   </div>

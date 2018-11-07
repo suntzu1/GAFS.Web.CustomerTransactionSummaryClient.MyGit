@@ -7,3 +7,6 @@ td:nth-child(2) {
     left: 0;
     height: 200px;
 } 
+.table-striped td {
+    border-right-width: 1px;
+}

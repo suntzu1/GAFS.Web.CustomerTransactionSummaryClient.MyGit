@@ -12,10 +12,10 @@ export class AssetCardComponent implements OnInit {
 
   @Input() public assetdata: Asset;
   @Input() public noHeader: boolean;
+  @Input() assetchecked: boolean;
   @Output() toggle: EventEmitter<SelAsset> = new EventEmitter();
-   constructor() { }
+  constructor() { }
 
-  public assetchecked: boolean;
   public showCheckBoxes: boolean;
   public resultAssets: Asset[] = [];
   ngOnInit() {
