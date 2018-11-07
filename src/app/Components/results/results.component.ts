@@ -183,6 +183,7 @@ export class ResultsComponent implements OnInit {
   selectedTabChange(e) {
     switch (this.tab) {
       case 0:
+        this.compasset.storeState();
         if (this.data.loadedContracts !== null && this.data.loadedContracts.length > 0) {
           this.data.respcontracts = Object.assign([], this.data.loadedContracts);
           this.compcontract.applyResult();

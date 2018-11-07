@@ -66,7 +66,9 @@ export class AssetComponent implements OnInit {
     // this.applyResult();
     if (!this.data.checkedAsset) { this.data.checkedAsset = this.checkedAsset; }
   }
-
+  storeState() {
+    this.data.checkedAsset = this.checkedAsset;
+  }
   applyResult() {
     if (this.data.loadedAssets && this.data.loadedAssets.length > 0) {
       this.parseContractAssets();
@@ -90,7 +92,7 @@ export class AssetComponent implements OnInit {
         }
       );
     }
-    this.data.checkedAsset = this.checkedAsset;
+    if (this.data.checkedAsset.length > 0) { this.checkedAsset = this.data.checkedAsset; }
   }
 
   parseContractAssets() {
@@ -100,7 +102,6 @@ export class AssetComponent implements OnInit {
       if (c) {
         const x = c.Assets.find(xc => xc.assetId === a.assetId);
         if (!x) {
-          this.checkedAsset.push([]);
           c.Assets.push(a);
         }
       } else {
@@ -109,6 +110,14 @@ export class AssetComponent implements OnInit {
           Assets: [a]
         };
         this.allcontractsAssets.push(ca);
+      }
+    }
+    this.checkedAsset = [];
+    for (let x = 0; x < this.allcontractsAssets.length; ++x) {
+      this.checkedAsset[x] = [];
+      const ac = this.allcontractsAssets[x];
+      for (let y = 0; y < ac.Assets.length; ++y) {
+        this.checkedAsset[x][y] = false;
       }
     }
   }
@@ -178,6 +187,10 @@ export class AssetComponent implements OnInit {
     if (chk) {
     } else {
 
+    }
+    const ac = this.allcontractsAssets[x];
+    for (let y = 0; y < ac.Assets.length; ++y) {
+      this.checkedAsset[x][y] = e.currentTarget.checked;
     }
   }
 }
