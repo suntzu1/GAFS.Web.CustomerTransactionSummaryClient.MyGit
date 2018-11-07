@@ -23,7 +23,6 @@ export class AssetViewerComponent implements OnInit {
 
   ngOnInit() {
     this.datasvc.currentAssets.subscribe(acs => {
-      // debugger;
       this.allcontractsAssets = acs; }
     );
   }

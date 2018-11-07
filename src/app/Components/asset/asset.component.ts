@@ -166,6 +166,7 @@ export class AssetComponent implements OnInit {
   }
 
   checkToggled(o, x, y) {
+    debugger;
     this.checkedAsset[x][y] = !this.checkedAsset[x][y];
     const index = this.workingcontractAsset.indexOf(o.asset);
     if (index > -1) {
@@ -183,14 +184,20 @@ export class AssetComponent implements OnInit {
   }
 
   clickAssetSelectAll(ca, e, x) {
-    const chk = e.srcElement.checked;
-    if (chk) {
-    } else {
-
-    }
+    const chk = e.currentTarget.checked; // e.srcElement.checked;
+    ca.Assets.map(a => {
+      const index = this.workingcontractAsset.indexOf(a);
+      if (index > -1) {
+        if (!chk) {
+          this.workingcontractAsset.splice(index, 1);
+        }
+      } else {
+        this.workingcontractAsset.push(a);
+      }
+    });
     const ac = this.allcontractsAssets[x];
     for (let y = 0; y < ac.Assets.length; ++y) {
-      this.checkedAsset[x][y] = e.currentTarget.checked;
+      this.checkedAsset[x][y] = chk;
     }
   }
 }
