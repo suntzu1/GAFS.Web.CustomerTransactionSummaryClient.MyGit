@@ -46,7 +46,6 @@ export class MaterialGridComponent implements OnInit {
   }
 
   public deleteRow(element) {
-    console.log(element);
   }
 }
 

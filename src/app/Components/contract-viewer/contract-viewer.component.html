@@ -12,11 +12,11 @@
         <td>{{ orignalContract.applicationId }}</td>
         <td [ngClass]="{'modified': orignalContract.applicationId !== workingContract.applicationId}">{{ workingContract.applicationId }}</td>
       </tr>
-      <!-- <tr>
+      <tr>
         <td>Master Agreement Number</td>
-        <td>{{ orignalContract.MasterAgreementNumber }}</td>
-        <td [ngClass]="{'modified': orignalContract.MasterAgreementNumber !== workingContract.MasterAgreementNumber}">{{ workingContract.MasterAgreementNumber }}</td>
-      </tr> -->
+        <td>{{ orignalContract.masterAgreementNumber }}</td>
+        <td [ngClass]="{'modified': orignalContract.masterAgreementNumber !== workingContract.masterAgreementNumber}">{{ workingContract.masterAgreementNumber }}</td>
+      </tr>
       <tr>
         <td>Private Label</td>
         <td>{{ orignalContract.privateLabel | yesNo }}</td>
@@ -121,21 +121,21 @@
         <td>{{ orignalContract.lateChargeMax }}</td>
         <td [ngClass]="{'modified': orignalContract.lateChargeMax !== workingContract.lateChargeMax}">{{ workingContract.lateChargeMax }}</td>
       </tr>
-      <!-- <tr>
+      <tr>
         <td>Vendor Contract ID</td>
-        <td>{{ orignalContract.VendorContractID }}</td>
-        <td [ngClass]="{'modified': orignalContract.VendorContractID !== workingContract.VendorContractID}">{{ workingContract.VendorContractID }}</td>
-      </tr> -->
+        <td>{{ orignalContract.vendorContractNumber }}</td>
+        <td [ngClass]="{'modified': orignalContract.vendorContractNumber !== workingContract.vendorContractNumber}">{{ workingContract.vendorContractNumber }}</td>
+      </tr>
       <tr>
         <td>Vendor Customer ID</td>
         <td>{{ orignalContract.vendorCustomerNumber }}</td>
         <td [ngClass]="{'modified': orignalContract.vendorCustomerNumber !== workingContract.vendorCustomerNumber}">{{ workingContract.vendorCustomerNumber }}</td>
       </tr>
-      <!-- <tr>
+      <tr>
         <td>Renewal Term</td>
         <td>{{ orignalContract.renewalTermLength }}</td>        
         <td [ngClass]="{'modified': orignalContract.renewalTermLength !== workingContract.renewalTermLength}">{{ workingContract.renewalTermLength }}</td>
-      </tr> -->
+      </tr>
     </table>
   </mat-dialog-content>
   <hr />

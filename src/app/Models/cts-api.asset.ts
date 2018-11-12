@@ -18,8 +18,8 @@ export interface Asset {
     assetVendorName: string;
     stateTaxRate: number;
     salesTaxExempt: boolean;
-    // propertyTaxStatusId: string;
-    // propertyTaxStatusDescription: string;
+    propertyTaxStatusId: string;
+    propertyTaxStatusDescription: string;
     listPrice: number;
     originalCost: number;
     // assetCostPercentage: number;
@@ -55,4 +55,6 @@ export interface Asset {
     // valueAccruedDate: string;
     // locationRecords: LocationRecord[];
     manufacturerDesc: string;
+    overageContractId: string;
+    activeContract: boolean;
 }

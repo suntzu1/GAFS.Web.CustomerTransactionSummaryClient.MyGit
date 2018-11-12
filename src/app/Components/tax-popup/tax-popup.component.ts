@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from 'src/app/Services/data.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'cts-tax-popup',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaxPopupComponent implements OnInit {
 
-  constructor() { }
+  @Input() locRec: any;
+  @Input() ast: any;
+  constructor(
+    public dialogRef: MatDialogRef<TaxPopupComponent>,
+    private data: DataService
+  ) { }
 
   ngOnInit() {
+    this.locRec = this.data.AssetAddress;
+    this.ast = this.data.AssetAddress;
   }
 
 }

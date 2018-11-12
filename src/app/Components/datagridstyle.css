@@ -1,10 +1,13 @@
+.container {
+    margin: 0!important;
+}
 table {
     font-size: smaller;
 }
 tr:first-child > td:first-child,
 tr:first-child {
     font-weight: bold;
-    color: sienna!important;
+    /* color: sienna!important; */
     text-align: center
 }
 td:first-child,
@@ -14,7 +17,6 @@ td:nth-child(2) {
     background: inherit;
     background-color: #00457E;
     color: white;
-    min-width: 200px;
     z-index: 999!important;
 }
 td:first-child {
@@ -28,11 +30,14 @@ td {
     border-style: solid;
     border-color: lightgray;
     min-height: 62px;
+    min-width: 300px;
+    max-width: 300px;
+    width: 300px!important;
 }
 
 td > input[type="radio"] {
     position: relative;
-    float: right;
+    float: left;
     top: 0px;
     vertical-align: top;
 }
@@ -46,7 +51,9 @@ td > input[type="radio"] {
     top:0;
     position: sticky;
     background: inherit;
-    color: sienna!important;
-    background-color: #e6e6e6;
+    /* color: sienna!important; */
+    color: white!important;
+    /* background-color: #e6e6e6; */
+    background-color:  #00457E;
     z-index: 9999;
 }

@@ -1,3 +1,97 @@
-<p>
-  tax-popup works!
-</p>
+<h2>Tax and Address</h2>
+<mat-dialog-content>
+  <div class="container">
+    <div class="row">
+      <div class="col collabel">Address 1:</div>
+      <div class="col">{{locRec.currentEquipmentAddress1 }}</div>
+    </div>
+    <div class="row rowalt">
+      <div class="col collabel">Address 2:</div>
+      <div class="col">{{locRec.currentEquipmentAddress2 }}</div>
+    </div>
+    <div class="row">
+      <div class="col collabel">City:</div>
+      <div class="col">{{ locRec.currentEquipmentCity}}</div>
+    </div>
+    <div class="row rowalt">
+      <div class="col collabel">State:</div>
+      <div class="col">{{locRec.currentEquipmentState }}</div>
+    </div>
+    <div class="row">
+      <div class="col collabel">Country:</div>
+      <div class="col">{{ locRec.currentEquipmentCountry}}</div>
+    </div>
+    <div class="row rowalt">
+      <div class="col collabel">Zip:</div>
+      <div class="col">{{ locRec.currentEquipmentZip}}</div>
+    </div>
+    <div class="row rowalt">
+      <div class="col collabel">County:</div>
+      <div class="col">{{ ast.equipmentCounty}}</div>
+    </div>
+    <div class="row">
+      <div class="col collabel">State Tax:</div>
+      <div class="col">{{locRec.stateTaxId }}{{
+        locRec.stateTaxDescription }}</div>
+      <div class="col"></div>
+      <div class="col collabel">City Tax:</div>
+      <div class="col">{{locRec.cityTaxId }}{{
+        locRec.cityTaxDescription }}</div>
+    </div>
+    <div class="row rowalt">
+      <div class="col collabel">Misc St Tax:</div>
+      <div class="col">{{locRec.miscellaneousStateTaxId }}{{
+        locRec.miscellaneousStateTaxDescription }}</div>
+      <div class="col"></div>
+      <div class="col collabel">Misc City Tax:</div>
+      <div class="col">{{ locRec.miscellaneousCityTaxId }}{{
+        locRec.miscellaneousCityTaxDescription}}</div>
+    </div>
+    <div class="row">
+      <div class="col collabel">LC State Tax:</div>
+      <div class="col">{{locRec.lateChargeStateTaxId }}{{
+        locRec.lateChargeStateTaxDescription }}</div>
+      <div class="col"></div>
+      <div class="col collabel">LC City Tax:</div>
+      <div class="col">{{locRec.lateChargeCityTaxId }}{{
+        locRec.lateChargeCityTaxDescription }}</div>
+    </div>
+    <div class="row rowalt">
+      <div class="col collabel">State Tax %:</div>
+      <div class="col">{{ locRec.stateTaxRate}}</div>
+      <div class="col"></div>
+      <div class="col collabel">City Tax %:</div>
+      <div class="col">{{locRec.cityTaxRate }}</div>
+    </div>
+    <div class="row">
+      <div class="col collabel">County Tax:</div>
+      <div class="col">{{locRec.countyTaxId }}{{
+        locRec.countyTaxDescription }}</div>
+      <div class="col"></div>
+      <div class="col collabel">City Trans Tax %:</div>
+      <div class="col">{{ locRec.cityTransitTaxRate}}</div>
+    </div>
+    <div class="row rowalt">
+      <div class="col collabel">Misc County Tax:</div>
+      <div class="col">{{locRec.miscellaneousCountyTaxId }}{{
+        locRec.miscellaneousCountyTaxDescription }}</div>
+      <div class="col"></div>
+      <div class="col collabel">Property Tax Status:</div>
+      <div class="col">{{ast.propertyTaxStatusId }}</div>
+    </div>
+    <div class="row">
+      <div class="col collabel">LC County Tax:</div>
+      <div class="col">{{locRec.lateChargeCountyTaxId }}{{
+        locRec.lateChargeCountyTaxDescription }}</div>
+    </div>
+    <div class="row rowalt">
+      <div class="col collabel">County Tax %:</div>
+      <div class="col">{{locRec.countyTaxRate }}</div>
+    </div>
+    <div class="row">
+      <div class="col collabel">County Trans Tax %</div>
+      <div class="col">{{locRec.countyTransitTaxRate }}</div>
+    </div>
+  </div>
+</mat-dialog-content>
+<button class="pull-left btn infoColor" (click)="dialogRef.close('ok')">Ok</button>

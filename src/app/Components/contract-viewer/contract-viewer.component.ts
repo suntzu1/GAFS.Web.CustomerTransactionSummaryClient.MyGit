@@ -25,8 +25,10 @@ export class ContractViewerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.datasvc.originalContract.subscribe(orignalContract => this.orignalContract = orignalContract);
-    this.datasvc.currentContract.subscribe(workingContract => this.workingContract = workingContract);
+    // this.datasvc.originalContract.subscribe(orignalContract => this.orignalContract = orignalContract);
+    // this.datasvc.currentContract.subscribe(workingContract => this.workingContract = workingContract);
+    this.orignalContract = this.datasvc.actualContract;
+    this.workingContract = this.datasvc.modifiedContract;
   }
   cancel() {
     this.dialogRef.close('cancel');

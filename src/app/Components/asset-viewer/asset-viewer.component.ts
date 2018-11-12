@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class AssetViewerComponent implements OnInit {
 
-  @Input()hideActions: boolean = false;
+  @Input() hideActions: boolean = false;
   allcontractsAssets: any;
   description: string;
   constructor(
@@ -23,7 +23,8 @@ export class AssetViewerComponent implements OnInit {
 
   ngOnInit() {
     this.datasvc.currentAssets.subscribe(acs => {
-      this.allcontractsAssets = acs; }
+      this.allcontractsAssets = acs;
+    }
     );
   }
   cancel() {

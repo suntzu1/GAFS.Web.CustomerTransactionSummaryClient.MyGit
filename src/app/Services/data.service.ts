@@ -30,6 +30,10 @@ export class DataService {
   modifiedContract: Contract;
   checkBoxArr: number[];
   checkedAsset: any;
+  workingcontractAsset: Asset[];
+  actualContract: any;
+  AssetAddress: any;
+  AssetLocationRecord: any;
 
   constructor() { }
 

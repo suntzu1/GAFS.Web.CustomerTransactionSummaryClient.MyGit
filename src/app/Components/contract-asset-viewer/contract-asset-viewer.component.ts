@@ -21,10 +21,11 @@ export class ContractAssetViewerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.datasvc.currentAssets.subscribe(acs => {
-      this.allcontractsAssets = acs;
-    }
-    );
+    this.allcontractsAssets = this.datasvc.workingcontractAsset;
+    // this.datasvc.currentAssets.subscribe(acs => {
+    //   this.allcontractsAssets = acs;
+    // }
+    // );
     this.datasvc.currentContract.subscribe(workingContract => {
       this.workingContract = workingContract;
     }

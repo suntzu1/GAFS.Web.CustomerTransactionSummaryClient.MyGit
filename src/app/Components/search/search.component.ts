@@ -48,10 +48,8 @@ export class SearchComponent implements OnInit {
     };
   }
   onItemSelect(item: any) {
-    console.log(item);
   }
   onSelectAll(items: any) {
-    console.log(items);
   }
   clearsearch() {
     this.searchparams.appid = '';

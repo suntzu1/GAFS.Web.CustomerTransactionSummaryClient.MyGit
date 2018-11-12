@@ -77,7 +77,8 @@ const matmodules = [
     // CustomAlertComponent,
     ContractViewerComponent,
     AssetViewerComponent,
-    ContractAssetViewerComponent
+    ContractAssetViewerComponent,
+    TaxPopupComponent
   ],
   providers: [
     appservices

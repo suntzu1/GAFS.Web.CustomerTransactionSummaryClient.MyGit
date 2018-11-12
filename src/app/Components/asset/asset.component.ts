@@ -11,6 +11,7 @@ import { IconTypes, AlertTypes, CustomAlertComponent } from '../CustomAlert/cust
 import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
 import { Asset } from 'src/app/Models/cts-api.asset';
 import { CtsApiService } from 'src/app/Services/cts-api.service';
+import { ContractAssetViewerComponent } from '../contract-asset-viewer/contract-asset-viewer.component';
 
 @Component({
   selector: 'cts-asset',
@@ -41,7 +42,11 @@ export class AssetComponent implements OnInit {
     listPrice: 0,
     originalCost: 0,
     manufacturerDesc: '',
-    stateTaxRate: 0
+    stateTaxRate: 0,
+    propertyTaxStatusId: '',
+    propertyTaxStatusDescription: '',
+    activeContract: false,
+    overageContractId: ''
   };
   resultAssets: Asset[];
   showCheckBoxes: boolean;
@@ -67,28 +72,17 @@ export class AssetComponent implements OnInit {
     if (!this.data.checkedAsset) { this.data.checkedAsset = this.checkedAsset; }
   }
   storeState() {
-    this.data.checkedAsset = this.checkedAsset;
+    if (this.checkedAsset && this.checkedAsset.length > 0) { this.data.checkedAsset = this.checkedAsset; }
+    if (this.workingcontractAsset && this.workingcontractAsset.length > 0) { this.data.workingcontractAsset = this.workingcontractAsset; }
   }
   applyResult() {
     if (this.data.loadedAssets && this.data.loadedAssets.length > 0) {
+      if (this.data.workingcontractAsset) { this.workingcontractAsset = this.data.workingcontractAsset; }
       this.parseContractAssets();
     } else {
       this.api.GetAssetsByCustomerId('').subscribe(
         (response: any) => {
-          // this.resultAssets = response;
-          // for (let i = 0; i < 5; ++i) {
-          //   const a = this.resultAssets[i];
-          //   const c = this.allcontractsAssets.find(x => x.ContractNumber === a.ContractNumber);
-          //   if (c) {
-          //     c.Assets.push(a);
-          //   } else {
-          //     const ca: ContractAssets = {
-          //       ContractNumber: a.ContractNumber,
-          //       Assets: [a]
-          //     };
-          //     this.allcontractsAssets.push(ca);
-          //   }
-          // }
+
         }
       );
     }
@@ -112,6 +106,10 @@ export class AssetComponent implements OnInit {
         this.allcontractsAssets.push(ca);
       }
     }
+    this.initCheckedList();
+  }
+
+  initCheckedList() {
     this.checkedAsset = [];
     for (let x = 0; x < this.allcontractsAssets.length; ++x) {
       this.checkedAsset[x] = [];
@@ -139,6 +137,8 @@ export class AssetComponent implements OnInit {
   }
   clearAllSelections() {
     this.selectAllContract = this.workingAsset;
+    this.workingcontractAsset = [];
+    this.initCheckedList();
   }
   checkIfSelected(c): boolean {
     return this.selectAllContract === c;
@@ -155,7 +155,26 @@ export class AssetComponent implements OnInit {
     };
     const dialogRef = this.dialog.open(AssetViewerComponent, diaCnfg);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
+      if (result === 'accept') {
+        // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
+        this.cmnfn.showAlert(this.dialog,
+          'Information', '', 'Assets data submitted',
+          IconTypes.Information, AlertTypes.Info);
+      }
+    });
+  }
+
+  sendContractAssetData() {
+    this.data.changeAssetsTriggered(this.workingcontractAsset);
+    const diaCnfg: MatDialogConfig = {
+      disableClose: true,
+      autoFocus: true
+    };
+    diaCnfg.data = {
+      title: 'Confirmation Page'
+    };
+    const dialogRef = this.dialog.open(ContractAssetViewerComponent, diaCnfg);
+    dialogRef.afterClosed().subscribe(result => {
       if (result === 'accept') {
         // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
         this.cmnfn.showAlert(this.dialog,
@@ -166,7 +185,6 @@ export class AssetComponent implements OnInit {
   }
 
   checkToggled(o, x, y) {
-    debugger;
     this.checkedAsset[x][y] = !this.checkedAsset[x][y];
     const index = this.workingcontractAsset.indexOf(o.asset);
     if (index > -1) {
@@ -176,15 +194,9 @@ export class AssetComponent implements OnInit {
     } else {
       this.workingcontractAsset.push(o.asset);
     }
-    // const fa = this.workingcontractAsset.find(a => a.AssetID === o.asset.AssetID);
-    // if (!fa) {
-    //   this.workingcontractAsset.push(o.asset);
-    // }
-    console.log(this.checkedAsset);
   }
 
-  clickAssetSelectAll(ca, e, x) {
-    const chk = e.currentTarget.checked; // e.srcElement.checked;
+  clickAssetSelectAll(ca, e, x, chk) {
     ca.Assets.map(a => {
       const index = this.workingcontractAsset.indexOf(a);
       if (index > -1) {
@@ -201,131 +213,3 @@ export class AssetComponent implements OnInit {
     }
   }
 }
-
-/*
-const w_Asset: Asset = {
-  ContractNumber: null,
-  AssetID: null,
-  Manufacturer: 'Other',
-  Model: '',
-  SerialNumber: '',
-  VendorMachineID: '',
-  AssetAddress: null,
-  PPTX: '',
-  SalesTax: null,
-  FinancedAmt: 11250,
-  AgreementOveragesBilledOn: '',
-  ContractActive: null,
-};
-
-const r_Asset1: Asset = {
-  ContractNumber: '1083023-081',
-  AssetID: 1273115,
-  Manufacturer: 'Epson',
-  Model: 'SureColor T5270',
-  SerialNumber: 'U7UE000364',
-  VendorMachineID: '',
-  AssetAddress: {
-    StreetAddress: '450 Riverchase Pkwy E',
-    Address2: 'Facilities',
-    City: 'Hoover',
-    State: 'AL',
-    Zip: '35244-2858',
-    Contact: ''
-  },
-  PPTX: '',
-  SalesTax: 100.37,
-  FinancedAmt: 10007.37,
-  AgreementOveragesBilledOn: '',
-  ContractActive: true
-};
-
-const r_Asset2: Asset = {
-  ContractNumber: '1083023-079',
-  AssetID: 1262201,
-  Manufacturer: 'Xerox',
-  Model: 'AltaLink C8035 with',
-  SerialNumber: '2TX061119',
-  VendorMachineID: '',
-  AssetAddress: {
-    StreetAddress: '450 Riverchase Pkwy E',
-    Address2: 'Parking Deck Maint',
-    City: 'Hoover',
-    State: 'AL',
-    Zip: '35244-2858',
-    Contact: ''
-  },
-  PPTX: '',
-  SalesTax: 89.5,
-  FinancedAmt: 8951.38,
-  AgreementOveragesBilledOn: '',
-  ContractActive: true,
-};
-
-const r_Asset3: Asset = {
-  ContractNumber: '1083023-078',
-  AssetID: 1265252,
-  Manufacturer: 'Xerox',
-  Model: 'AltaLink C8055',
-  SerialNumber: '8TB581152',
-  VendorMachineID: '',
-  AssetAddress: {
-    StreetAddress: '450 Riverchase Pkwy E',
-    Address2: 'Facilities 1st West',
-    City: 'Hoover',
-    State: 'AL',
-    Zip: '35244-2858',
-    Contact: ''
-  },
-  PPTX: '',
-  SalesTax: 150.48,
-  FinancedAmt: 15153.48,
-  AgreementOveragesBilledOn: '',
-  ContractActive: true,
-};
-
-const r_Asset4: Asset = {
-  ContractNumber: '1083023-080',
-  AssetID: 1262973,
-  Manufacturer: 'Xerox',
-  Model: 'AltaLink C8035 with',
-  SerialNumber: '2TX059024',
-  VendorMachineID: '',
-  AssetAddress: {
-    StreetAddress: '2 N Jackson St Ste 202',
-    Address2: null,
-    City: 'Montgomery',
-    State: 'AL',
-    Zip: '36104-3821',
-    Contact: ''
-  },
-  PPTX: 'Lessor Files ',
-  SalesTax: 110.62,
-  FinancedAmt: 11189.62,
-  AgreementOveragesBilledOn: '1083023-081',
-  ContractActive: true,
-};
-
-const r_Asset5: Asset = {
-  ContractNumber: '1083023-081',
-  AssetID: 1273127,
-  Manufacturer: 'Epson',
-  Model: 'SureColor T5270',
-  SerialNumber: 'U7UE000364',
-  VendorMachineID: '',
-  AssetAddress: {
-    StreetAddress: '450 Riverchase Pkwy E',
-    Address2: 'Facilities',
-    City: 'Hoover',
-    State: 'AL',
-    Zip: '35244-2858',
-    Contact: ''
-  },
-  PPTX: '',
-  SalesTax: 101.99,
-  FinancedAmt: 10127.99,
-  AgreementOveragesBilledOn: '',
-  ContractActive: true
-};
-*/
-

@@ -402,5 +402,8 @@ export interface Contract extends ContractBase {
     yearsInBusiness: number;
     yearToDateInterest: number;
     yearToDateInterestReceived: number;
-    yield: number;    
+    yield: number;
+    overageContractId: string;
+    vendorContractNumber: string;
+    renewalTermLength: number;
 }

@@ -6,7 +6,7 @@
         <div class="col-md-6 text-white">{{ca.ContractNumber}}</div>
       </div>
       <div *ngIf="ca.Assets.length > 1" class="row selalldiv">
-        <input type="checkbox" class="checkbox" (click)="clickAssetSelectAll(ca, $event, x)"><span>Select all</span>
+          <button type="button" class="btn-sm" *ngIf="showCheckBoxes" (click)="clickAssetSelectAll(ca, $event, x, true)">Select All</button>
       </div>
       <div *ngFor="let a of ca.Assets; let y = index" class="row">
         <cts-asset-card [assetdata]="a" (toggle)="checkToggled($event,x,y)" [assetchecked]="checkedAsset[x] ? checkedAsset[x][y] : false"></cts-asset-card>
@@ -20,7 +20,7 @@
       <button class="btn btn-primary btn-sm" (click)="sendAssetData()">SEND ASSET DATA</button>
     </div>
     <div class="col-md-4">
-      <button class="btn btn-primary btn-sm">SEND ASSET AND CONTRACT DATA</button>
+      <button class="btn btn-primary btn-sm" (click)="sendContractAssetData()">SEND ASSET AND CONTRACT DATA</button>
     </div>
     <div class="col-md-4">
       <button class="btn btn-primary btn-sm" (click)="clearAllSelections()">CLEAR ASSET DATA SELECTIONS</button>

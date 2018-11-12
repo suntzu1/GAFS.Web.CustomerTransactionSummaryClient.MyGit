@@ -43,6 +43,7 @@ export class ResultsComponent implements OnInit {
       }
       switch (func) {
         case 's_application':
+          // search by application id
           this.data.showCheckBoxes = false;
           this.ctsapi.GetContractsByApplicationId(id).subscribe(
             (resp) => {
@@ -54,6 +55,7 @@ export class ResultsComponent implements OnInit {
           );
           break;
         case 'application':
+          // entry from an external app by application id
           this.data.showCheckBoxes = true;
           this.ctsapi.GetApplicationByApplicationId(id).subscribe(
             (resp) => {
@@ -61,7 +63,6 @@ export class ResultsComponent implements OnInit {
                 return;
               }
               this.data.loadedApplication = resp.message.applicationInfo;
-              // todo: sunil 11/05/2018 - change this to by application id
               this.ctsapi.GetContractsByCustomerId(resp.message.applicationInfo.applications[0].applicationId.toString()).subscribe(
                 (resp2) => {
                   this.processLoadedContracts(resp2);
@@ -71,6 +72,7 @@ export class ResultsComponent implements OnInit {
           );
           break;
         case 'ccan':
+          // search by customer id and dealer list
           this.data.showCheckBoxes = false;
           this.ctsapi.GetByCustomerId(id, this.data.dealerlist, this.data.incldc).subscribe(
             (resp) => {
@@ -120,7 +122,6 @@ export class ResultsComponent implements OnInit {
 
   processLoadedContracts(res) {
     this.AddBillingAddress(res.message.contractInfo.contracts);
-    // todo: sunil 11/05/2018 - need to remove respcontracts ??? why the need for 2?
     this.data.respcontracts = res.message.contractInfo.contracts;
     this.data.loadedContracts = Object.assign([], res.message.contractInfo.contracts);
     this.compcontract.applyResult();
@@ -134,7 +135,6 @@ export class ResultsComponent implements OnInit {
     });
     forkJoin(cs)
       .subscribe(data => {
-        console.log(data[0].message.assetInfo.contracts[0].assets[0]);
         data.forEach(n => {
           n.message.assetInfo.contracts.forEach(c => {
             c.assets.forEach(a => {
@@ -183,7 +183,7 @@ export class ResultsComponent implements OnInit {
   selectedTabChange(e) {
     switch (this.tab) {
       case 0:
-        this.compasset.storeState();
+        this.storeDataBeforeNav();
         if (this.data.loadedContracts !== null && this.data.loadedContracts.length > 0) {
           this.data.respcontracts = Object.assign([], this.data.loadedContracts);
           this.compcontract.applyResult();
@@ -192,7 +192,7 @@ export class ResultsComponent implements OnInit {
         }
         break;
       case 1:
-        this.compcontract.storeState();
+        this.storeDataBeforeNav();
         if (this.data.loadedAssets !== null && this.data.loadedAssets.length > 0) {
           this.compasset.applyResult();
         } else {
@@ -200,9 +200,16 @@ export class ResultsComponent implements OnInit {
         }
         break;
       case 2:
+        this.storeDataBeforeNav();
         break;
       case 3:
+        this.storeDataBeforeNav();
         break;
     }
+  }
+
+  storeDataBeforeNav() {
+    if (this.compasset) { this.compasset.storeState(); }
+    if (this.compcontract) { this.compcontract.storeState(); }
   }
 }

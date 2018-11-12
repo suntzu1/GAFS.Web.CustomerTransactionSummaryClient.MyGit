@@ -128,4 +128,37 @@ export class CtsApiService {
     return throwError(
       'An error has occured; please try again later. If it continues to occur, please contact application support.');
   }
+
+  ConvertApplicationToContract(c, a) {
+    c.vendorId = a.dealerId;
+    c.programTypeId = a.programType;
+    c.relationshipId = a.relationshipCode;
+    c.relationshipDesc = a.relationshipCodeDesc;
+    c.billToAddress1 = a.lesseeAddress1;
+    c.billToAddress2 = a.lesseeAddress2;
+    c.billToAttnName = a.lesseeAttnName;
+    c.billToCity = a.lesseeCity;
+    c.billToCountry = a.lesseeCountry;
+    c.billToName = a.lesseeName;
+    c.billToState = a.lesseeState;
+    c.billToZip = a.lesseeZip;
+    c.requiredSigner = a.signerName;
+    c.termLength = a.term;
+    c.purchaseOptionId = a.eotOption;
+    c.purchaseOptionDesc = a.eotOptionDesc;
+    c.documentProfileId = a.docProfileId;
+    c.documentProfileName = a.docProfileName;
+    c.documentProfileFooter = a.docProfileFooter;
+    c.equipmentCost = a.totalFinanceAmount;
+    c.purchaseOrderIndicator = a.purchaseOrderInfoLeaseFlag;
+    c.insuranceStatusCode = a.insuranceStatus;
+    c.invoiceDescription = a.invoiceDesc;
+    c.collateralCodeId = a.collateralCode;
+    c.lateChargeRate = a.lateChargePctOfPmt;
+    c.gracePeriod = a.gracePeriodDays;
+    c.productLineId = a.securitizationCode;
+    c.productLineDesc = a.securitizationCodeDesc;
+    c.vendorContractNumber = a.vendorContractId;
+    c.renewalTermLength = a.renewalTerm;
+  }
 }
