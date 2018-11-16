@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Contract } from '../Models/cts-api.contract';
 import { Asset } from '../Models/cts-api.asset';
-import { ContractInfo } from '../Models/cts-api';
+import { ContractInfo, ApplicationInfo } from '../Models/cts-api';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class DataService {
   incldc: boolean;
   respcontracts: Contract[];
 
-  loadedApplication: ContractInfo;
+  loadedApplication: ApplicationInfo;
   loadedContracts: Contract[];
   loadedAssets: Asset[];
   showCheckBoxes: boolean;

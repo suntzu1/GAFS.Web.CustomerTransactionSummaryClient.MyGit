@@ -66,7 +66,16 @@ export class ContractComponent implements OnInit {
 
   applyResult() {
     const res: Contract[] = this.datasvc.respcontracts;
-    this.workingContract = res.splice(0, 1)[0];
+    // if (res.length > 0) {
+    // this.workingContract = res.splice(0, 1)[0];
+    // } else {
+    //   this.workingContract = {};
+    // }
+    if (this.datasvc.loadedApplication && this.datasvc.loadedApplication.applications.length > 0) {
+      this.api.ConvertApplicationToContract(this.workingContract, this.datasvc.loadedApplication.applications[0]);
+    } else {
+      this.workingContract = {};
+    }
     this.datasvc.changeOriginalContractTriggered(this.workingContract);
     this.datasvc.actualContract = this.workingContract;
     this.resultContracts = res;
@@ -139,9 +148,13 @@ export class ContractComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'accept') {
         // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        this.cmnfn.showAlert(this.dialog, 'Information', '',
-          'Contract data submitted', IconTypes.Information,
-          AlertTypes.Info);
+        const putApp: any = {};
+        this.api.ConvertContractToApplication(putApp, this.datasvc.modifiedContract);
+        this.api.PutUpdateApplication(putApp).subscribe(res => {
+          this.cmnfn.showAlert(this.dialog, 'Information', '',
+            'Contract data submitted', IconTypes.Information,
+            AlertTypes.Info);
+        });
       }
     });
   }
@@ -170,18 +183,18 @@ export class ContractComponent implements OnInit {
     if (c == null) {
       return '';
     }
-    const add2 = c.lesseeAddress2 && c.lesseeAddress2.length > 0 ? '<br/>' + c.lesseeAddress2 : '';
-    return `${c.lesseeAddress1}${add2}<br/>
-    ${ c.lesseeCity}, ${c.lesseeState}, ${c.lesseeZip}<br/>${c.collectionContactName}`;
+    const add2 = c.billToAddress2 && c.billToAddress2.length > 0 ? '<br/>' + c.billToAddress2 : '';
+    return `${c.billToAddress1}${add2}<br/>
+    ${ c.billToCity}, ${c.billToState}, ${c.billToZip}<br/>${c.billToAttnName}`;
   }
 
   compareAddress(c1: Contract, c2: Contract) {
-    if (c1.lesseeAddress1 !== c2.lesseeAddress1) { return true; }
-    if (c1.lesseeAddress2 !== c2.lesseeAddress2) { return true; }
-    if (c1.lesseeCity !== c2.lesseeCity) { return true; }
-    if (c1.lesseeState !== c2.lesseeState) { return true; }
-    if (c1.lesseeZip !== c2.lesseeZip) { return true; }
-    if (c1.collectionContactName !== c2.collectionContactName) { return true; }
+    if (c1.billToAddress1 !== c2.billToAddress1) { return true; }
+    if (c1.billToAddress2 !== c2.billToAddress2) { return true; }
+    if (c1.billToCity !== c2.billToCity) { return true; }
+    if (c1.billToState !== c2.billToState) { return true; }
+    if (c1.billToZip !== c2.billToZip) { return true; }
+    if (c1.billToAttnName !== c2.billToAttnName) { return true; }
   }
 
   getGuarantorData(g: Guarantor): string {

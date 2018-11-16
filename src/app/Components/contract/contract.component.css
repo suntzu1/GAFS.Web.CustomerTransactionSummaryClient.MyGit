@@ -10,3 +10,6 @@ td:nth-child(2) {
 .table-striped td {
     border-right-width: 1px;
 }
+.freezediv {
+    height: 650px;
+}

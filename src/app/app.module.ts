@@ -16,6 +16,7 @@ import { MaterialGridComponent } from './Components/MaterialGrid/material-grid.c
 import { Routing } from './app.routing';
 
 import { YesNo } from './Pipes/YesNo';
+import { Cycle } from './Pipes/Cycle';
 
 import {
   MatTableModule, MatPaginatorModule, MatInputModule, MatProgressSpinnerModule, MatSortModule, MatDialogModule, MatDialogContent, MatTabsModule
@@ -56,6 +57,7 @@ const matmodules = [
     UsageComponent,
     // CustomAlertComponent,
     YesNo,
+    Cycle,
     AssetCardComponent,
     PaymentCardComponent,
     MaterialGridComponent,

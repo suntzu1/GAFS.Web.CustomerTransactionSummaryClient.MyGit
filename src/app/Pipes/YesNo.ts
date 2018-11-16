@@ -2,8 +2,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({name: 'yesNo'})
 export class YesNo implements PipeTransform {
-  transform(value: boolean): string {
+  transform(value: any): string {
     if (value === null) {return ''; }
-    return value ? 'Yes' : 'No';
+    switch (value) {
+      case 1:
+      case '1':
+      case 'true':
+      case true:
+        return 'Yes';
+      case 0:
+      case '0':
+      case 'false':
+      case false:
+        return 'No';
+    }
+    return '';
   }
 }

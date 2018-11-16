@@ -34,8 +34,8 @@
       </tr>
       <tr>
         <td>Lessee Name</td>
-        <td>{{ orignalContract.lesseeName }}</td>
-        <td [ngClass]="{'modified': orignalContract.lesseeName !== workingContract.lesseeName}">{{ workingContract.lesseeName }}</td>
+        <td>{{ orignalContract.billToName }}</td>
+        <td [ngClass]="{'modified': orignalContract.billToName !== workingContract.billToName}">{{ workingContract.billToName }}</td>
       </tr>
       <tr>
         <td>Billing Address</td>
@@ -58,8 +58,8 @@
       </tr>
       <tr>
         <td>Email</td>
-        <td>{{ orignalContract.lesseeEmail }}</td>
-        <td [ngClass]="{'modified': orignalContract.lesseeEmail !== workingContract.lesseeEmail}">{{ workingContract.lesseeEmail }}</td>
+        <td>{{ orignalContract.collectionContactEmail }}</td>
+        <td [ngClass]="{'modified': orignalContract.collectionContactEmail !== workingContract.collectionContactEmail}">{{ workingContract.collectionContactEmail }}</td>
       </tr>
       <tr>
         <td>Signer</td>
@@ -68,8 +68,8 @@
       </tr>
       <tr>
         <td>Document Profile</td>
-        <td>{{ orignalContract.documentProfileName }}</td>
-        <td [ngClass]="{'modified': orignalContract.documentProfileName !== workingContract.documentProfileName}">{{ workingContract.documentProfileName }}</td>
+        <td>{{ orignalContract.documentProfileName }}  {{ orignalContract.documentProfileFooter }}</td>
+        <td [ngClass]="{'modified': orignalContract.documentProfileName !== workingContract.documentProfileName}">{{ workingContract.documentProfileName }} {{ workingContract.documentProfileFooter }} </td>
       </tr>
       <tr>
         <td>Invoice Description</td>
@@ -83,13 +83,13 @@
       </tr>
       <tr>
         <td>Indirect Billing</td>
-        <td>{{ orignalContract.indirectBillingDesc }}</td>
-        <td [ngClass]="{'modified': orignalContract.indirectBillingDesc !== workingContract.indirectBillingDesc}">{{ workingContract.indirectBillingDesc }}</td>
+        <td>{{ orignalContract.indirectBilling }}</td>
+        <td [ngClass]="{'modified': orignalContract.indirectBilling !== workingContract.indirectBilling}">{{ workingContract.indirectBilling }}</td>
       </tr>
       <tr>
         <td>Invoice Code</td>
-        <td>{{ orignalContract.invoiceCodeDesc }}</td>
-        <td [ngClass]="{'modified': orignalContract.invoiceCodeDesc !== workingContract.invoiceCodeDesc}">{{ workingContract.invoiceCodeDesc }}</td>
+        <td>{{ orignalContract.invoiceCode }}</td>
+        <td [ngClass]="{'modified': orignalContract.invoiceCodeDesc !== workingContract.invoiceCodeDesc}">{{ workingContract.invoiceCode }}</td>
       </tr>
       <tr>
         <td>Late Charge Exempt</td>

@@ -12,6 +12,8 @@ import { AssetComponent } from '../asset/asset.component';
 import { Observable } from 'rxjs/internal/observable';
 // import 'rxjs/add/observable/forkJoin';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { ApplicationInfo } from '../../Models/cts-api';
+
 @Component({
   selector: 'cts-results',
   templateUrl: './results.component.html',
@@ -38,6 +40,7 @@ export class ResultsComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const func = params.get('function');
       const id = params.get('id');
+      const ccan = params.get('ccan');
       if (!func || !id || func === '' || id === '') {
         return;
       }
@@ -45,6 +48,7 @@ export class ResultsComponent implements OnInit {
         case 's_application':
           // search by application id
           this.data.showCheckBoxes = false;
+          this.data.loadedApplication = null;
           this.ctsapi.GetContractsByApplicationId(id).subscribe(
             (resp) => {
               if (!this.validResponse(resp, 'c')) {
@@ -63,10 +67,12 @@ export class ResultsComponent implements OnInit {
                 return;
               }
               this.data.loadedApplication = resp.message.applicationInfo;
-              this.ctsapi.GetContractsByCustomerId(resp.message.applicationInfo.applications[0].applicationId.toString()).subscribe(
+              this.ctsapi.GetContractsByCustomerId(resp.message.applicationInfo.customerId.toString()).subscribe(
                 (resp2) => {
                   this.processLoadedContracts(resp2);
-                }
+                }, error => {
+                  this.cmnfn.showAlert(this.dialog, 'Error', '', error, IconTypes.Critical, AlertTypes.Info);
+                  this.compcontract.applyResult();                }
               );
             }
           );
@@ -121,9 +127,17 @@ export class ResultsComponent implements OnInit {
   }
 
   processLoadedContracts(res) {
-    this.AddBillingAddress(res.message.contractInfo.contracts);
-    this.data.respcontracts = res.message.contractInfo.contracts;
-    this.data.loadedContracts = Object.assign([], res.message.contractInfo.contracts);
+    if (!res.message.contractInfo) {
+      this.data.loadedContracts = [];
+      this.data.respcontracts = [];
+    } else {
+      this.AddBillingAddress(res.message.contractInfo.contracts);
+      const resCons: Contract[] = res.message.contractInfo.contracts;
+      this.data.respcontracts = resCons.sort((a, b) => {
+        return <any>new Date(b.bookingDate) - <any>new Date(a.bookingDate);
+      });
+      this.data.loadedContracts = Object.assign([], this.data.respcontracts);
+    }
     this.compcontract.applyResult();
   }
 
@@ -184,7 +198,8 @@ export class ResultsComponent implements OnInit {
     switch (this.tab) {
       case 0:
         this.storeDataBeforeNav();
-        if (this.data.loadedContracts !== null && this.data.loadedContracts.length > 0) {
+        if ((this.data.loadedApplication) ||
+          (this.data.loadedContracts !== null && this.data.loadedContracts.length > 0)) {
           this.data.respcontracts = Object.assign([], this.data.loadedContracts);
           this.compcontract.applyResult();
         } else {

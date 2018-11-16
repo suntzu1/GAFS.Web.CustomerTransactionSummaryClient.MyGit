@@ -44,12 +44,12 @@ td > input[type="radio"] {
 .freezediv{
     /* height: 400px; */
     width: 100%;
-    overflow: auto;
+    /* overflow: auto; */
     background-color: white;
 }
 .headerrow td{
     top:0;
-    position: sticky;
+    /* position: sticky; */
     background: inherit;
     /* color: sienna!important; */
     color: white!important;

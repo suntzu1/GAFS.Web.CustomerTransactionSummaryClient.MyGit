@@ -11,6 +11,7 @@ const appRoutes: Routes = [
     { path: 'search', component: SearchComponent, pathMatch: 'full' },
     { path: 'results', component: ResultsComponent, pathMatch: 'full' },
     { path: 'results/:function/:id', component: ResultsComponent, pathMatch: 'full' },
+    { path: 'results/:function/:id/:ccan', component: ResultsComponent, pathMatch: 'full' },
     { path: 'assets', component: AssetComponent, pathMatch: 'full' },
     { path: 'payment', component: PaymentComponent, pathMatch: 'full' },
     { path: 'dtconfirm', component: DataTransferConfirmationComponent, pathMatch: 'full'},

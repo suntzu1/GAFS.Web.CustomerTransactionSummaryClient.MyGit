@@ -41,13 +41,17 @@ export class ContractViewerComponent implements OnInit {
     if (c == null) {
       return '';
     }
-    return `${c.lesseeAddress1} ${c.lesseeAddress2}<br/>
-    ${ c.lesseeCity}, ${c.lesseeState}, ${c.lesseeZip}<br/>${c.collectionContactName}`;
+    const add2 = c.billToAddress2 && c.billToAddress2.length > 0 ? '<br/>' + c.billToAddress2 : '';
+    return `${c.billToAddress1}${add2}<br/>
+    ${ c.billToCity}, ${c.billToState}, ${c.billToZip}<br/>${c.billToAttnName}`;
   }
+
   compareAddress(c1: Contract, c2: Contract) {
-    if (c1.lesseeAddress1 !== c2.lesseeAddress1) { return true; }
-    if (c1.lesseeAddress2 !== c2.lesseeAddress2) { return true; }
-    if (c1.lesseeCity !== c2.lesseeCity) { return true; }
+    if (c1.billToAddress1 !== c2.billToAddress1) { return true; }
+    if (!c1.billToAddress2) { c1.billToAddress2 = ''; }
+    if (!c2.billToAddress2) { c2.billToAddress2 = ''; }
+    if (c1.billToAddress2 !== c2.billToAddress2) { return true; }
+    if (c1.billToCity !== c2.billToCity) { return true; }
     if (c1.lesseeState !== c2.lesseeState) { return true; }
     if (c1.lesseeZip !== c2.lesseeZip) { return true; }
     if (c1.collectionContactName !== c2.collectionContactName) { return true; }

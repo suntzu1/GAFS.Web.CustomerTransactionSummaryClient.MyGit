@@ -1,5 +1,6 @@
 import { Asset } from './cts-api.asset';
 import { Contract } from './cts-api.contract';
+import { Application } from './cts-api.application';
 
 export interface Error {
     code: number;
@@ -56,17 +57,20 @@ export interface Renewal {
     renewalTermLength: number;
 }
 
-export interface ContractBase {
+export interface ContractAsset {
     contractId: string;
     applicationId: number;
     vendorId: string;
     vendorName: string;
-}
-
-export interface ContractAsset extends ContractBase {
     assets: Asset[];
 }
 
+export interface ApplicationInfo {
+    customerId: number;
+    customerName: string;
+    customerDBA: string;
+    applications: Application[];
+}
 export interface ContractInfo {
     customerId: number;
     customerName: string;
@@ -84,7 +88,7 @@ export interface AssetInfo {
 
 export interface Message {
     contractInfo: ContractInfo;
-    applicationInfo: ContractInfo;
+    applicationInfo: ApplicationInfo;
     assetInfo: AssetInfo;
 }
 
@@ -147,7 +151,7 @@ export interface LocationRecord {
 export interface ApplicationUpdate {
     collateralCode: string;
     docProfile: number;
-    gracePeriod: number;
+    gracePeriodDays: number;
     indirectBilling: number;
     invoiceCode: string;
     invoiceDesc: string;
@@ -166,6 +170,7 @@ export interface ApplicationUpdate {
     lesseeName: string;
     lesseePhone: string;
     masterAgreementNumber: string;
+    personalGuarantors: any[];
     privateLabel: boolean;
     programType: string;
     relationshipCode: string;

@@ -1,6 +1,6 @@
-import { ContractBase, Guarantor, InsuranceRecord, Payment, Renewal } from './cts-api';
+import { Guarantor, InsuranceRecord, Payment, Renewal } from './cts-api';
 
-export interface Contract extends ContractBase {
+export interface Contract {
     a1Term: number;
     achCode: string;
     activeAssetCost: number;
@@ -10,7 +10,7 @@ export interface Contract extends ContractBase {
     addOn: string;
     allowQuote: boolean;
     amortizedResidual: number;
-    // applicationId: number; // from ConstractBase
+    applicationId: number;
     approver1Id: number;
     approver1Name: string;
     approver2ID: number;
@@ -47,7 +47,7 @@ export interface Contract extends ContractBase {
     buyoutUnappliedSuspense: number;
     cityTaxAmt: number;
     cityTransitTaxAmt: number;
-    collateralCodeId: number;
+    collateralCodeId: string;
     collateralCodeDesc: string;
     collectExempt: string;
     collectionContactEmail: string;
@@ -65,7 +65,7 @@ export interface Contract extends ContractBase {
     contractBalance: number;
     contractBalanceRemaining: number;
     contractComment: string;
-    // contractId: string; // from ConstractBase
+    contractId: string;
     contractStatusDate: string;
     contractStatusDesc: string;
     contractStatusEOTDesc: string;
@@ -275,7 +275,7 @@ export interface Contract extends ContractBase {
     productLineId: string;
     profitOnResidual: number;
     programTypeDesc: string;
-    programTypeId: number;
+    programTypeId: string;
     programVariation: string;
     programVariationDesc: string;
     programVariationId: string;
@@ -285,7 +285,7 @@ export interface Contract extends ContractBase {
     psgCustomerId: string;
     psgTaxCode: string;
     purchaseOptionDesc: string;
-    purchaseOptionId: number;
+    purchaseOptionId: string;
     purchaseOrder: string;
     purchaseOrderIndicator: string;
     purchaseOrderNum: string;
@@ -383,9 +383,9 @@ export interface Contract extends ContractBase {
     vendorDiscountTotal: number;
     vendorDiscountAmount: number;
     vendorExternalRep: string;
-    // vendorId: string; // from ConstractBase
+    vendorId: string;
     vendorInvoiceNumber: string;
-    // vendorName: string; // from ConstractBase
+    vendorName: string;
     vendorPercentage: string;
     vendorPointsAmount: number;
     vendorPointsActive: number;
