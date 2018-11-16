@@ -37,6 +37,8 @@ import { CommonfunctionsModule } from 'src/app/commonfunctions/commonfunctions.m
 import { AssetViewerComponent } from './Components/asset-viewer/asset-viewer.component';
 import { ContractAssetViewerComponent } from './Components/contract-asset-viewer/contract-asset-viewer.component';
 import { TaxPopupComponent } from './Components/tax-popup/tax-popup.component';
+import { ProgressloaderComponent } from './Components/progressloader/progressloader.component';
+import { LoaderService } from './Services/loader-service';
 // AssetService, , ContractService
 const appservices = [
   PaymentService, UsageService, CtsApiService
@@ -65,7 +67,8 @@ const matmodules = [
     ContractViewerComponent,
     AssetViewerComponent,
     ContractAssetViewerComponent,
-    TaxPopupComponent
+    TaxPopupComponent,
+    ProgressloaderComponent
   ],
   imports: [
     HttpClientModule,
@@ -75,6 +78,9 @@ const matmodules = [
     CommonfunctionsModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
+  exports: [
+    ProgressloaderComponent
+  ],
   entryComponents: [
     // CustomAlertComponent,
     ContractViewerComponent,
@@ -83,7 +89,8 @@ const matmodules = [
     TaxPopupComponent
   ],
   providers: [
-    appservices
+    appservices,
+    LoaderService
   ],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/internal/observable';
 // import 'rxjs/add/observable/forkJoin';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { ApplicationInfo } from '../../Models/cts-api';
+import { LoaderService } from 'src/app/Services/loader-service';
 
 @Component({
   selector: 'cts-results',
@@ -32,10 +33,12 @@ export class ResultsComponent implements OnInit {
     private dialog: MatDialog,
     private cmnfn: CommonfunctionsModule,
     private ctsapi: CtsApiService,
-    private data: DataService
+    private data: DataService,
+    private loader: LoaderService
   ) { }
 
   ngOnInit() {
+    this.loader.show();
     this.data.ResetAllStoredData();
     this.route.paramMap.subscribe(params => {
       const func = params.get('function');
@@ -55,6 +58,7 @@ export class ResultsComponent implements OnInit {
                 return;
               }
               this.processLoadedContracts(resp);
+              this.loader.hide();
             }
           );
           break;
@@ -64,15 +68,18 @@ export class ResultsComponent implements OnInit {
           this.ctsapi.GetApplicationByApplicationId(id).subscribe(
             (resp) => {
               if (!this.validResponse(resp, 'a')) {
+                this.loader.hide();
                 return;
               }
               this.data.loadedApplication = resp.message.applicationInfo;
               this.ctsapi.GetContractsByCustomerId(resp.message.applicationInfo.customerId.toString()).subscribe(
                 (resp2) => {
                   this.processLoadedContracts(resp2);
+                  this.loader.hide();
                 }, error => {
                   this.cmnfn.showAlert(this.dialog, 'Error', '', error, IconTypes.Critical, AlertTypes.Info);
-                  this.compcontract.applyResult();                }
+                  this.compcontract.applyResult();
+                }
               );
             }
           );
@@ -83,6 +90,7 @@ export class ResultsComponent implements OnInit {
           this.ctsapi.GetByCustomerId(id, this.data.dealerlist, this.data.incldc).subscribe(
             (resp) => {
               this.processLoadedContracts(resp);
+              this.loader.hide();
             }
           );
           break;
@@ -195,6 +203,7 @@ export class ResultsComponent implements OnInit {
     }
   }
   selectedTabChange(e) {
+    this.loader.show();
     switch (this.tab) {
       case 0:
         this.storeDataBeforeNav();
@@ -221,6 +230,7 @@ export class ResultsComponent implements OnInit {
         this.storeDataBeforeNav();
         break;
     }
+    this.loader.hide();
   }
 
   storeDataBeforeNav() {

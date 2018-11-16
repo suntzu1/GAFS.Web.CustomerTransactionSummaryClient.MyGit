@@ -8,6 +8,7 @@ import { ApiResponse, ApplicationUpdate } from '../Models/cts-api';
 import { Contract } from '../Models/cts-api.contract';
 import { Application } from '../Models/cts-api.application';
 import { UsageComponent } from '../Components/usage/usage.component';
+import { LoaderService } from './loader-service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,30 @@ export class CtsApiService {
   headerItems = {
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private loader: LoaderService
+  ) { }
+  private showLoader(): void {
+    this.loader.show();
+  }
+  private hideLoader(): void {
+    this.loader.hide();
+  }
+
+  private httpGet(url: string): Observable<ApiResponse> {
+    debugger;
+    this.showLoader();
+    return this.http.get(url, this.httpOptions)
+      .pipe(
+        timeout(this.toSecs),
+        map(resp => {
+          this.hideLoader();
+          return resp as ApiResponse;
+        })
+        , catchError(this.handleError)
+      );
+  }
 
   GetByCustomerId(customerid: string, dealerids: any[], incldisposed: boolean): Observable<ApiResponse> {
     const ds = dealerids != null && dealerids.length > 0 ? dealerids.map(i => i.item_id.toString()) : [];
@@ -55,69 +79,34 @@ export class CtsApiService {
   }
 
   GetByContractId(contractid: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_CONTRACT_GET_BY_CONTRACTID + contractid, this.httpOptions)
-      .pipe(
-        timeout(this.toSecs),
-        map(resp => resp as ApiResponse)
-        , catchError(this.handleError)
-      );
+    return this.httpGet(CONSTANTS.CTS_API_CONTRACT_GET_BY_CONTRACTID + contractid);
   }
 
   GetContractsByApplicationId(applicationid: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_CONTRACT_GET_BY_APPLICATIONID + applicationid, this.httpOptions)
-      .pipe(
-        map(resp => resp as ApiResponse)
-        , catchError(this.handleError)
-      );
+    return this.httpGet(CONSTANTS.CTS_API_CONTRACT_GET_BY_APPLICATIONID + applicationid);
   }
 
   GetContractsByCustomerId(customerid: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_CONTRACT_GET_BY_CUSTOMERID + customerid, this.httpOptions)
-      .pipe(
-        timeout(this.toSecs),
-        map(resp => resp as ApiResponse)
-        , catchError(this.handleError)
-      );
+    return this.httpGet(CONSTANTS.CTS_API_CONTRACT_GET_BY_CUSTOMERID + customerid);
   }
 
   GetByAssetId(assetid: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_ASSET_GET_BY_ASSETID + assetid, this.httpOptions)
-      .pipe(
-        timeout(this.toSecs),
-        map(resp => resp as ApiResponse)
-        , catchError(this.handleError)
-      );
+    return this.httpGet(CONSTANTS.CTS_API_ASSET_GET_BY_ASSETID + assetid);
   }
 
   GetAssetsByContractId(contractid: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_ASSET_GET_BY_CONTRACTID + contractid, this.httpOptions)
-      .pipe(
-        timeout(this.toSecs),
-        map(resp => resp as ApiResponse)
-        , catchError(this.handleError)
-      );
+    return this.httpGet(CONSTANTS.CTS_API_ASSET_GET_BY_CONTRACTID + contractid);
   }
 
   GetAssetsByCustomerId(customerid: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_ASSET_GET_BY_CUSTOMERID + customerid, this.httpOptions)
-      .pipe(
-        timeout(this.toSecs),
-        map(resp => resp as ApiResponse)
-        , catchError(this.handleError)
-      );
+    return this.httpGet(CONSTANTS.CTS_API_ASSET_GET_BY_CUSTOMERID + customerid);
   }
 
   GetApplicationByApplicationId(applicationId: string): Observable<ApiResponse> {
-    return this.http.get(CONSTANTS.CTS_API_APPLICATION_GET_BY_APPLICATIONID + applicationId, this.httpOptions)
-      .pipe(
-        timeout(this.toSecs),
-        map(resp => resp as ApiResponse)
-        , catchError(this.handleError)
-      );
+    return this.httpGet(CONSTANTS.CTS_API_APPLICATION_GET_BY_APPLICATIONID + applicationId);
   }
 
   PutUpdateApplication(updateapplication: Application): Observable<ApiResponse> {
-    debugger;
     const au: ApplicationUpdate = this.converApplicationToAppUpdate(updateapplication);
     const jsonAu = JSON.stringify(au);
     return this.http.put(CONSTANTS.CTS_API_APPLICATION_PUT_APPLICATION + updateapplication.applicationId, jsonAu, this.httpOptions)
