@@ -39,6 +39,7 @@ import { ContractAssetViewerComponent } from './Components/contract-asset-viewer
 import { TaxPopupComponent } from './Components/tax-popup/tax-popup.component';
 import { ProgressloaderComponent } from './Components/progressloader/progressloader.component';
 import { LoaderService } from './Services/loader-service';
+import { ToolbarComponent } from './Components/toolbar/toolbar.component';
 // AssetService, , ContractService
 const appservices = [
   PaymentService, UsageService, CtsApiService
@@ -68,7 +69,8 @@ const matmodules = [
     AssetViewerComponent,
     ContractAssetViewerComponent,
     TaxPopupComponent,
-    ProgressloaderComponent
+    ProgressloaderComponent,
+    ToolbarComponent
   ],
   imports: [
     HttpClientModule,

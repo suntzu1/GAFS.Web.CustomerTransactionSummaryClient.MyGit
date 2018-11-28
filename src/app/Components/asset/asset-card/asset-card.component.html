@@ -1,9 +1,9 @@
 <div class="card" style="width: 100%;">
   <div class="card-header" *ngIf="!noHeader">
     <div class="row">
-      <div class="col-sm-1"><input type="checkbox" [(ngModel)]="assetchecked" class="input" (change)="checkChanged(assetdata)"></div>
-      <div class="col-sm-5">Asset ID</div>
-      <div class="col-sm-5">{{ assetdata.assetId }}</div>
+      <div class="col"><input type="checkbox" [(ngModel)]="assetchecked" class="input" (change)="checkChanged(assetdata)"></div>
+      <div class="col">Asset ID</div>
+      <div class="col">{{ assetdata.assetId }}</div>
     </div>
   </div>
   <div class="card-body">
@@ -19,33 +19,33 @@
         </td>
       </tr>
       <tr>
-        <td>Manufacturer</td>
+        <td><b>Manufacturer</b></td>
         <td>{{ assetdata.manufacturerDesc }}</td>
         <td *ngFor="let c of resultAssets">{{ c.manufacturerDesc }}</td>
       </tr>
       <tr>
-        <td>Model</td>
+        <td><b>Model</b></td>
         <td>{{ assetdata.assetModel }}
         </td>
         <td *ngFor="let c of resultAssets">{{ c.assetModel }}
         </td>
       </tr>
       <tr>
-        <td>Serial Number</td>
+        <td><b>Serial Number</b></td>
         <td>{{ assetdata.serialNumber }}
         </td>
         <td *ngFor="let c of resultAssets">{{ c.serialNumber }}
         </td>
       </tr>
       <tr>
-        <td>Vendor Machine ID</td>
+        <td><b>Vendor Machine ID</b></td>
         <td>{{ assetdata.vendorMachineId }}
         </td>
         <td *ngFor="let c of resultAssets">{{ c.vendorMachineId }}
         </td>
       </tr>
       <tr>
-        <td>Asset Address</td>
+        <td><b>Asset Address</b></td>
         <td>{{ ToAddressString(assetdata) }}
         </td>
         <td *ngFor="let c of resultAssets">{{ ToAddressString(c) }}
@@ -54,17 +54,17 @@
       <tr>
         <td>PPTX</td>
         <td>{{ assetdata.propertyTaxStatusId }} {{ assetdata.propertyTaxStatusDescription }}
-            <button type="button" class="btn-sm btn-primary" (click)="showAddress(assetdata)">...</button>
         </td>
         <td *ngFor="let c of resultAssets">{{ c.propertyTaxStatusId }} {{ c.propertyTaxStatusDescription }}
-            <button type="button" class="btn-sm btn-primary" (click)="showAddress(c)">...</button>
         </td>
       </tr>
       <tr>
         <td>Sales Tax</td>
         <td>{{ assetdata.stateTaxRate }}
+            <button type="button" class="btn-sm btn-primary" (click)="showAddress(assetdata)"><i class="fas fa-info-circle"></i></button>
         </td>
         <td *ngFor="let c of resultAssets">{{ c.stateTaxRate }}
+            <button type="button" class="btn-sm btn-primary" (click)="showAddress(c)"><i class="fas fa-info-circle"></i></button>
         </td>
       </tr>
       <!-- <tr>
@@ -95,13 +95,13 @@
         <td *ngFor="let c of resultAssets">{{ c.overageContractId }}
         </td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td>Contract Active</td>
         <td>{{ assetdata.activeContract | yesNo }}
         </td>
         <td *ngFor="let c of resultAssets">{{c.activeContract}} {{ c.activeContract | yesNo }}
         </td>
-      </tr>
+      </tr> -->
     </table>
   </div>
 </div>

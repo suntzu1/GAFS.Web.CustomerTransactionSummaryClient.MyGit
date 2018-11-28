@@ -1,0 +1,32 @@
+<!-- <div class="container-fluid" style="background-color: #2F97D6;">
+</div> -->
+<div class="row">
+    <div class="col">
+        <button class="btn btn-primary btn-sm" (click)="onBackPressed()"><i class="fas fa-search"></i> BACK TO
+            SEARCH</button>
+    </div>
+    <div class="col" *ngIf="showButtons && getContext() === 'Contract'">
+        <button class="btn btn-primary btn-sm" (click)="sendContractData()"><i class="far fa-share-square"></i>
+            SEND CONTRACT DATA</button>
+    </div>
+    <div class="col" *ngIf="showButtons && getContext() === 'Contract'">
+        <button class="btn btn-primary btn-sm" (click)="sendContractAssetData()"><i class="far fa-share-square"></i>
+            SEND CONTRACT AND ASSET DATA</button>
+    </div>
+    <div class="col" *ngIf="showButtons && getContext() === 'Contract'">
+        <button class="btn btn-primary btn-sm" (click)="clearAllContractSelections()"><i class="fas fa-undo"></i>
+            CLEAR CONTRACT DATA SELECTIONS</button>
+    </div>
+    <div class="col" *ngIf="showButtons && getContext() === 'Asset'">
+        <button class="btn btn-primary btn-sm" (click)="sendAssetData()"><i class="far fa-share-square"></i> SEND
+            ASSET DATA</button>
+    </div>
+    <div class="col" *ngIf="showButtons && getContext() === 'Asset'">
+        <button class="btn btn-primary btn-sm" (click)="sendAssetContractData()"><i class="far fa-share-square"></i>
+            SEND ASSET AND CONTRACT DATA</button>
+    </div>
+    <div class="col" *ngIf="showButtons && getContext() === 'Asset'">
+        <button class="btn btn-primary btn-sm" (click)="clearAllAssetSelections()"><i class="fas fa-undo"></i>
+            CLEAR ASSET DATA SELECTIONS</button>
+    </div>
+</div>

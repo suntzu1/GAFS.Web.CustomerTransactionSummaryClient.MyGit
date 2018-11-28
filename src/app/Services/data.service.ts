@@ -34,6 +34,7 @@ export class DataService {
   actualContract: any;
   AssetAddress: any;
   AssetLocationRecord: any;
+  tabContext: string;
 
   constructor() { }
 

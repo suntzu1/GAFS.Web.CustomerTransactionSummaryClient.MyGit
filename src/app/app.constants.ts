@@ -5,7 +5,7 @@ export const CTS_API_APPLICATION_GET_BY_CUSTOMERID: string
 export const CTS_API_APPLICATION_PUT_APPLICATION: string
     = 'https://test-internal-exp-api-application.us-e2.cloudhub.io/v1/api/application/';
 export const CTS_API_APPLICATION_POST_ASSET: string
-    = 'https://test-internal-exp-api-application.us-e2.cloudhub.io/v1/api/application/{applicationId}/asset';
+    = 'https://test-internal-exp-api-application.us-e2.cloudhub.io/v1/api/application/%a/asset';
 
 export const CTS_API_CONTRACT_GET_BY_CONTRACTID: string
     = 'https://test-internal-exp-api-contract.us-e2.cloudhub.io/v1/api/contract/';

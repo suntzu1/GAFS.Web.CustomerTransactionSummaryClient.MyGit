@@ -1,20 +1,23 @@
 <div class="container-fluid freezediv">
-  <div class="row">
-    <div *ngFor="let ca of allcontractsAssets; let x = index" class="col border rounded-top carddiv">
-      <div class="row titlerow">
-        <div class="titlebg text-white pull-left">Contract Number:</div>
-        <div class="col-md-6 text-white">{{ca.ContractNumber}}</div>
-      </div>
-      <div *ngIf="ca.Assets.length > 1" class="row selalldiv">
-          <button type="button" class="btn-sm" *ngIf="showCheckBoxes" (click)="clickAssetSelectAll(ca, $event, x, true)">Select All</button>
-      </div>
-      <div *ngFor="let a of ca.Assets; let y = index" class="row">
-        <cts-asset-card [assetdata]="a" (toggle)="checkToggled($event,x,y)" [assetchecked]="checkedAsset[x] ? checkedAsset[x][y] : false"></cts-asset-card>
+  <div class="card-container">
+    <div *ngFor="let ca of allcontractsAssets; let x = index" class="border rounded-top carddiv">
+      <div class="a-acard">
+        <div class="titlerow">
+          <div class="titlebg text-white pull-left">Contract Number:</div>
+          <div class="col-md-6 text-white">{{ca.ContractNumber}}</div>
+        </div>
+        <div *ngIf="ca.Assets.length > 1" class="selalldiv">
+          <button type="button" class="btn-sm" *ngIf="showCheckBoxes" (click)="clickAssetSelectAll(ca, $event, x, true)">Select
+            All</button>
+        </div>
+        <div *ngFor="let a of ca.Assets; let y = index" class="carddiv_inside">
+          <cts-asset-card [assetdata]="a" (toggle)="checkToggled($event,x,y)" [assetchecked]="checkedAsset[x] ? checkedAsset[x][y] : false"></cts-asset-card>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<div class="container-fluid" *ngIf="showCheckBoxes">
+<!-- <div class="container-fluid" *ngIf="showCheckBoxes">
   <div class="row">
     <div class="col-md-4">
       <button class="btn btn-primary btn-sm" (click)="sendAssetData()">SEND ASSET DATA</button>
@@ -26,4 +29,4 @@
       <button class="btn btn-primary btn-sm" (click)="clearAllSelections()">CLEAR ASSET DATA SELECTIONS</button>
     </div>
   </div>
-</div>
+</div> -->

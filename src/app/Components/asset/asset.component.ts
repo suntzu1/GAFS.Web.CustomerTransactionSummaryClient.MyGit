@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 // import { Asset } from '../../Models/asset';
 import { Address } from '../../Models/address';
 import { ContractAssets } from '../../Models/contract';
 // import { AssetService } from '../../Services/asset.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DataService } from '../../Services/data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AssetViewerComponent } from '../asset-viewer/asset-viewer.component';
@@ -12,6 +12,8 @@ import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.mod
 import { Asset } from 'src/app/Models/cts-api.asset';
 import { CtsApiService } from 'src/app/Services/cts-api.service';
 import { ContractAssetViewerComponent } from '../contract-asset-viewer/contract-asset-viewer.component';
+import { LoaderService } from 'src/app/Services/loader-service';
+import { ApiResponse } from 'src/app/Models/cts-api';
 
 @Component({
   selector: 'cts-asset',
@@ -19,7 +21,8 @@ import { ContractAssetViewerComponent } from '../contract-asset-viewer/contract-
   styleUrls: ['./asset.component.css', '../datagridstyle.css']
 })
 export class AssetComponent implements OnInit {
-  workingAsset: Asset = {
+  @Output() doRefresh: EventEmitter<number> = new EventEmitter();
+  workingAsset: any = {
     // ContractNumber: null,
     assetId: null,
     assetDescription: '',
@@ -52,7 +55,7 @@ export class AssetComponent implements OnInit {
   showCheckBoxes: boolean;
   selectAllContract: any;
 
-  workingcontractAsset: Asset[] = [];
+  // workingcontractAsset: Asset[] = [];
   allcontractsAssets: ContractAssets[] = [];
   checkedAsset: any = [];
   private serviceObject = new BehaviorSubject(this.allcontractsAssets);
@@ -61,7 +64,9 @@ export class AssetComponent implements OnInit {
     private api: CtsApiService,
     private data: DataService,
     public dialog: MatDialog,
-    private cmnfn: CommonfunctionsModule) { }
+    private cmnfn: CommonfunctionsModule,
+    private loader: LoaderService
+  ) { }
 
   ngOnInit() {
     this.resultAssets = [];
@@ -73,11 +78,11 @@ export class AssetComponent implements OnInit {
   }
   storeState() {
     if (this.checkedAsset && this.checkedAsset.length > 0) { this.data.checkedAsset = this.checkedAsset; }
-    if (this.workingcontractAsset && this.workingcontractAsset.length > 0) { this.data.workingcontractAsset = this.workingcontractAsset; }
+    if (!this.data.workingcontractAsset) { this.data.workingcontractAsset = []; }
   }
   applyResult() {
     if (this.data.loadedAssets && this.data.loadedAssets.length > 0) {
-      if (this.data.workingcontractAsset) { this.workingcontractAsset = this.data.workingcontractAsset; }
+      if (this.data.workingcontractAsset) { this.data.workingcontractAsset = this.data.workingcontractAsset; }
       this.parseContractAssets();
     } else {
       this.api.GetAssetsByCustomerId('').subscribe(
@@ -87,6 +92,7 @@ export class AssetComponent implements OnInit {
       );
     }
     if (this.data.checkedAsset.length > 0) { this.checkedAsset = this.data.checkedAsset; }
+    this.loader.hide();
   }
 
   parseContractAssets() {
@@ -137,7 +143,7 @@ export class AssetComponent implements OnInit {
   }
   clearAllSelections() {
     this.selectAllContract = this.workingAsset;
-    this.workingcontractAsset = [];
+    this.data.workingcontractAsset = [];
     this.initCheckedList();
   }
   checkIfSelected(c): boolean {
@@ -145,7 +151,8 @@ export class AssetComponent implements OnInit {
   }
 
   sendAssetData() {
-    this.data.changeAssetsTriggered(this.workingcontractAsset);
+    // this.data.workingcontractAsset = this.data.workingcontractAsset;
+    this.data.changeAssetsTriggered(this.data.workingcontractAsset);
     const diaCnfg: MatDialogConfig = {
       disableClose: true,
       autoFocus: true
@@ -156,16 +163,20 @@ export class AssetComponent implements OnInit {
     const dialogRef = this.dialog.open(AssetViewerComponent, diaCnfg);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'accept') {
-        // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        this.cmnfn.showAlert(this.dialog,
-          'Information', '', 'Assets data submitted',
-          IconTypes.Information, AlertTypes.Info);
+        this.api.SendAssetsData()
+          .subscribe(res => {
+            this.doRefresh.emit(this.data.loadedApplication.applications[0].applicationId);
+            this.cmnfn.showAlert(this.dialog, 'Information', '',
+              'Assets data submitted', IconTypes.Information,
+              AlertTypes.Info);
+          });
       }
     });
   }
 
   sendContractAssetData() {
-    this.data.changeAssetsTriggered(this.workingcontractAsset);
+    this.data.changeContractTriggered(this.data.modifiedContract);
+    this.data.changeAssetsTriggered(this.data.workingcontractAsset);
     const diaCnfg: MatDialogConfig = {
       disableClose: true,
       autoFocus: true
@@ -176,35 +187,38 @@ export class AssetComponent implements OnInit {
     const dialogRef = this.dialog.open(ContractAssetViewerComponent, diaCnfg);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'accept') {
-        // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        this.cmnfn.showAlert(this.dialog,
-          'Information', '', 'Assets data submitted',
-          IconTypes.Information, AlertTypes.Info);
+        this.api.SendContractAndAssets()
+          .subscribe(res => {
+            this.doRefresh.emit(this.data.loadedApplication.applications[0].applicationId);
+            this.cmnfn.showAlert(this.dialog, 'Information', '',
+              'Contact and Assets data submitted', IconTypes.Information,
+              AlertTypes.Info);
+          });
       }
     });
   }
 
   checkToggled(o, x, y) {
     this.checkedAsset[x][y] = !this.checkedAsset[x][y];
-    const index = this.workingcontractAsset.indexOf(o.asset);
+    const index = this.data.workingcontractAsset.indexOf(o.asset);
     if (index > -1) {
       if (!o.selected) {
-        this.workingcontractAsset.splice(index, 1);
+        this.data.workingcontractAsset.splice(index, 1);
       }
     } else {
-      this.workingcontractAsset.push(o.asset);
+      this.data.workingcontractAsset.push(o.asset);
     }
   }
 
   clickAssetSelectAll(ca, e, x, chk) {
     ca.Assets.map(a => {
-      const index = this.workingcontractAsset.indexOf(a);
+      const index = this.data.workingcontractAsset.indexOf(a);
       if (index > -1) {
         if (!chk) {
-          this.workingcontractAsset.splice(index, 1);
+          this.data.workingcontractAsset.splice(index, 1);
         }
       } else {
-        this.workingcontractAsset.push(a);
+        this.data.workingcontractAsset.push(a);
       }
     });
     const ac = this.allcontractsAssets[x];

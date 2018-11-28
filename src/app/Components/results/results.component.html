@@ -1,11 +1,24 @@
 <div class="row">
+  <div class="col-lg-3 lesseedata">
+    <div class="row">
+      <div class="col-sm-4 text-left"><b>Lessee Name:</b></div>
+      <div class="col-sm-8">{{ LesseeName() }}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 text-left"><b>Lessee DBA:</b></div>
+      <div class="col-sm-8">{{ LesseeDBA() }}</div>
+    </div>
+  </div>
+  <div class="col">
+    <cts-toolbar (toolbuttonClicked)="toolbuttonClicked($event)" [showButtons]="showCheckBoxes()"></cts-toolbar>
+  </div>
+</div>
+<!-- <div class="row">
   <div class="col"><button class="btn btn-primary btn-sm" (click)="onbackpressed()">BACK TO SEARCH</button></div>
   <div class="col" *ngIf="showCheckBoxes()"><button class="btn btn-primary btn-sm" (click)="clearAllSelections(0)"
-      *ngIf="tab === 0">CLEAR
-      CONTRACT DATA SELECTIONS</button>
-    <button class="btn btn-primary btn-sm" (click)="clearAllSelections(1)" *ngIf="tab === 1">CLEAR ASSET DATA
-      SELECTIONS</button></div>
-</div>
+      *ngIf="tab === 0">CLEAR CONTRACT DATA SELECTIONS</button>
+    <button class="btn btn-primary btn-sm" (click)="clearAllSelections(1)" *ngIf="tab === 1">CLEAR ASSET DATA SELECTIONS</button></div>
+</div> -->
 <div class="container-fluid">
   <mat-tab-group (selectedTabChange)="selectedTabChange($event)">
     <mat-tab label="Contract">
@@ -15,7 +28,7 @@
         </ul>
       </ng-template>
       <ng-template matTabContent>
-        <cts-contract #compcontract></cts-contract>
+        <cts-contract (doRefresh)="doRefresh($event)" #compcontract></cts-contract>
       </ng-template>
     </mat-tab>
     <mat-tab label="Asset">
@@ -25,7 +38,7 @@
         </ul>
       </ng-template>
       <ng-template matTabContent>
-        <cts-asset #compasset></cts-asset>
+        <cts-asset (doRefresh)="doRefresh($event)" #compasset></cts-asset>
       </ng-template>
     </mat-tab>
     <mat-tab label="Payment">

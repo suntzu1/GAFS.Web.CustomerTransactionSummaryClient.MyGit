@@ -1,12 +1,17 @@
 td:nth-child(2) {
     background-color: grey!important;
 }
+.a-acard {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
 .carddiv {
     margin: 5px;
     font-size: smaller;
-    min-width:250px;
-    max-width:350px;
+    width:350px;
     background-color: #00457E;
+    display: inline-table;    
 }
 .titlerow {
     font-weight: bold;
@@ -25,4 +30,12 @@ td:nth-child(2) {
     margin-top: 5px;
     margin-left: 10px;
     margin-right: 5px;
+}
+.card-container {
+    overflow-y: scroll;
+    white-space: nowrap;
+    height: 665px;
+}
+.carddiv_inside {
+    width: 348px;
 }

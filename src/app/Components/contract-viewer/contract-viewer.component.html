@@ -98,8 +98,8 @@
       </tr>
       <tr>
         <td>Late Charge % of Pmt</td>
-        <td>{{ orignalContract.lateChargeRate }}</td>
-        <td [ngClass]="{'modified': orignalContract.lateChargeRate !== workingContract.lateChargeRate}">{{ workingContract.lateChargeRate }}</td>
+        <td>{{ orignalContract.lateChargeRate | percent:'1.2' }}</td>
+        <td [ngClass]="{'modified': orignalContract.lateChargeRate !== workingContract.lateChargeRate}">{{ workingContract.lateChargeRate | percent:'1.2' }}</td>
       </tr>
       <tr>
         <td>Lead Days</td>

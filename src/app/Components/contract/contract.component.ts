@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Address } from '../../Models/address';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CtsApiService } from '../../Services/cts-api.service';
 import { DataService } from '../../Services/data.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ContractViewerComponent } from '../contract-viewer/contract-viewer.component';
 import { IconTypes, AlertTypes } from '../CustomAlert/customalert.component';
 import { CommonfunctionsModule } from '../../commonfunctions/commonfunctions.module';
 import { ContractAssetViewerComponent } from '../contract-asset-viewer/contract-asset-viewer.component';
 import { Contract } from 'src/app/Models/cts-api.contract';
-import { Guarantor, InsuranceRecord } from 'src/app/Models/cts-api';
-
+import { Guarantor, InsuranceRecord, ApiResponse } from 'src/app/Models/cts-api';
+import { LoaderService } from 'src/app/Services/loader-service';
+import { BillingCycle } from 'src/app/Models/billingCycle';
+import { AssetUpdate } from 'src/app/Models/cts-api.asset';
 
 @Component({
   selector: 'cts-contract',
@@ -18,11 +20,12 @@ import { Guarantor, InsuranceRecord } from 'src/app/Models/cts-api';
   styleUrls: ['./contract.component.css', '../datagridstyle.css']
 })
 export class ContractComponent implements OnInit {
+  @Output() doRefresh: EventEmitter<number> = new EventEmitter();
   workingContract: any = {};
   resultContracts: Contract[] = [];
   showCheckBoxes: boolean;
   selectAllContract: Contract;
-
+  billcyc: BillingCycle = new BillingCycle();
   displayedCols: [
     { key: 'ApplicationNumber', display: 'ApplicationNumber' },
     { key: 'MasterAgreementNumber', display: 'MasterAgreementNumber' },
@@ -52,7 +55,9 @@ export class ContractComponent implements OnInit {
     private api: CtsApiService,
     private datasvc: DataService,
     public dialog: MatDialog,
-    private cmnfn: CommonfunctionsModule) {
+    private cmnfn: CommonfunctionsModule,
+    private loader: LoaderService
+  ) {
   }
 
   ngOnInit() {
@@ -73,6 +78,7 @@ export class ContractComponent implements OnInit {
     // }
     if (this.datasvc.loadedApplication && this.datasvc.loadedApplication.applications.length > 0) {
       this.api.ConvertApplicationToContract(this.workingContract, this.datasvc.loadedApplication.applications[0]);
+      // this.workingContract.customerDBA = this.datasvc.loadedApplication.customerDBA;
     } else {
       this.workingContract = {};
     }
@@ -87,6 +93,11 @@ export class ContractComponent implements OnInit {
       }
     }
     this.checkBoxArr = this.datasvc.checkBoxArr;
+    this.loader.hide();
+  }
+
+  billingCycleMapped(inputstr) {
+    return this.billcyc.mapDisplay(inputstr);
   }
 
   selectAllNewApplication() {
@@ -147,19 +158,21 @@ export class ContractComponent implements OnInit {
     const dialogRef = this.dialog.open(ContractViewerComponent, diaCnfg);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'accept') {
-        // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        const putApp: any = {};
-        this.api.ConvertContractToApplication(putApp, this.datasvc.modifiedContract);
-        this.api.PutUpdateApplication(putApp).subscribe(res => {
-          this.cmnfn.showAlert(this.dialog, 'Information', '',
-            'Contract data submitted', IconTypes.Information,
-            AlertTypes.Info);
-        });
+        // the submission data was accepted, send to API... end of CTS workflow
+        this.api.SendContractData()
+          .subscribe(res => {
+            this.doRefresh.emit(this.datasvc.loadedApplication.applications[0].applicationId);
+            this.cmnfn.showAlert(this.dialog, 'Information', '',
+              'Contract data submitted', IconTypes.Information,
+              AlertTypes.Info);
+          });
       }
     });
   }
 
+
   sendContractAssetData() {
+    this.datasvc.changeAssetsTriggered(this.datasvc.workingcontractAsset);
     this.datasvc.changeContractTriggered(this.datasvc.modifiedContract);
     const diaCnfg: MatDialogConfig = {
       disableClose: true,
@@ -171,10 +184,13 @@ export class ContractComponent implements OnInit {
     const dialogRef = this.dialog.open(ContractAssetViewerComponent, diaCnfg);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'accept') {
-        // todo: sunil - the submission data was accepted, send to API... end of CTS workflow
-        this.cmnfn.showAlert(this.dialog, 'Information', '',
-          'Contract data submitted', IconTypes.Information,
-          AlertTypes.Info);
+        this.api.SendContractAndAssets()
+          .subscribe(res => {
+            this.doRefresh.emit(this.datasvc.loadedApplication.applications[0].applicationId);
+            this.cmnfn.showAlert(this.dialog, 'Information', '',
+              'Contract and Assets data submitted', IconTypes.Information,
+              AlertTypes.Info);
+          });
       }
     });
   }

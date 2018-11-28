@@ -1,9 +1,14 @@
 .card-header {
     padding: 2px 5px;
 }
+.assetdata {
+    white-space: normal;
+}
 .assetdata td:first-child {
     float: left!important;
     text-align: left;
+    width: 120px!important;
+    display: inline-block;
 }
 td:nth-child(2) {
     border-left: solid 1px gray;
