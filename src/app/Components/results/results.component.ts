@@ -61,10 +61,7 @@ export class ResultsComponent implements OnInit {
                 return;
               }
               this.processLoadedContracts(resp);
-            }, error => {
-              this.cmnfn.showAlert(this.dialog, 'Error', '', error, IconTypes.Critical, AlertTypes.Info);
-              this.compcontract.applyResult();
-            }
+            }, error => this.responseError(error)
           );
           break;
         case 'application':
@@ -77,7 +74,7 @@ export class ResultsComponent implements OnInit {
           this.ctsapi.GetByCustomerId(id, this.data.dealerlist, this.data.incldc).subscribe(
             (resp) => {
               this.processLoadedContracts(resp);
-            }
+            }, error => this.responseError(error)
           );
           break;
       }
@@ -106,14 +103,15 @@ export class ResultsComponent implements OnInit {
       this.data.loadedApplication = resp.message.applicationInfo;
       this.ctsapi.GetContractsByCustomerId(resp.message.applicationInfo.customerId.toString()).subscribe((resp2) => {
         this.processLoadedContracts(resp2);
-      }, error => {
-        this.cmnfn.showAlert(this.dialog, 'Error', '', error, IconTypes.Critical, AlertTypes.Info);
-        this.compcontract.applyResult();
-      });
-    }, error => {
-      this.cmnfn.showAlert(this.dialog, 'Error', '', error, IconTypes.Critical, AlertTypes.Info);
-      this.compcontract.applyResult();
-    });
+      }, error => this.responseError(error)
+      );
+    }, error => this.responseError(error)
+    );
+  }
+
+  responseError(ex) {
+    this.cmnfn.showAlert(this.dialog, 'Error', '', ex, IconTypes.Critical, AlertTypes.Info);
+    this.compcontract.applyResult();
   }
 
   doRefresh(appid) {
@@ -156,11 +154,11 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  processLoadedContracts1(res) {
-    res.message.contractInfo.contracts.forEach(c => {
-      c.customerDBA = res.message.contractInfo.customerDBA;
-    });
-  }
+  // processLoadedContracts1(res) {
+  //   res.message.contractInfo.contracts.forEach(c => {
+  //     c.customerDBA = res.message.contractInfo.customerDBA;
+  //   });
+  // }
 
   processLoadedContracts(res) {
     if (!res.message.contractInfo) {
@@ -197,7 +195,8 @@ export class ResultsComponent implements OnInit {
         });
         this.data.loadedAssets = assets;
         this.compasset.applyResult();
-      });
+      }, error => this.responseError(error)
+      );
   }
 
   AddBillingAddress(contracts: Contract[]) {

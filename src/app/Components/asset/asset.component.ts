@@ -80,6 +80,11 @@ export class AssetComponent implements OnInit {
     if (this.checkedAsset && this.checkedAsset.length > 0) { this.data.checkedAsset = this.checkedAsset; }
     if (!this.data.workingcontractAsset) { this.data.workingcontractAsset = []; }
   }
+
+  responseError(ex) {
+    this.cmnfn.showAlert(this.dialog, 'Error', '', ex, IconTypes.Critical, AlertTypes.Info);
+  }
+
   applyResult() {
     if (this.data.loadedAssets && this.data.loadedAssets.length > 0) {
       if (this.data.workingcontractAsset) { this.data.workingcontractAsset = this.data.workingcontractAsset; }
@@ -88,7 +93,7 @@ export class AssetComponent implements OnInit {
       this.api.GetAssetsByCustomerId('').subscribe(
         (response: any) => {
 
-        }
+        }, error => this.responseError(error)
       );
     }
     if (this.data.checkedAsset.length > 0) { this.checkedAsset = this.data.checkedAsset; }
@@ -169,7 +174,7 @@ export class AssetComponent implements OnInit {
             this.cmnfn.showAlert(this.dialog, 'Information', '',
               'Assets data submitted', IconTypes.Information,
               AlertTypes.Info);
-          });
+          }, error => this.responseError(error));
       }
     });
   }
@@ -193,7 +198,7 @@ export class AssetComponent implements OnInit {
             this.cmnfn.showAlert(this.dialog, 'Information', '',
               'Contact and Assets data submitted', IconTypes.Information,
               AlertTypes.Info);
-          });
+          }, error => this.responseError(error));
       }
     });
   }

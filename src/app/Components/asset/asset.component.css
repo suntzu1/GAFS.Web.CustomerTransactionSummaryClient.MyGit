@@ -32,9 +32,10 @@ td:nth-child(2) {
     margin-right: 5px;
 }
 .card-container {
-    overflow-y: scroll;
+    overflow-y: auto;
     white-space: nowrap;
     height: 665px;
+    text-align: left;
 }
 .carddiv_inside {
     width: 348px;

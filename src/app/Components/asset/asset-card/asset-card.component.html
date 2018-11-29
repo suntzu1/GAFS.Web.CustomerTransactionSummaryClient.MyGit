@@ -8,7 +8,7 @@
   </div>
   <div class="card-body">
     <table class="table-striped assetdata">
-      <tr>
+      <tr *ngIf="!changesonly">
         <td>Asset ID</td>
         <td>{{ assetdata.assetId }}
           <input type="radio" name="rdbAstAssetID" class="checkbox" *ngIf="showCheckBoxes" checked="checked" [checked]="checkIfSelected(assetdata)">
@@ -51,14 +51,14 @@
         <td *ngFor="let c of resultAssets">{{ ToAddressString(c) }}
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="!changesonly">
         <td>PPTX</td>
         <td>{{ assetdata.propertyTaxStatusId }} {{ assetdata.propertyTaxStatusDescription }}
         </td>
         <td *ngFor="let c of resultAssets">{{ c.propertyTaxStatusId }} {{ c.propertyTaxStatusDescription }}
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="!changesonly">
         <td>Sales Tax</td>
         <td>{{ assetdata.stateTaxRate }}
             <button type="button" class="btn-sm btn-primary" (click)="showAddress(assetdata)"><i class="fas fa-info-circle"></i></button>
@@ -74,21 +74,21 @@
             <td *ngFor="let c of resultAssets">{{ c.financedAmount | currency }}
             </td>
           </tr> -->
-      <tr>
+      <tr *ngIf="!changesonly">
         <td>Asset Cost</td>
         <td>{{ assetdata.listPrice | currency }}
         </td>
         <td *ngFor="let c of resultAssets">{{ c.listPrice | currency }}
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="!changesonly">
         <td>Final Asset Cost</td>
         <td>{{ assetdata.assetCost | currency }}
         </td>
         <td *ngFor="let c of resultAssets">{{ c.assetCost | currency }}
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="!changesonly">
         <td>Agreement Overages Billed On</td>
         <td>{{ assetdata.overageContractId }}
         </td>

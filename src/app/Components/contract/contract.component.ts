@@ -146,6 +146,10 @@ export class ContractComponent implements OnInit {
     this.datasvc.modifiedContract.billToAttnName = contract.billToAttnName;
   }
 
+  responseError(ex) {
+    this.cmnfn.showAlert(this.dialog, 'Error', '', ex, IconTypes.Critical, AlertTypes.Info);
+  }
+
   sendContractData() {
     this.datasvc.changeContractTriggered(this.datasvc.modifiedContract);
     const diaCnfg: MatDialogConfig = {
@@ -165,7 +169,7 @@ export class ContractComponent implements OnInit {
             this.cmnfn.showAlert(this.dialog, 'Information', '',
               'Contract data submitted', IconTypes.Information,
               AlertTypes.Info);
-          });
+          }, error => this.responseError(error));
       }
     });
   }
@@ -190,7 +194,7 @@ export class ContractComponent implements OnInit {
             this.cmnfn.showAlert(this.dialog, 'Information', '',
               'Contract and Assets data submitted', IconTypes.Information,
               AlertTypes.Info);
-          });
+          }, error => this.responseError(error));
       }
     });
   }

@@ -3,7 +3,7 @@
   <h6>Asset Count: {{ this.allcontractsAssets ? this.allcontractsAssets.length : 0 }}</h6>
   <mat-dialog-content>
     <div *ngFor="let a of allcontractsAssets" class="row">
-      <cts-asset-card [assetdata]="a" [noHeader]="true"></cts-asset-card>
+      <cts-asset-card [assetdata]="a" [noHeader]="true" [changesonly]="true"></cts-asset-card>
     </div>
   </mat-dialog-content>
   <hr />

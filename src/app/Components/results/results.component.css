@@ -41,3 +41,7 @@ ul.tabs li.active {
     margin: 0;
     font-size: small;
 }
+.toolrow {
+    padding-left: 10px;
+    padding-right: 15px;
+}

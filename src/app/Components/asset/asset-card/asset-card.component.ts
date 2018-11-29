@@ -16,6 +16,7 @@ export class AssetCardComponent implements OnInit {
   @Input() public assetdata: Asset;
   @Input() public noHeader: boolean;
   @Input() assetchecked: boolean;
+  @Input() changesonly: boolean;
   @Output() toggle: EventEmitter<SelAsset> = new EventEmitter();
   constructor(
     private data: DataService,

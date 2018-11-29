@@ -249,7 +249,7 @@ export class CtsApiService {
     }
     // return an observable with a user-facing error message
     return throwError(
-      'An error has occured; please try again later. If it continues to occur, please contact application support.');
+      'An error has occured. Please try again. If it continues to occur, please contact the Help Desk.');
   }
 
   ConvertApplicationToContract(c: Contract, a: Application) {
